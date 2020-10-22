@@ -1,0 +1,109 @@
+1.Heap :
+************
+It is a shared runtime data area and stores the actual object in a memory. It is instantiated during the virtual machine startup.
+This memory is allocated for all class instances and array. Heap can be of fixed or dynamic size depending upon the system’s configuration.
+JVM provides the user control to initialize or vary the size of heap as per the requirement. When a new keyword is used, object is assigned a space in heap, but the reference of the same exists onto the stack.
+There exists one and only one heap for a running JVM process.
+
+Scanner sc = new Scanner(System.in);
+
+The above statement creates the object of Scanner class which gets allocated to heap whereas the reference ‘sc’ gets pushed to the stack.
+
+Garbage collection in heap area is mandatory.
+----------------------------------------------------------------------------------------------------------------------
+2.Method Area:
+************
+It is a logical part of the heap area and is created on virtual machine startup.
+This memory is allocated for class structures, method data and constructor field data, 
+and also for interfaces or special method used in class. Heap can be of fixed or dynamic size depending upon the system’s configuration.
+
+though method area is logically a part of heap, it may or may not be garbage collected even if garbage collection is compulsory in heap area.
+----------------------------------------------------------------------------------------------------------------------
+3.JVM Stacks:
+************
+A stack is created at the same time when a thread is created and is used to store data and partial results which will be needed while returning value for method and performing dynamic linking.
+Stacks can either be of fixed or dynamic size. The size of a stack can be chosen independently when it is created.
+The memory for stack needs not to be contiguous.
+------------------------------------------------------------------------------------------------------------------------
+4.Native method Stacks:
+***********************
+Also called as C stacks, native method stacks are not written in Java language. This memory is allocated for each thread when its created. And it can be of fixed or dynamic nature.
+----------------------------------------------------------------------------------------------------------------------
+Program counter (PC) registers:
+Each JVM thread which carries out the task of a specific method has a program counter register associated with it. 
+The non native method has a PC which stores the address of the available JVM instruction whereas in a native method, the value of program counter is undefined.
+ PC register is capable of storing the return address or a native pointer on some specific platform.
+ 
+ 
+ *********************************************
+ important
+ *********************************************
+ stack
+ ------
+ - there are two big memory blocks in jvm. Heap and stack
+ - Heap is several times bigger than stack.
+ - Stack memory is responsible for holding references to heap objects and for storing value types (also known in Java as primitive types), which hold the value itself.
+ - variables on the stack have a certain visibility, also called scope.
+    For example, assuming that we do not have any global scope variables (fields), and only local variables,
+	if the compiler executes a method’s body, it can access only objects from the stack that are within the method’s body. 
+	It cannot access other local variables, as those are out of scope. Once the method completes and returns, the top of the stack pops out, and the active scope changes.
+ - multiple stack memories exist. This due to the fact that the stack memory in Java is allocated per Thread.
+   Therefore, each time a Thread is created and started, it has its own stack memory — and cannot access another thread’s stack memory.
+ - acessable for garbeg collection
+ Heap
+ -----
+ - This part of memory stores the actual object in memory. Those are referenced by the variables from the stack. 
+ - ex: StringBuilder builder = new StringBuilder();
+   The new keyword is responsible for ensuring that there is enough free space on heap.
+   creating an object of the StringBuilder type in memory
+   and referring to it via the “builder” reference which is in stack.
+ - There exists only one heap memory for each running JVM process. Therefore, this is a shared part of memory regardless of how many threads are running. 
+ - The maximum stack and the heap sizes are not predefined — this depends on the running machine. However,we can specify their size explicitly for a running application.
+ 
+ String pool with memory alocation
+ ---------------------------------------
+  - Strings are immutable.
+  - For strings, Java manages a string pool in memory.
+  - ex:
+
+        String localprefix = "297";
+        String prefix = "297";
+		
+		if(localprefix = prefix)
+		{
+		  sysout("equal");
+		}else{sysout("not equal");}	
+    o/p: equal
+
+		String localprefix = new Intiger(297).toString();
+        String prefix = "297";
+		
+		if(localprefix = prefix)
+		{
+		  sysout("equal");
+		}else{sysout("not equal");}	
+	o/p: not equal
+	
+	String localprefix = new Intiger(297).toString().intern();
+        String prefix = "297";
+		
+		if(localprefix = prefix)
+		{
+		  sysout("equal");
+		}else{sysout("not equal");}
+		
+   o/p: equal
+   
+** ex:
+Initial heap size -Xms512m – set the initial heap size to 512 megabytes.
+
+Maximum heap size -Xmx1024m – set the maximum heap size to 1024 megabytes.
+
+Thread stack size -Xss128m – set the thread stack size to 128 megabytes.
+
+Young generation size -Xmn256m – set the young generation size to 256 megabytes
+**
+ - String pool: Because String is used often in programing. jvm manages special memory in hip for strings(string littrals).
+                once a string is declired it gets stored in memory and the referance variables are pointed to it.
+				even if the referance is deleted later, the previously declired string is kept in string pool for further use. called cashing.
+				But if string object is created using new key, it acts like normal object.
