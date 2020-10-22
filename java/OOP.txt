@@ -1,0 +1,18 @@
+1) Class: It is only a logical component and not the physical entity. 
+
+2) Object: An object can be defined as an instance of a class, and there can be multiple instances of a class in a program. 
+
+3) Inheritance: one object acquires the properties and behaviors of the parent object. It’s creating a parent-child relationship between two classes.
+
+4) Polymorphism: Overriding
+
+5) Abstraction: abstract class interface
+
+6) Encapsulation: acess modifiers.
+
+7) Association:  many students can associate with one teacher while one student can also associate with multiple teachers.
+
+8) Aggregation: consider class/objects department and teacher.
+                Here, a single teacher can’t belong to multiple departments, but even if we delete the department, the teacher object will never be destroyed.
+
+9) Composition:  House and rooms. Any house can have several rooms. One room can’t become part of two different houses. So, if you delete the house room will also be deleted

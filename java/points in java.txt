@@ -22,8 +22,8 @@ jdk 7 jdk 8 jdk 11 (current verson 15)
 JVM Architecture --
 Memory alocation in java --
 
-equal vs == vs .equal()
-order of execution in java
+ == vs .equal()--
+order of execution in java--
 Runtime vs compiletime in java
 Date time
 creating,reading xls
