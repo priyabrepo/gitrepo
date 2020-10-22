@@ -1,0 +1,26 @@
+1.java
+ - creating-reading xls,date time, io stream,bert report
+ 
+2.jdbc
+ - sql,workbench
+ 
+3.spring boot
+ - annotation
+ 
+4.webservices
+
+5.opentext bpm
+
+6.tibco stream base
+
+7.tomcat
+
+8.maven
+
+9.git
+
+10.svn
+
+11.azure
+
+12.jira

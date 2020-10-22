@@ -1,0 +1,35 @@
+variables
+  - castiing
+  - types
+  -size in bytes
+  
+string,array,number,charactor,datetime
+  - string vs String
+  - string pool and cashing 
+  - String class methods and util class methods for string
+  -parcing string to date <->
+  
+oi
+ - print vs println
+ - System.out.println
+ 
+array
+   - util methods for array.
+   - Array class methods.
+
+jdk 7 jdk 8 jdk 11 (current verson 15)
+JVM Architecture
+Memory alocation in java
+order of execution in java
+Runtime vs compiletime in java
+Date time
+creating,reading xls
+bert reporting
+pie charts
+error vs exception digram
+throws vs throw
+
+try - catch - final block looping
+exception methods
+
+ 
