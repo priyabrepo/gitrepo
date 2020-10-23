@@ -24,7 +24,7 @@ Memory alocation in java --
 
  == vs .equal()--
 order of execution in java--
-Runtime vs compiletime in java
+Runtime vs compiletime in java - exceptions vs errors
 Date time
 creating,reading xls
 bert reporting
@@ -42,6 +42,8 @@ this vs supper
 is-a vs has-a
 overloading vs overriding
 abstract class vs interface 
+
+innerclass
 
 collection
 
