@@ -1,0 +1,72 @@
+There are  5 Different ways to create objects in Java
+------------------------------------------------------
+1.new keyword -
+        Employee emp1 = new Employee();
+       It is the most common and regular way to create an object and actually very simple one also.
+	   By using this method we can call whichever constructor we want to call (no-arg constructor as well as parametrised).
+	   
+2.Class.newInstance() method - (reflection API)
+       We can also use the newInstance() method of the Class class to create objects, This newInstance() method calls the no-arg constructor to create the object.
+       We can create objects by newInstance() in the following way.
+	   Employee emp2 = (Employee) Class.forName("org.programming.mitra.exercises.Employee").newInstance();
+	   
+	   or 
+	   
+	   Employee emp2 = Employee.class.newInstance();
+
+	   
+3.Constructor.newInstance() method - (reflection API)
+       Similar to the newInstance() method of Class class, There is one newInstance() method in the java.lang.reflect.Constructor class which we can use to create objects.
+	   We can also call a parameterized constructor, and private constructor by using this newInstance() method.
+
+       ** Both newInstance() methods are known as reflective ways to create objects.
+	   In fact newInstance() method of Class class internally uses newInstance() method of Constructor class.
+	   That's why the later one is preferred and also used by different frameworks like Spring, Hibernate, Struts etc.
+	   To know the differences between both newInstance() methods read Creating objects through Reflection in Java with Example.
+	   
+	   Constructor<Employee> constructor = Employee.class.getConstructor();
+       Employee emp3 = constructor.newInstance();
+	   
+	   
+4.cloning  
+     - Cloning means creating a new object from an already present object and copying all data of a given object to that new object.
+	 
+	 - In order to create a clone of an object we generally design our class in such a way that
+       1.Our class should implement Cloneable interface otherwise, JVM will throw CloneNotSupportedException if we will call clone() on our object.
+	     - Cloneable interface is a marker interface which JVM uses to analyse whether this object is allowed for cloning or not.
+   		   According to JVM if yourObject instanceof Cloneable then create a copy of the object otherwise throw CloneNotSupportedException.
+		   
+       2.Our class should have a clone method which should handle CloneNotSupportedException.
+	     - It is not necessary to define our method by the name of clone, we can give it any name we want e.g. createCopy(). 
+		   Object.clone() method is protected by its definition so practically child classes of Object outside the package of Object class (java.lang)
+		   can only access it through inheritance and within itself. So in order to access clone method on objects of our class
+		   we will need to define a clone method inside our class and then class Object.clone() from it.
+		   
+		3.And finally, we need to call the clone() method of the superclass, which will call it's super’s clone() 
+		and this chain will continue until it will reach to clone() method of the Object class.
+		Object.clone() method is the actual worker who creates the clone of your object and another clone() methods just delegates the call to its parent’s clone().
+		
+		types of cloning 
+		-----------------
+		1. Shallow Cloning:
+		    cloning referance variable. both point to same object.
+		    - Default cloning strategy provided by Object.clone() which we have seen. 
+			  The clone() method of object class creates a new instance and copy all fields of the Cloneable object to that new instance 
+			  (either it is primitive or reference). So in the case of reference types only reference bits get copied to the new instance, 
+			  therefore, the reference variable of both objects will point to the same object.
+        2. Deep Cloning
+		    cloning the object itself.
+            - As the name suggests deep cloning means cloning everything from one object to another object.
+     		  To achieve this we will need to trick our clone() method provide our own cloning strategy.
+			  We can do it by implementing Cloneable interface and override clone() method in every reference type we have in our object hierarchy 
+			  and then call super.clone() and these clone() methods in our object’s clone method.
+			  
+	** Java cloning is not considered a good way to copy an object and lots of other ways are there to do the same.
+		  
+5.serialization-deserialization
+
+   Serialization is a process of converting an object into a sequence of bytes which can be persisted to a disk or database or can be sent through streams. 
+   The reverse process of creating object from sequence of bytes is called deserialization.
+   
+   A class must implement Serializable interface present in java.io package in order to serialize its object successfully. 
+   Serializable is a marker interface that adds serializable behaviour to the class implementing it.
