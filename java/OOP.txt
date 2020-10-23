@@ -3,9 +3,70 @@
 2) Object: An object can be defined as an instance of a class, and there can be multiple instances of a class in a program. 
 
 3) Inheritance: one object acquires the properties and behaviors of the parent object. It’s creating a parent-child relationship between two classes.
-                 -extends,is-a,has-a,instanceof(),super,this.
+                 -extends,is-a,has-a,instanceof(),super,this,implements .
 
-4) Polymorphism: Overriding
+4) Polymorphism: 
+             - Overriding(run time polymorphysm) same method signature and params.
+			   Method overriding means defining a method in a child class that is already defined in the parent class with the same method signature 
+			   same name, arguments, and return type (after Java 5, you can also use a covariant type as the return type).
+			   
+			   
+			  Whenever we extend a super class in a child class, the child class automatically gets all the methods defined in the super. 
+			  We call them derived methods. But in some cases, we do not want some derived methods to work in the manner that they do in the parent. 
+			  We can override those methods in the child class. For example, we always override equals, hashCode, and toString from the Object class. 
+			  
+			  In the case of abstract methods, either from a parent abstract class or an interface, we do not have any option: 
+			  We need implement or, in other words, override all the abstract methods.
+			  
+			  Method overriding is also known as Runtime Polymorphism and  Dynamic Method Dispatch because the method that is going to be called is decided at runtime by the JVM.
+Method Overriding Rules
+-----------------------------
+
+It must have the same method name.
+It must have the same arguments.
+It must have the same return type. From Java 5 onward, the return type can also be a subclass (subclasses are a covariant type to their parents).
+It must not have a more restrictive access modifier (if parent --> protected then child --> private is not allowed).
+It must not throw new or broader checked exceptions.
+And if both overriding methods follow the above mandatory rules, then they:
+
+May have a less restrictive access modifier (if parent --> protected then child --> public is allowed).
+May throw fewer or narrower checked exceptions or any unchecked exception.
+Apart from the above rules, there are also some facts to keep in mind:
+
+Only inherited methods can be overridden. That means methods can be overridden only in child classes.
+Constructors and private methods are not inherited, so they cannot be overridden.
+Abstract methods must be overridden by the first concrete (non-abstract) subclass.
+final methods cannot be overridden.
+A subclass can use super.overridden_method() to call the superclass version of an overridden method.
+
+Cant override clone() method from the Object class.
+---------------------------------------------------
+Cloning is also a way of creating an object but in general, cloning is not just about creating a new object. Cloning means creating a new object from an already present object and copying all data of a given object to that new object.
+
+In order to create a clone of an object we generally design our class in such a way that
+Our class should implement Cloneable interface otherwise, JVM will throw CloneNotSupportedException if we will call clone() on our object.
+Cloneable interface is a marker interface which JVM uses to analyse whether this object is allowed for cloning or not. According to JVM if yourObject instanceof Cloneable then create a copy of the object otherwise throw CloneNotSupportedException.
+Our class should have a clone method which should handle CloneNotSupportedException.
+It is not necessary to define our method by the name of clone, we can give it any name we want e.g. createCopy(). Object.clone() method is protected by its definition so practically child classes of Object outside the package of Object class (java.lang) can only access it through inheritance and within itself. So in order to access clone method on objects of our class we will need to define a clone method inside our class and then class Object.clone() from it. For details on protected access specifier, please read Why an outer Java class can’t be private or protected .
+And finally, we need to call the clone() method of the superclass, which will call it's super’s clone() and this chain will continue until it will reach to clone() method of the Object class. Object.clone() method is the actual worker who creates the clone of your object and another clone() methods just delegates the call to its parent’s clone().
+			  
+			 - overloading(compiletime polymorphysm/static polymorphysm) 
+			   Method overloading means providing two separate methods in a class with the same name but different arguments,
+			   while the method return type may or may not be different, which allows us to reuse the same method name.
+			   
+			   While overloading has nothing to deal with polymorphism, 
+			   Java programmers also refer to method overloading as  Compile Time Polymorphism because the method that is going to get called will be decided at compile time.
+			   
+			   Two methods will be treated as overloaded if both follow the mandatory rules below:
+overloading rules.
+------------------
+Both must have the same method name.
+Both must have different argument lists.
+And if both methods follow the above mandatory rules, then they may or may not:
+
+Have different return types.
+Have different access modifiers.
+Throw different checked or unchecked exceptions.
 
 5) Abstraction: abstract class interface
 
@@ -16,4 +77,4 @@
 8) Aggregation: consider class/objects department and teacher.
                 Here, a single teacher can’t belong to multiple departments, but even if we delete the department, the teacher object will never be destroyed.
 
-9) Composition:  House and rooms. Any house can have several rooms. One room can’t become part of two different houses. So, if you delete the house room will also be deleted
+9) Composition:  House and rooms. Any house can have several rooms. One room can’t become part of two different houses. So, if you delete the house room will also be deleted.
