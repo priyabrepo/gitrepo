@@ -3,6 +3,7 @@
 2) Object: An object can be defined as an instance of a class, and there can be multiple instances of a class in a program. 
 
 3) Inheritance: one object acquires the properties and behaviors of the parent object. It’s creating a parent-child relationship between two classes.
+                 -extends,is-a,has-a,instanceof(),super,this.
 
 4) Polymorphism: Overriding
 
