@@ -16,3 +16,79 @@ This class is used for exceptional conditions that user programs should catch. N
 
 Another branch,Error are used by the Java run-time system(JVM) to indicate errors having to do with the run-time environment itself(JRE).
  StackOverflowError is an example of such an error.
+ 
+ Types of exceptions
+ --------------------
+ 1)Checked exceptions
+        - checked at compile-time. 
+		- a method is throwing a checked exception then it should handle the exception using try-catch block or it should declare the exception using throws keyword,
+    	  otherwise the program will give a compilation error.
+2)Unchecked exceptions
+        - Runtime Exceptions are also known as Unchecked Exceptions.
+		- These exceptions are not checked at compile-time so compiler does not check whether the programmer has handled them or not 
+		  but it’s the responsibility of the programmer to handle these exceptions and provide a safe exit. 
+		  For example, ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException etc.
+		  
+
+finally block
+--------------
+1. A finally block must be associated with a try block, you cannot use finally without a try block. You should place those statements in this block that must be executed always.
+
+2. Finally block is optional, as we have seen in previous tutorials that a try-catch block is sufficient for exception handling,
+ however if you place a finally block then it will always run after the execution of try block.
+ 
+3. In normal case when there is no exception in try block then the finally block is executed after try block. 
+ However if an exception occurs then the catch block is executed before finally block.
+ 
+4. An exception in the finally block, behaves exactly like any other exception.
+
+5. The statements present in the finally block execute even if the try block contains control transfer statements like return, break or continue.
+
+The circumstances that prevent execution of the code in a finally block are:
+– The death of a Thread
+– Using of the System. exit() method.
+– Due to an exception arising in the finally block.
+
+Finally and Close()
+close() statement is used to close all the open streams in a program. Its a good practice to use close() inside finally block. 
+Since finally block executes even if exception occurs so you can be sure that all input and output streams are closed properly regardless of whether the exception occurs or not.
+
+Finally block without catch
+A try-finally block is possible without catch block. Which means a try block can be used with finally without having a catch block.
+
+Finally block and System.exit()
+System.exit() statement behaves differently than return statement. Unlike return statement whenever System.exit() gets called in try block then Finally block doesn’t execute. 
+However if any exception occurs while calling System.exit(0) then finally block will be executed.
+
+try-catch-finally block
+Either a try statement should be associated with a catch block or with finally.
+Since catch performs exception handling and finally performs the cleanup, the best approach is to use both of them.
+---------------------------------------------------
+void TrySomething() {
+   try {
+
+
+   } catch (ArgumentException) {
+        HandleTrySomethingFailure();// method call from catch
+   }
+}
+
+void HandleTrySomethingFailure() { // the method has try catch inside. we can directly use try catch inside a catch. bit not advised.
+    try {
+
+    } catch (IndexOutOfRangeException) {
+
+    }
+}
+--------------------------------------
+all try,catch,finaly can have try-catch-finaly inside.
+
+
+Throw vs throws
+-----------------
+throw is for user defined.
+ex:
+ - throw new MyException("This is My error Message");// MyExceptionis a class defined by user.we can use predefined exceptions in this way also.
+ - MyException class must inherit from Exception class. 
+
+throws is for pre-defined.
