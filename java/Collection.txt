@@ -1,0 +1,140 @@
+   Collection
+**-------------**
+A Collection/group represents a single unit of objects.
+
+Iterable Interface
+********************
+ - The Iterable interface is the root interface for all the collection classes. 
+ -  The Collection interface extends the Iterable interface and therefore all the subclasses of Collection interface also implement the Iterable interface.
+ - It contains only one abstract method. i.e.,
+    Iterator<T> iterator()  
+   It returns the iterator over the elements of type T.
+   
+Collection Interface
+***********************
+ - The Collection interface is the interface which is implemented by all the classes in the collection framework.
+ - It declares the methods that every collection will have.
+ - In other words, we can say that the Collection interface builds the foundation on which the collection framework depends.
+ - Some of the methods of Collection interface are Boolean add ( Object obj), Boolean addAll ( Collection c), void clear(), etc.
+   which are implemented by all the subclasses of Collection interface.
+
+List Interface
+******************
+ - child interface of Collection interface.
+ - ordered.
+ - can have duplicate values.
+ - List interface is implemented by the classes ArrayList, LinkedList, Vector, and Stack.
+ - to instanciate list interface,
+     List <data-type> list1= new ArrayList();  
+     List <data-type> list2 = new LinkedList();  
+     List <data-type> list3 = new Vector();  
+     List <data-type> list4 = new Stack();
+	 
+ArrayList
+-----------
+  - implements the List interface.
+  - uses a dynamic array to store the duplicate element of different data types.
+* - ArrayList class maintains the insertion order and is non-synchronized.
+  - The elements stored in the ArrayList class can be randomly accessed. 
+  
+LinkedList
+-----------
+  - implements the Collection interface.
+  - uses a doubly linked list internally to store the elements.
+  - It can store the duplicate elements.
+  - It maintains the insertion order and is not synchronized.
+  - the manipulation is fast because no shifting is required.
+  
+Vector
+-------
+  - uses a dynamic array to store the data elements.
+* - It is similar to ArrayList. However, It is synchronized and contains many methods that are not the part of Collection framework.
+
+Stack
+-------
+  - stack is the subclass of Vector.
+  - implements the last-in-first-out data structure.
+  - The stack contains all of the methods of Vector class and also provides its methods like boolean push(), boolean peek(), boolean push(object o), which defines its properties.
+  
+Queue Interface
+******************
+ - maintains the first-in-first-out order
+ - It can be defined as an ordered list that is used to hold the elements which are about to be processed.
+ - PriorityQueue, Deque, and ArrayDeque implements the Queue interface.
+ - instanciation:
+     Queue<String> q1 = new PriorityQueue();  
+     Queue<String> q2 = new ArrayDeque();
+  
+PriorityQueue
+--------------
+   - implements the Queue interface.
+   - first-in-first-out order.// check order meening
+   - doesn't allow null values to be stored in the queue.
+   
+Deque Interface
+---------------
+   - extends the Queue interface
+   - we can remove and add the elements from both the side.(double-ended queue)
+   - Deque d = new ArrayDeque();  
+  
+ArrayDeque
+----------
+  - implements the Deque interface.
+  - Unlike queue, we can add or delete the elements from both the ends.
+  - ArrayDeque is faster than ArrayList and Stack and has no capacity restrictions.
+  
+Set Interface
+**************
+
+ - present in java.util package.
+ - extends the Collection interface. 
+ - unordered 
+ - oesn't allow us to store the duplicate items.(one null value in Set.)
+ - implemented by HashSet, LinkedHashSet, and TreeSet.
+ 
+ - instantiated as:
+
+Set<data-type> s1 = new HashSet<data-type>();  
+Set<data-type> s2 = new LinkedHashSet<data-type>();  
+Set<data-type> s3 = new TreeSet<data-type>();  
+
+HashSet
+-----------
+  - implements Set Interface. 
+  - It represents the collection that uses a hash table for storage.
+  - contains unique items.
+  
+LinkedHashSet
+--------------
+  - represents the LinkedList implementation of Set Interface. 
+  - It extends the HashSet class and implements Set interface.
+  - unique elements. 
+  - maintains the insertion order and permits null elements.
+  
+SortedSet Interface
+********************
+  - alternate of Set interface that provides a total ordering on its elements. 
+  - arranged in the increasing (ascending) order. 
+  - provides the additional methods that inhibit the natural ordering of the elements.
+  - instantiated as:
+SortedSet<data-type> set = new TreeSet();  
+
+TreeSet
+---------
+  - implements the Set interface that uses a tree for storage.
+  - contains unique elements.
+  - access and retrieval time of TreeSet is quite fast.
+  - stored in ascending order.
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
