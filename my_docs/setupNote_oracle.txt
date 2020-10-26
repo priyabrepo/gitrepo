@@ -1,0 +1,60 @@
+Seting up oracle DB and sql Devloper
+*************************************
+
+- download oracle db and sql devloper from oracle site.
+
+instaling DB 
+-------------
+-downloaded file name should look like this:(WINDOWS.X64_193000_db_home.zip) .Not solaris.
+-create a folder in c drive 
+-put the zip file in the folder.
+-select (extract files..)
+-change target folder name to (db_home).
+
+-once extracted, turn off firewall.
+
+-run the setup.exe by double clicking.
+
+step 1. chose:create and configure a single instance database.
+step 2. chose: Desktop class
+step 3. create new windows user. (remember the details)
+step 4. check the detals correct or not. give password. write down all details.// globaldb name: orcl
+step 5. check if if every requirment is mate.->(instal)
+step 6. coppy the url
+
+- open sqlplus from start menu.
+- Enter user name : sys as sysdba
+- Entrt password:(enter. dont need password)
+
+sql> create user *username* identified by admin; 
+     //*username* must start with C## or c## and consist only of ASCII characters.
+sql> grant unlimited tablespace to *username*;
+sql> grant resource, connect, dba to *admin*;
+sql> commit;
+sql> exit;
+
+- instal and open sql devloper.
+- create connection('+' - at top left).
+- give any name as connection name.
+- give created *username*. any passward.(remember).save password.
+- SID : orcl // globaldb name: orcl
+- test connection. connect.
+
+
+uninstal Oracle
+**********************
+Step 1: Delete Environment Variable.
+   - delete oracle related path from 'path' from user and system variables.
+Step 2: Delete Registries.(carefull)
+   - Press Win Key + R –> Run Dialouge Box
+   - Write regedit in text box.
+      - go to (HKEY_LOCAL_MACHINE –> SOFTWARE –> ORACLE) delete the ORACLE folder.
+	  - go to (HKEY_LOCAL_MACHINE → SYSTEM → CurrentControlSet → SERVICES) .delete folders starting with Oracle.(6 folders)
+Step 3: restart computer.
+Step 4: Delete the Oracle Home Directory(the folder with setup.exe)
+Step 5: Delete Directory from Program File(Oracle folder in c/program files)
+Step 6: Delete Directory from Start Menu.(C:\ProgramData\Microsoft\Windows\Start Menu\Programs -> search for Oracle Folder and delete it.)
+step 7: Step 7: Clear the Temporary files.
+Step 8: Delete the Oracle user.
+ 
+

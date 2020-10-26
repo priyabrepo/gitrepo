@@ -20,6 +20,7 @@ Collection Interface
 
 List Interface
 ******************
+public interface List<E> extends Collection<E>  
  - child interface of Collection interface.
  - ordered.
  - can have duplicate values.
@@ -32,6 +33,7 @@ List Interface
 	 
 ArrayList
 -----------
+public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAccess, Cloneable, Serializable  
   - implements the List interface.
   - uses a dynamic array to store the duplicate element of different data types.
 * - ArrayList class maintains the insertion order and is non-synchronized.
@@ -39,6 +41,7 @@ ArrayList
   
 LinkedList
 -----------
+public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>, Deque<E>, Cloneable, Serializable  
   - implements the Collection interface.
   - uses a doubly linked list internally to store the elements.
   - It can store the duplicate elements.
@@ -58,6 +61,7 @@ Stack
   
 Queue Interface
 ******************
+public interface Queue<E> extends Collection<E>
  - maintains the first-in-first-out order
  - It can be defined as an ordered list that is used to hold the elements which are about to be processed.
  - PriorityQueue, Deque, and ArrayDeque implements the Queue interface.
@@ -67,18 +71,22 @@ Queue Interface
   
 PriorityQueue
 --------------
+public class PriorityQueue<E> extends AbstractQueue<E> implements Serializable  
    - implements the Queue interface.
    - first-in-first-out order.// check order meening
    - doesn't allow null values to be stored in the queue.
    
 Deque Interface
 ---------------
+public interface Deque<E> extends Queue<E>
+
    - extends the Queue interface
    - we can remove and add the elements from both the side.(double-ended queue)
    - Deque d = new ArrayDeque();  
   
 ArrayDeque
 ----------
+public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cloneable, Serializable  
   - implements the Deque interface.
   - Unlike queue, we can add or delete the elements from both the ends.
   - ArrayDeque is faster than ArrayList and Stack and has no capacity restrictions.
@@ -106,6 +114,7 @@ HashSet
   
 LinkedHashSet
 --------------
+public class LinkedHashSet<E> extends HashSet<E> implements Set<E>, Cloneable, Serializable 
   - represents the LinkedList implementation of Set Interface. 
   - It extends the HashSet class and implements Set interface.
   - unique elements. 
@@ -121,6 +130,7 @@ SortedSet<data-type> set = new TreeSet();
 
 TreeSet
 ---------
+public class TreeSet<E> extends AbstractSet<E> implements NavigableSet<E>, Cloneable, Serializable  
   - implements the Set interface that uses a tree for storage.
   - contains unique elements.
   - access and retrieval time of TreeSet is quite fast.
