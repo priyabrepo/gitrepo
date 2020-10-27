@@ -1,0 +1,61 @@
+Yesterday's session : RESTFul Services & Microservices Course Content
+Today's sesion : Distributed Applications
+---------------------------------------------------------------------
+
+-> By using java we can develop below types of applications
+
+	1)Stand-alone applications
+	
+	2)Web applications
+
+	3)Distributed applications
+
+What is Stand-alone application?
+--------------------------------
+-> The applications which are specific to only one machine are called as Standlaone applications
+
+Ex : Eclipse, SQL Developer, Notepad, Calculator etc..
+
+What is Web Application?
+------------------------
+-> The application which we can access from browser are called as web applications
+
+Ex : facebook, gmail, irctc etc....
+
+-> Web applications are used for 'C 2 B' communication (Customer to Business)
+
+
+What is Distributed Application?
+--------------------------------
+-> If one application is communicating with another application then they are called as Distributed Applications
+
+-> Distributed Applications are used for B 2 B communication (Business to Business)
+
+Ex :
+
+	Passport -------- AADHAR
+
+	MakeMyTrip ---------Air Lines
+
+-> Distributed applications will be developed to re-use business services
+
+
+-> Now a days we are developing distributed applications with intereoperability
+
+What is Intereoperability?
+--------------------------
+Irrespective of the platform and irrespective of programmaing languages if one application is communicating with another application then they are called as Intereperable applications.
+
+
+	java --------> .Net 
+
+	.Net --------> Python
+
+	Python --------> Java
+
+
+-> To develop Distributed application with Intereoperability we will use below concepts
+
+		1)Webservices
+
+		2)RESTful Services

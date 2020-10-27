@@ -1,0 +1,99 @@
+Restful Services & Microservices
+--------------------------------
+Duration : 2 Months
+Timings : 8:45 AM to 10 AM IST
+Course Code : 05-SBMS
+
+Pre-Requisites
+--------------
+Spring Boot Basics
+Spring Core Module
+Spring MVC Module
+Spring Data JPA
+
+Note: We learn RESTful Services & Microservices using Spring Boot
+------------------------------------------------------------------
+
+Course Content
+--------------
+
+Part-1 (RESTful Services)
+-------------------------
+1) Distributed Applications
+2) Distributed Technologies
+3) Webservices Evolution
+	 - SOAP Webservices
+	 - RESTFul Services
+4) SOAP Architecture
+5) REST Architecture
+6) SOAP vs REST
+7) Realworld Webservices & RESTful Services usecases
+
+8) XML, XSD & JAX-B
+9) Binding Classes
+10) Marshalling & Un Marshalling
+
+11) JSON
+12) JACKSON API & GSON API
+
+13) XML vs JSON
+
+14) HTTP Protocol
+15) HTTP Req & Res structures
+16) HTTP Methods
+17) HTTP Status Codes & Status messages
+
+18) Spring With REST Introduction & Rest Principles
+19) REST Controller
+20) Request Mappings
+21) Response Entity
+22) Request Body & Response Body
+23) Query Params
+24) Path Params
+25) Consumes
+26) Produces
+27) Complex Response
+28) Message Converters
+29) Exception Handling
+30) Swagger Documentation
+31) Rest Client Development
+32) Rest Template & WebClient (Flux, Mono, Sync & Async)
+33) Security
+34) Postman
+
+Part-2 (Microservices)
+----------------------
+35) Monolith Architecture
+36) Monolith Architecture Drawbacks
+37) Load Balancers
+38) Load Balancer Algorithms
+	 - Sticky Session
+	 - IP Hashing
+	 - Round Robbin
+39) Microservices Introduction
+40) Challenges with Microservices
+41) Microservices Advantages
+42) Microservices Architecture
+43) Service Registry (Eureka Server)
+44) Services Development (REST APIS)
+45) API Gateway (Zuul proxy)
+46) Inter Micro Service Communication
+47) FeignClient
+48) Accessing 3rd Party APIs
+49) Cloud Introduction
+	 - AWS
+	 - Azure
+	 - Google Cloud
+	 - PCF
+50) Microservices deployment into PCF Cloud
+51) Circuit Breaker (Fault Tolerance)
+52) Distributed Log Tracing
+	 - Sleuth
+	 - Zipkin
+53) Actuators
+54) Spring Boot Admin & Client
+55) Apache Kafka
+56) Redis Cache
+57) OAuth 2.0 
+58) Mini Project using Spring Boot + REST API 
+59) Angular Integration

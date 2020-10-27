@@ -1,0 +1,34 @@
+Last session : APIs released by SUN to develop webservices
+-------------------------------------------------------------
+
+-> Sun Microsystem released below 2 apis to develop webservices
+
+	1) JAX-RPC API (B.P 1.0 Specification)
+
+	2) JAX-WS API (B.P 1.1 Specification)
+
+-> By using above 2 apis if we develop a webservices then it is called as SOAP Based Webservice.
+
+-> Sun Microsystem released JAX-RS api to develop RESTFul services. We have 2 implementations for this. They are jersey & Rest Easy.
+
+-> SOAP Webservices are specification based. RESTFul Services are Architecture Principles based.
+
+---------------------------------------------------------------------------------------------
+Note: But now a days we are not using the above APIs directley because Spring Framwork has provided support for developing SOAP Webservices & RESTful services.
+
+
+SOAP Webservice Architecture
+----------------------------
+1) Service Provider
+2) Service Provider Description
+3) Service Consumer
+4) Payload
+
+-> The application which is providing business services to other applications is called as Service Provider.
+
+-> Service Provider Description explains details of Service Provider and How to Access Service Provider.
+
+-> The application which is accessing services from other applications is called as Service Consumer.
+
+-> Payload is the business data which will get exchanged between Consumer & Provider.
+

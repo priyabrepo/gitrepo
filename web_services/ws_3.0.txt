@@ -1,0 +1,154 @@
+Yesterday's session : Distributed applications
+----------------------------------------------
+
+-> If one application is communicating with another application then they are called as Distributed Applications.
+
+What is Intereoperability?
+--------------------------
+Irrespective of platform and irrespective of language if one application is communicating with another application then they are called as 'Intereoperable Applications'.
+
+
+	   Java --------------> .Net
+		
+	   .Net ---------------> Python
+
+	   Python -------------> Java
+
+Distributed Technologies
+------------------------
+a) CORBA (Common Object Request Broker Architecture) (outdated)
+
+b) RMI (Remote Method Invocation) (Outdated)
+
+c) EJB (Enterprise Java Beans) (outdated)
+
+d) Webservices (In use)
+
+e) Restful Services (Trending in market)
+
+
+Note : From the above list only Webservices & RESTful Services will provide Intereoperability.
+
+
+-> To overcome the problems of CORBA, RMI and EJB technologies WebServices Came into Market.
+
+-> Using Webservices we can develop distributed applications with Intereoperability.
+
+-> Webservices started by WS-I (Webservices Intereoperability) Team. It is a non profitable organization. WS-I team contains employees from different companies.
+
+-> With the help of all the people WS-I identified some rules & guidelines to achieve Intereoperability.
+
+-> The Rules & Gudilines Provided by WS-I is called as B.P 1.0 Specification
+
+B.P 1.0 Specification
+---------------------
+-> When B.P 1.0 came into market all programming languages started adopting rules & guidelines of B.P 1.0 specification.
+
+-> Sun Microsystem also adopted B.P 1.0 Specification Rules & Gudilines and provided JAX-RPC api.
+
+-> JAX-RPC api is the first and foremost api released by Sun Microsystem to develop
+    Webservices with Intereoperability.
+
+-> JAX-RPC stands for Java Api For XML - Remote Procedural Call
+
+-> For JAX-RPC api we have several implementations. They are 
+
+		a) Sun Implementation (SI)
+		b) Apache Axis
+		c) Oracle Weblogic
+		d) IBM Websphere etc..
+
+
+-> As B.P 1.0 specification became success in market, WS-I team released B.P 1.1 specification into market.
+
+B.P 1.1 Specification
+---------------------
+-> When B.P 1.1 specification came into market, all programming languages started adopting rules & guidelines of B.P 1.1 specification.
+
+-> Sun Micro System also adopted rules & Guidelines of B.P 1.1 specification and relased JAX-WS Api.
+
+-> JAX-WS is the second api that got released from Sun Microsystem to develop Webservices with Intereoperability.
+
+-> JAX-WS stands for Java API For XML - Webservices
+
+-> For JAX-WS API we have several implementations, They are 
+
+	a) Reference Implementation (RI)
+	b) Apache AXIS 2
+	c) Apache CXF
+	d) Metro
+	e) Oracle Weblogic
+	f) IBM Websphere
+	g) JBOSS etc...
+
+----------------------------------------------------------------------------------
+-> In Java we can develop Webservice in 2 ways.
+
+	1) JAX-RPC API
+	2) JAX-WS API
+
+
+-> If we develop a webservice using JAX-RPC API or JAX-WS API then that web service is called as 'SOAP Based WebService'.
+
+----------------------------------------------------------------------------------
+
+-> When SOAP based webservices came into market people felt very happy and started using SOAP Webservices in applications to achieve Intereoperability.
+
+-----------------------------------------------------------------------------------
+
+-> The author of HTTP Protocol 'Roy Fielding' identified some loop holes in SOAP Webservices and he started his analysis to find Alternate for SOAP Webservices.
+
+-> He got motivated by seeing Internet Services and started analyzing how internet services are working.
+
+-> He identified principle which made internet success and he documented those principle and released into market as 'Rest Architecture Principles'.
+
+-> When Roy Fielding Provided REST Architecture Principles people are not intrested in initial days. Later they realized and starting using REST Principles that became super hit in the market.
+
+-> Programming languages are started adopting Roy Fielding Rest principles.
+
+-> Sun Micro System also adopted REST Architecture Principles and Released 
+   JAX-RS api.
+
+-> JAX-RS stands for 'Java api for xml - RESTful Services'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
