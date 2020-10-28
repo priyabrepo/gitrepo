@@ -1,0 +1,61 @@
+Last session : Rest Architecture
+
+Today's session : Rest Architecture Principles
+----------------------------------------------
+
+-> For SOAP Webservices we have specification (WS-I Provided)  
+
+-> For RESTful Services we don't have any specification
+
+-> Roy Fielding provided some architecture principles to develop Restful services.
+
+Rest Architecture Principles
+----------------------------
+1) Unique Addressibility
+
+2) Uniform Constraint Interfaces
+
+3) Message Oriented Representation
+
+4) Communication Stateless
+
+5) HATEOS (Hypermedia as an engine for application state)
+--------------------------------------------------------------------------------------------
+
+-> Unique Addressibility represents every resouce should bind to unique address (Unique URL pattern)
+
+-> All the resource methods should be unique and limited (We should bind rest resource methods to Http Protocol Methods)
+	
+	- GET method ---------> @GetMapping
+	- POST method --------> @PostMapping
+	- PUT method  --------> @PutMapping
+	- DELETE method ------> @DeleteMapping
+
+-> According client request, resource will process the data. Clients can choose input and output data formats according to their requirement.
+
+-> Rest Resource will not store any information related to client. Every request will be treated as first request only (session concept will not be available).
+
+-> Resource will represent response to clients in Hypermedia format (hyperlinks)
+
+---------------------------------------------------------------------------
+
+-> Sun Microsystem supported for above Rest Architecture principles and released one api to develop Restful Services.
+
+		JAX-RS API
+
+-> JAX-RS API stands for 'Java Api For XML - Restful Services'.
+
+-> For JAX-RS API we have below 2 implementations
+
+		a) Jersey  (sun)
+		b) REST Easy (JBoss)
+
+
+***************Spring Framework Also Supports REST Development************
+
+-> By using Spring MVC Module we can develop RESTFul Services (This is an alternate for jax-rs)
+
+
+Q) Can we develop RESTful Service using Spring Boot?
+---------------------------------------------------
+Ans) Yes, we can develop using spring-boot-starter-web dependency
