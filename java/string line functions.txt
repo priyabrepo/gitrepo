@@ -9,6 +9,21 @@
 \\	backslash
 \ddd	Octal character (ddd)
 \uxxxx	Hexadecimal UNICODE character (xxxx)
+********************************************************************************
+String Objects
+--------------------
+ - A new keyword is used to create an object and the object is created in the heap memory whereas its reference will be pointed to String pool.
+ - A String object is an individual instance of the java.lang.String class.
+ 
+ 
+String Literals
+---------------------
+ - Here the reference will be directly referred to String Pool. JVM initially checks for the availability with the same value in the constant pool.
+ - A String literal is a Java language concept. This is a String literal.
+ 
+
+
+
 
 Local Variables
 ------------------------
