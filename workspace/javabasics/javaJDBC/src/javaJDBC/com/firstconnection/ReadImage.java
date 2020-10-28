@@ -25,7 +25,7 @@ public class ReadImage {
     		
     		byte[] barr = b.getBytes(1, (int)b.length());
     		FileOutputStream fout =  new FileOutputStream("C:\\Priyabratta");
-    		fout.write(barr);
+    		fout.write(barr);// allow writing permeation in defender
     		fout.close();
     		System.out.println("download complete");
     		con.close();
