@@ -1,0 +1,82 @@
+JDBC
+*******
+JDBC stands for Java Database Connectivity.
+part of JavaSE (Java Standard Edition).
+
+There are four types of JDBC drivers:
+--------------------------------------
+1.JDBC-ODBC Bridge Driver,
+2.Native Driver,
+3.Network Protocol Driver, and
+4.Thin Driver
+
+**
+Starting with version 3.1, JDBC has been developed under the Java Community Process. JSR 54 specifies JDBC 3.0 (included in J2SE 1.4), JSR 114 specifies the JDBC Rowset additions,
+ and JSR 221 is the specification of JDBC 4.0 (included in Java SE 6).[2]
+JDBC 4.1, is specified by a maintenance release 1 of JSR 221[3] and is included in Java SE 7.[4]
+JDBC 4.2, is specified by a maintenance release 2 of JSR 221[5] and is included in Java SE 8.[6]
+The latest version, JDBC 4.3, is specified by a maintenance release 3 of JSR 221[7] and is included in Java SE 9.[8]
+
+Before JDBC, ODBC API was the database API to connect and execute the query with the database.It was written in C. 
+**
+
+- The java.sql package contains classes and interfaces for JDBC API. 
+
+JDBC Driver
+------------
+There are 4 types of JDBC drivers:
+1.JDBC-ODBC bridge driver - uses ODBC driver to connect to the database. In Java 8, the JDBC-ODBC Bridge has been removed.
+2.Native-API driver (partially java driver) - uses the client-side libraries of the database. 
+3.Network Protocol driver (fully java driver) - uses middleware (application server) that converts JDBC calls directly or indirectly into the vendor-specific database protocol. 
+4.Thin driver (fully java driver) - The thin driver converts JDBC calls directly into the vendor-specific database protocol. *being used*
+
+5 steps to connect to database using JDBC. 
+-------------------------------------------
+1.Register the Driver class
+    syntax-  public static void forName(String className)throws ClassNotFoundException
+	- Note: Since JDBC 4.0, explicitly registering the driver is optional.
+      We just need to put vender's Jar in the classpath, and then JDBC driver manager can detect and load the driver automatically.
+	- ex: Class.forName("oracle.jdbc.driver.OracleDriver");  
+	
+2.Create connection
+    syntax:
+	   1) public static Connection getConnection(String url)throws SQLException  
+       2) public static Connection getConnection(String url,String name,String password)throws SQLException 
+	ex:Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","password");  
+
+3.Create statement
+    syntax: public Statement createStatement()throws SQLException  
+	ex: Statement stmt=con.createStatement(); 
+	
+4.Execute queries
+    syntax: public ResultSet executeQuery(String sql)throws SQLException 
+	
+ResultSet rs=stmt.executeQuery("select * from emp");  
+  
+while(rs.next()){  
+System.out.println(rs.getInt(1)+" "+rs.getString(2));  
+}  
+
+
+5.Close connection
+    syntax: public void close()throws SQLException .
+	ex: con.close();  
+    - Note: Since Java 7, JDBC has ability to use try-with-resources statement to automatically close resources of type Connection, ResultSet, and Statement.
+
+****************************************************************************************************
+for mySQL
+Class.forName("com.mysql.jdbc.Driver");  
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/sonoo","root","root");
+also check:
+There are two ways to connect java application with the access database.
+Without DSN (Data Source Name)
+With DSN
+****************************************************************************************************
+
+	
+Two ways to load the jar file:
+1.paste the ojdbc14.jar file in jre/lib/ext folder
+2.set classpath 
+     1.TEMPORATY - C:>set classpath=c:\folder\ojdbc14.jar;.;  
+	 2.PERMANENT - envirnment variable C:\oraclexe\app\oracle\product\10.2.0\server\jdbc\lib\ojdbc14.jar;
+	 
