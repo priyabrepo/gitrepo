@@ -1,0 +1,18 @@
+Yesterday's session : Rest Architecture Principles
+
+Today's session : Building First Rest App using Spring Boot
+-----------------------------------------------------------------
+
+Steps to build rest app using boot
+-----------------------------------
+1) Create Spring Starter Project with below dependency
+
+	spring-boot-starter-web
+
+2) Create Rest Controller component using @RestController annotation
+
+3) Create required method(s) in Rest Controller and bind them with Http      Protocal methods 
+
+4) Configure Server Port No in application.properties file
+
+5) Run application & Test it.
