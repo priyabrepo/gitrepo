@@ -1,0 +1,33 @@
+maven
+*******************
+
+Instaling
+------------
+  On machine
+  ----------
+      1. Make sure JDK is installed, and JAVA_HOME environment variable is configured.
+	  2. Download Apache Maven (http://maven.apache.org/download.cgi)  . file should look like this:  apache-maven-3.6.0-bin.zip.
+	  3. Unzip it to a folder. In this article, we are using c:\opt\apache-maven-3.6.0
+	  4. Add MAVEN_HOME system variable : 
+	      MAVEN_HOME 
+	      c:\opt\apache-maven-3.6.0
+	  5. Add %MAVEN_HOME%\bin To PATH (system variables)
+	  6. Verification
+	       >mvn -version 
+		   >echo %MAVEN_HOME%
+On Eclipse
+---------------
+1.Open Eclipse IDE
+2.Click Help -> Install New Software...
+3.Click Add button at top right corner
+4.At pop up: fill up Name as "M2Eclipse" and Location as "http://download.eclipse.org/technology/m2e/releases" or http://download.eclipse.org/technology/m2e/milestones/1.0
+
+Now click OK
+
+After that installation would be started.
+
+
+
+	
+db connection
+ui<->code<->db

@@ -1,8 +1,9 @@
 1.java
  - creating-reading xls,date time, io stream,bert report
  
-2.jdbc
+2.jdbc,servlet,jsp
  - sql,workbench
+ 
  
 3.spring boot *
  - annotation
@@ -24,3 +25,5 @@
 11.azure
 
 12.jira (issue and project tracking)
+
+13 react
