@@ -2582,3 +2582,24 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.apache.an
 2020-10-29 19:38:00,543 [Worker-229: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\main\resources
 2020-10-29 19:38:00,544 [Worker-229: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2020-10-29 19:38:00,545 [Worker-229: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\test\resources
+2020-10-29 21:37:00,457 [Stop Help Server] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@552ea8b9{HTTP/1.1, (http/1.1)}{127.0.0.1:0}
+2020-10-29 21:37:00,458 [Stop Help Server] INFO  org.eclipse.jetty.server.session - node0 Stopped scavenging
+2020-10-29 21:37:00,479 [Stop Help Server] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@e88c786{/help,null,UNAVAILABLE}
+2020-10-30 06:05:10,140 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-10-30 06:05:11,924 [Worker-6: Updating indexes] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|https://repo.maven.apache.org/maven2
+2020-10-30 06:05:14,557 [Worker-5: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.mvnrepo:mvnproj:0.0.1-SNAPSHOT @ C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\pom.xml.
+2020-10-30 06:05:16,205 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-30 06:05:16,205 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\main\resources
+2020-10-30 06:05:16,209 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-30 06:05:16,209 [Worker-10: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\test\resources
+2020-10-30 06:06:18,140 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2020-10-30 06:06:19,992 [Worker-0: Updating indexes] INFO  o.e.m.c.i.i.nexus.NexusIndexManager - Updating index for repository: central|https://repo.maven.apache.org/maven2
+2020-10-30 06:06:20,335 [Worker-8: Updating Maven Dependencies] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.mvnrepo:mvnproj:0.0.1-SNAPSHOT @ C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\pom.xml.
+2020-10-30 06:06:21,787 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-30 06:06:21,787 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\main\resources
+2020-10-30 06:06:21,791 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-30 06:06:21,791 [Worker-11: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\test\resources
+2020-10-30 06:07:07,824 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-30 06:07:07,825 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\main\resources
+2020-10-30 06:07:07,827 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2020-10-30 06:07:07,827 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Priyabratta\myRepo\gitrepo\workspace\mavenws\mvnproj\src\test\resources
