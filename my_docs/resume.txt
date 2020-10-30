@@ -16,7 +16,7 @@
 
 7.tomcat *
 
-8.maven *
+8.maven 
 
 9.git
 
@@ -26,4 +26,4 @@
 
 12.jira (issue and project tracking)
 
-13 react
+13 react *
