@@ -1,0 +1,164 @@
+Yesterday's session : XML & JAX-B
+----------------------------------
+-> Java Architecture for XML binding
+
+-> Using JAX-B api we can convert java object to xml and xml to java object
+
+-> In JAX-B we will perform 2 operations
+	
+	a) one time operation (binding classes creation)
+
+	b) runtime operations( Marshalling & Un-Marshalling )
+
+
+-> Converting Java Object to XML is called as Marshalling
+
+-> Converting XML to Java Object is called as Un-Marshalling
+
+Note: To perform Marshalling or Un-Marshalling binding classes are mandatory
+
+-----------------------------Customer.java------------------------------------
+package com.ashokit.bindings;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Customer {
+
+	@XmlElement(name = "cid")
+	private Integer customerId;
+
+	@XmlElement(name = "cname")
+	private String customerName;
+
+	@XmlElement(name = "cemail")
+	private String customerEmail;
+
+	@XmlAttribute
+	private String type;
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", customerEmail="
+				+ customerEmail + ", type=" + type + "]";
+	}
+
+}
+---------------------------Marshalling.java----------------------------------------
+public class Marshalling {
+
+	public static void main(String[] args) throws Exception {
+
+		Customer c = new Customer();
+		c.setCustomerId(101);
+		c.setCustomerName("Ashok");
+		c.setCustomerEmail("ashokitschool@gmail.com");
+		c.setType("Permanent");
+
+		JAXBContext context = JAXBContext.newInstance(Customer.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.marshal(c, new File("customer.xml"));
+	}
+
+}
+--------------------------UnMarshalling.java--------------------------------------
+public class UnMarshalling {
+
+	public static void main(String[] args) throws Exception {
+
+		JAXBContext context = JAXBContext.newInstance(Customer.class);
+
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		
+		Customer c  = (Customer) unmarshaller.unmarshal(new File("customer.xml"));
+		
+		System.out.println(c);
+	}
+}
+----------------------------------------------------------------------------------
+
+Problems with XML
+-----------------
+-> As we represent data in the form tags, metadata will be more than actual data 
+
+-> XML files are heavy weight hence they occupy more memory
+
+-> To overcome the problems of xml, json came into picture
+
+
+JSON (Java Script Object Notation)
+----------------------------------
+-> JSON is unversal format to exchange data
+
+-> JSON is intereoperable (platform independent & language independent)
+
+-> JSON will represent data in the form of key - value pair
+
+-> JSON data is light weight when compared with xml
+
+--------------------json syntax----------------------------
+{
+  "id" : 101,
+  "name" : "Ashok",
+  "email" : "ashokitschool@gmail.com"
+}
+-----------------------------------------------------------
+
+-> If we want to represent same data in xml format it looks like below
+
+<user>
+  <id>101</id>
+  <name>Ashok</name>
+  <email>ashokitschool@gmail.com</email>
+</user>
+
+---------------------------------------------------------------------------
+
+
+-> To deal with JSON data in java applications we have JACKSON api
+
+-> Using JACKSON api we can convert java object to json and json to java object
+
+-> The process of converting Java Object to JSON is called as Serialization
+
+-> Th process of converting json data to java object is called as De-Serialization
+
+
+Note: JACKSON is third party api, we need to download jars or we should use pom dependency

@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.sql.Connection"/>
-    <fullyQualifiedTypeName name="java.sql.DriverManager"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-    <fullyQualifiedTypeName name="oracle.jdbc.internal.OracleConnection.XSSessionModeFlag"/>
-    <fullyQualifiedTypeName name="java.io.File"/>
-    <fullyQualifiedTypeName name="org.apache.poi.sl.usermodel.Sheet"/>
-    <fullyQualifiedTypeName name="org.apache.poi.ss.util.WorkbookUtil"/>
-    <fullyQualifiedTypeName name="org.apache.commons.math3.util.IterationEvent"/>
-    <fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFCell"/>
-    <fullyQualifiedTypeName name="org.apache.poi.ss.util.CellReference"/>
-    <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.WorkbookFactory"/>
     <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.IndexedColors"/>
     <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.FillPatternType"/>
     <fullyQualifiedTypeName name="org.apache.poi.ss.usermodel.Font"/>
@@ -57,4 +46,18 @@
     <fullyQualifiedTypeName name="java.awt.GridLayout"/>
     <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
     <fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.JAXB"/>
+    <fullyQualifiedTypeName name="com.webserviceBasics.xml.SetterAndGetters"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="jakarta.xml.bind.annotation.XmlRootElement"/>
+    <fullyQualifiedTypeName name="jakarta.xml.bind.JAXBContext"/>
+    <fullyQualifiedTypeName name="jakarta.xml.bind.Marshaller"/>
+    <fullyQualifiedTypeName name="javax.naming.ldap.ManageReferralControl"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.Marshaller"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.annotation.XmlRootElement"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.JAXBContext"/>
+    <fullyQualifiedTypeName name="javax.xml.bind.Unmarshaller"/>
+    <fullyQualifiedTypeName name="ws.Employeee"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
 </qualifiedTypeNameHistroy>
