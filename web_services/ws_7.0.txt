@@ -1,0 +1,40 @@
+Yesterday's session : First Rest Application Development
+---------------------------------------------------------
+
+-> We can develop RESTful services using Spring MVC
+
+-> Using Spring Boot also we can develop RESTful services using below starter
+
+	spring-boot-starter-web
+
+What is RestController?
+-----------------------
+-> RestController is a distributed component which is used to develop RESTful Service or REST API.
+
+-> @RestController annotation we will use at class level to our class as Distributed Component. 
+
+-> IOC container is responsible to create object for Rest Controller classes.
+
+-> The return value of RestController methods will be represented as Response Body.
+
+
+Note: We don't use View Resolver for Rest Controllers
+
+What is @GetMapping ?
+---------------------
+-> Generally we will use @RequestMapping annotation to bind our methods to Http Protocol methods & URL patterns
+
+-> From Spring 4.0 onwards we got below annotations
+
+		@GetMapping
+		@PostMapping
+		@PutMapping
+		@DeleteMapping
+
+-> @GetMapping annotation is used to bind our method to Http Get Request
+
+What is PostMan?
+---------------
+-> PostMan is a software tool which is used to test REST Apis
+
+-> POSTMAN provides great user interface to make rest api calls

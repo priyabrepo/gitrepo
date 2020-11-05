@@ -1,0 +1,19 @@
+Last session : POSTMAN installation
+
+Today's class : Msg Converters Intro
+------------------------------------------------------------
+-> Message converters are used to convert messages in Restful services
+
+-> Rest api methods will be designed with objects of data for loosely coupling
+
+-> Client can't subject and can't recive objects.
+
+-> To achive intereoperability client will send xml/json data as input and client will expect xml/json data as output.
+
+-> Resource side message converters will convert xml/json data to java object and java object to xml/json data
+
+-> With XML & JSON formats we can achieve intereoperability
+
+-> To convert   Xml <------> java objects we will use JAX-B API
+
+-> To convert  Json <------> Java objects we will use JACKSON API.

@@ -1,0 +1,107 @@
+Last session : Message Converters
+
+Today's sesion : XML
+---------------------------------------------
+-> XML stands for extensible markup language
+
+-> XML governed by w3c org
+
+-> The initial version of xml is 1.0 & current version of xml is also 1.0
+
+-> XML is used to store & transfer the data
+
+-> XML is inteoreoperable (Platform independent & Language independent).
+
+-> Every XML contains only one root element
+
+-> In XML, we can see below 2 types of elements
+
+	1)Simple Element
+	2)Compound ELement
+
+-> If the element contains data then it is called as Simple Element
+
+	<id>101</id>
+
+-> If the element contains child elements then it is called as Compound Element
+
+	<name>
+	    <fname>Ashok</fname>
+	    <lname>IT</lname>
+	</name>
+-------------------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<person>
+    <id>101</id>
+    <name>Raju</name>
+    <email>raju.p@gmail.com</email>
+    <job-details>
+          <company-name>TCS</company-name>
+          <experience>10</experience>
+    </job-details>
+</person>
+----------------------------------------------------------------------------------
+Simple Elements : <id>, <name>, <email>, <company-name> and <experience>
+
+Compound Elements : <person> and <job-details>
+
+
+JAX-B API
+---------
+-> JAX-B stands for Java Architecture For XML Binding
+
+-> JAX-B API is used to convert java object to xml and xml to java object
+
+-> Using JAX-B API we will perform below 2 operations
+
+	1) One time operation
+	2) Run time Operations
+
+What is One Time Operation ?
+----------------------------
+-> The process of creating binding classes is called One Time Operation
+
+-> The Java Class Which is representing xml structure is called as binding class.
+
+What is Run Time Operation?
+--------------------------
+-> Runtime operation is classified into 2 types
+
+	a) Marshalling
+	b) Un-Marshalling
+
+-> The process of converting java object to xml data is called as Marshalling
+
+-> The process of converting xml data to java object is called as Un-Marshalling
+
+Note: To perform Runtime operations, one time operation is mandatory.
+
+
+------------------------Customer.java----------------------------------
+@XmlRootElement
+public class Customer {
+
+	private Integer customerId;
+	private String customerName;
+	private String customerEmail;
+
+	//setters & getters
+
+}
+----------------------------Marshalling.java--------------------------------------
+public class Marshalling {
+
+	public static void main(String[] args) throws Exception {
+
+		Customer c = new Customer();
+		c.setCustomerId(101);
+		c.setCustomerName("Ashok");
+		c.setCustomerEmail("ashokitschool@gmail.com");
+
+		JAXBContext context = JAXBContext.newInstance(Customer.class);
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.marshal(c, System.out);
+	}
+
+}
+----------------------------------------------------------------------------------
