@@ -39,7 +39,7 @@ public class JsonMaker {
 		
 		ObjectWriter writer = mapper.writer();
 		try {
-			//to print both the objects separately
+			
 			writer.withRootName("Vehilcle wonership").withDefaultPrettyPrinter().writeValue(new File("generatedJson.json"), list);
 		} catch (JsonGenerationException e) {
 			e.printStackTrace();
