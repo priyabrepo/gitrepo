@@ -1,0 +1,109 @@
+Yesterday's session : JSON Introduction
+
+Today's session : JSON Examples
+-----------------------------------------------------------
+-> JSON stands for Java Script Object Notation
+
+-> JSON is the universal format to exchange data
+
+-> JSON is intereoperable (Platform independent & language independent)
+
+-> JSON will represent data in the form of key & value pair
+
+-> JSON data is light weight when compared with XML
+
+-> To work with JSON data in java application we will use JACKSON api
+
+-> Using Jackson api we can perform below operations
+
+	1) Java object to json conversion (Serialization)
+
+	2) Json to Java Object conversion (De-Serialization)
+
+-> JACKSON is third party api
+
+
+Working with Jackson API
+----------------------------------------------------------
+
+1) Create Maven Project and add below dependency in pom.xml file
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.11.3</version>
+		</dependency>
+
+2) Create Binding Class (POJO)
+
+-------------------------Product.java-----------------------------------
+public class Product {
+
+	@JsonProperty("pid")
+	private Integer productId;
+
+	@JsonProperty("pname")
+	private String productName;
+
+	@JsonProperty("price")
+	private Double productPrice;
+
+	//setters & getters
+	//toString( )
+}
+-----------------------JavaToJsonConverter.java-----------------------
+public class JavaToJsonConverter {
+
+	public static void main(String[] args) throws Exception {
+
+		Product p = new Product();
+		p.setProductId(101);
+		p.setProductName("Keyboard");
+		p.setProductPrice(15000.00);
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writerWithDefaultPrettyPrinter().writeValue(new File("product.json"), p);
+	}
+}
+--------------------------------------JsonToJavaConverter.java---------------------------------
+public class JsonToJavaConverter {
+
+	public static void main(String[] args) throws Exception {
+
+		ObjectMapper mapper = new ObjectMapper();
+		Product product = mapper.readValue(new File("product.json"), Product.class);
+		System.out.println(product);
+	}
+}
+-----------------------------------------------------------------------------------------------
+
+-> When we are performing de-serialization, if key name is not matching with java class variable name Jackson api will throw exception. To avoid that exception we will use below annotation  
+
+			@JsonIgnoreProperties(ignoreUnknown = true)
+
+
+-> When we are performing serialization, jackson api will consider all variables available in java class. If we want to consider only non-null variables then we will use below annotation
+
+			@JsonInclude(value = Include.NON_NULL)
+
+
+---------------------------------------Product.java---------------------------------------------
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = Include.NON_NULL)
+@Data
+public class Product {
+
+	@JsonProperty("pid")
+	private Integer productId;
+
+	@JsonProperty("pname")
+	private String productName;
+
+	@JsonProperty("price")
+	private Double productPrice;
+}
+-----------------------------------------------------------------------------------------------
+
+
+
+
