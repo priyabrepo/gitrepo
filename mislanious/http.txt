@@ -1,0 +1,364 @@
+HTTP : Hypertext Transfer Protocol
+--------------------------------------
+- an application-level protocol for distributed, collaborative, hypermedia information systems.
+- This is the foundation for data communication for the World Wide Web (i.e. internet) since 1990.
+
+Stateless Protocol
+-------------------
+ - Client send request to the server and server response back according to current state.
+ - does not require the server to retain session information or a status about each communicating partner for multiple request.
+ex: HTTP (Hypertext Transfer Protocol), UDP (User Datagram Protocol), DNS (Domain Name System) 
+
+properties
+--------------
+- Stateless Protocol simplify the design of Server.
+- The stateless protocol requires less resources because system do not need to keep track of the multiple link communications and the session details.
+- In Stateless Protocol each information packet travel own it’s own without reference to any other packet.
+- Each communication in Stateless Protocol is discrete and unrelated to those that precedes or follow.
+
+Stateful Protocol:
+-----------------------
+ - In Stateful Protocol If client send a request to the server then it expects some kind of response, if it does not get any response then it resend the request. 
+ - . FTP (File Transfer Protocol), Telnet are the example of Stateful Protocol.
+ 
+ features
+ -------------
+- Stateful Protocols provide better performance to the client by keeping track of the connection information.
+- Stateful Application require Backing storage.
+- Stateful request are always dependent on the server-side state.
+- TCP session follow stateful protocol because both systems maintain information about the session itself during its life.
+
+**HTTP is generic and stateless.
+ -- generic:  no longer owned or legally controlled by a particular company.
+ 
+ TCP/IP
+-----------
+(Transmission control protocol/Internet Protocol)
+ - Specifies how the applications exchange data with each-other over the internet.
+ - theis is a suit of communication protocols that defines how data should be
+    - Broken down
+	- Addressed
+	- Transmited
+	- Routed
+	- reecived
+ TCP: Defines how applications create communication chanells
+    : Manages how message is broken down into packets before transmited over the internet and reassembled at the destination.
+
+ IP :Defines how to address and route each package to ensure it reaches the correct destination.
+ 
+- HTTP is a TCP/IP based communication protocol. 
+- HTTP client, i.e., a browser.
+
+Basic Features of HTTP :
+------------------------
+1.HTTP is connectionless:
+   - HTTP client initiates an HTTP request and after a request is made, the client waits for the response.
+   The server processes the request and sends a response back after which client disconnect the connection.
+   So client and server knows about each other during current request and response only. 
+   Further requests are made on new connection like client and server are new to each other.
+ 
+2.HTTP is media independent:
+   - any type of data can be sent by HTTP as long as both the client and the server know how to handle the data content.
+   It is required for the client as well as the server to specify the content type using appropriate MIME-type.
+      *MIME-type:A MIME type is a label used to identify a type of data.
+             	 It is used so software can know how to handle the data. 
+				 It serves the same purpose on the Internet that file extensions do on Microsoft Windows.
+3.HTTP is stateless.
+
+HTTP/1.0 uses a new connection for each request/response exchange, where as HTTP/1.1 connection may be used for one or more request/response exchanges.
+HTTP Version
+------------
+HTTP uses a <major>.<minor> numbering scheme to indicate versions of the protocol.
+syntax: HTTP-Version   = "HTTP" "/" 1*DIGIT "." 1*DIGIT
+ex: HTTP/1.0 or HTTP/1.1
+
+Uniform Resource Identifiers (URI)
+------------------------------------
+case-insensitive string containing name, location, etc. to identify a resource, for example, a website, a web service, etc. 
+syntax: "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]
+
+- if the port is empty or not given, port 80
+- an empty abs_path is equivalent to an abs_path of "/". 
+- The characters other than those in the reserved and unsafe sets are equivalent to their ""%" 
+
+ex:
+The following three URIs are equivalent:
+
+http://abc.com:80/~smith/home.html
+http://ABC.com/%7Esmith/home.html
+http://ABC.com:/%7esmith/home.html
+
+
+
+- HTTP makes use of the Uniform Resource Identifier (URI) to identify a given resource and to establish a connection. 
+- HTTP requests and HTTP responses use a generic message format of RFC 822 for transferring the required data.
+
+FORMAT
+-------
+1- A Start-line
+
+2- Zero or more header fields followed by CRLF
+
+3- An empty line (i.e., a line with nothing preceding the CRLF) indicating the end of the header fields
+
+4- Optionally a message-body
+
+
+Message Start-Line
+-----------------------
+syntax: start-line = Request-Line | Status-Line
+
+ex: GET /hello.htm HTTP/1.1     (This is Request-Line sent by the client)
+    HTTP/1.1 200 OK             (This is Status-Line sent by the server)
+
+Header Fields
+-----------------------
+provide required information about the request or response, or about the object sent in the message body. 
+
+types
+-----
+1.General-header: These header fields have general applicability for both request and response messages.
+
+2.Request-header: These header fields have applicability only for request messages.
+
+3.Response-header: These header fields have applicability only for response messages.
+
+4.Entity-header: These header fields define meta information about the entity-body or, if no body is present, about the resource identified by the request.
+
+All the above mentioned headers follow the same generic format and each of the header field consists of a name followed by a colon (:) and the field value
+
+syntax: field-name ":" [ field-value ]
+
+Message Body
+--------------
+- The message body part is optional for an HTTP 	
+
+
+Request-Line
+-------------
+begins with a method token, followed by the Request-URI and the protocol version, and ending with CRLF. The elements are separated by space SP characters.
+syntax: Method SP Request-URI SP HTTP-Version CRLF
+
+Request Method
+-----------------
+- equest method indicates the method to be performed on the resource identified by the given Request-URI.
+- The method is case-sensitive and should always be mentioned in uppercase.
+
+methods supported by request method:
+1.GET
+The GET method is used to retrieve information from the given server using a given URI. Requests using GET should only retrieve data and should have no other effect on the data.
+2.HEAD
+Same as GET, but it transfers the status line and the header section only.
+3.POST
+A POST request is used to send data to the server, for example, customer information, file upload, etc. using HTML forms.
+4.PUT
+Replaces all the current representations of the target resource with the uploaded content.
+5.DELETE
+Removes all the current representations of the target resource given by URI.
+6.CONNECT
+Establishes a tunnel to the server identified by a given URI.
+7.OPTIONS
+Describe the communication options for the target resource.
+8.TRACE
+Performs a message loop back test along with the path to the target resource.
+
+Request-URI
+--------------------
+syntax: "*" | absoluteURI | abs_path | authority
+
+"*"
+The asterisk * is used when an HTTP request does not apply to a particular resource, but to the server itself, 
+and is only allowed when the method used does not necessarily apply to a resource. 
+For example: OPTIONS * HTTP/1.1
+
+absoluteURI
+The absoluteURI is used when an HTTP request is being made to a proxy. The proxy is requested to forward the request or service from a valid cache, 
+and return the response.
+ For example: GET http://www.w3.org/pub/WWW/TheProject.html HTTP/1.1
+
+abs_path
+The most common form of Request-URI is that used to identify a resource on an origin server or gateway
+For example, a client wishing to retrieve a resource directly from the origin server would create a TCP connection to port 80 of the host "www.w3.org" and send the following lines:
+GET /pub/WWW/TheProject.html HTTP/1.1
+
+Host: www.w3.org
+
+Note that the absolute path cannot be empty; if none is present in the original URI, it MUST be given as "/" (the server root).
+
+
+
+Status Code
+-------------
+1.	1xx: Informational
+It means the request was received and the process is continuing.
+   - 100 Continue - Only a part of the request has been received by the server, but as long as it has not been rejected, the client should continue with the request.
+   - 101 Switching Protocols	- The server switches protocol.
+	
+2.	2xx: Success
+It means the action was successfully received, understood, and accepted.
+    - 200 OK	- The request is OK.
+	- 201 Created	- The request is complete, and a new resource is created .
+	- 202 Accepted	- The request is accepted for processing, but the processing is not complete.
+	- 203 Non-authoritative - Information	The information in the entity header is from a local or third-party copy, not from the original server.
+	- 204 No Content	- A status code and a header are given in the response, but there is no entity-body in the reply.
+	- 205 Reset Content	- The browser should clear the form used for this transaction for additional input.
+	
+3.	3xx: Redirection
+It means further action must be taken in order to complete the request.
+    - 300 Multiple Choices	- A link list. The user can select a link and go to that location. Maximum five addresses  .
+	- 301 Moved Permanently	- The requested page has moved to a new url .
+	- 302 Found	 - The requested page has moved temporarily to a new url .
+
+4.	4xx: Client Error
+It means the request contains incorrect syntax or cannot be fulfilled.
+    - 400 Bad Request	The server did not understand the request.
+	- 401 Unauthorized	The requested page needs a username and a password.\
+	- 402 Payment Required	You can not use this code yet.
+
+5.	5xx: Server Error
+It means the server failed to fulfill an apparently valid request.
+    - 500 Internal Server Error	The request was not completed. The server met an unexpected condition.
+	- 501 Not Implemented	The request was not completed. The server did not support the functionality required.
+	- 502 Bad Gateway	The request was not completed. The server received an invalid response from the upstream server.
+	- 503 Service Unavailable	The request was not completed. The server is temporarily overloading or down.
+	- 504 Gateway Timeout	The gateway has timed out.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

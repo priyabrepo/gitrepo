@@ -9,7 +9,7 @@
  - annotation
  
 4.webservices *
-   xml,jax-B,json,
+   xml,jax-B,json,http requests,spring web mvc,Spring anotation
 
 5.opentext bpm *
 

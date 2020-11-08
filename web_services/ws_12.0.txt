@@ -1,0 +1,43 @@
+Yesterday's session : JAX-B api & Jackson api
+---------------------------------------------
+
+-> JAX-B api is used to deal with xml data in java applications in the form of objects
+
+			jax-b api
+		xml <---------------> java obj
+
+
+-> Jackson api is used to deal with json data in java applications
+
+			jackson api
+		json <----------------> java obj
+
+---------------------------------------------------------------
+
+-> Using Spring Web MVC module we are developing Rest API
+
+-> We will use below annotations as part of our Rest API development
+
+		a) @RestController
+	
+		b) @RequestMapping
+
+		c) @GetMapping
+
+		d) @PostMapping
+
+		e) @PutMapping
+
+		f) @DeleteMapping
+
+		g) @RequestBody
+
+		h) @ResponseBody
+
+Http GET Request
+----------------
+-> Http GET request is used to retrieve information from server
+
+-> HTTP GET request  will not contain body
+
+-> In Http GET Request we can send data to server in URL using QueryParams & Path Params
