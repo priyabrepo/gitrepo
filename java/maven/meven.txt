@@ -11,10 +11,13 @@ Instaling
 	  4. Add MAVEN_HOME system variable : 
 	      MAVEN_HOME 
 	      c:\opt\apache-maven-3.6.0
-	  5. Add %MAVEN_HOME%\bin To PATH (system variables)
+	  5. Add %MAVEN_HOME%\bin.For example, E:\apache-maven-3.1.1\bin . To PATH (system variables)
 	  6. Verification
 	       >mvn -version 
-		   >echo %MAVEN_HOME%
+		   >
+		   
+Instaling jar in maven:	$ mvn install:install-file -Dfile=path/to/your/ojdbc8.jar -DgroupId=com.oracle
+	-DartifactId=ojdbc8 -Dversion=19.3 -Dpackaging=jar
 On Eclipse
 ---------------
 1.Open Eclipse IDE
