@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+
+<bean id="EmpBean" class="com.spring.constructorDI.Employee">
+<constructor-arg value="1" type="Integer"></constructor-arg>
+<constructor-arg value="Priyabratta" ></constructor-arg>
+</bean>
+
+<bean id="AdrsBean" class="com.spring.constructorDI.Address">
+<constructor-arg value="bbsr"></constructor-arg>
+<constructor-arg value="Odisha"></constructor-arg>
+<constructor-arg value="India"></constructor-arg>
+</bean>
+
+<bean id="compBean" class="com.spring.constructorDI.Company">
+<constructor-arg value="Ninjarow"></constructor-arg>
+<constructor-arg>
+<map>
+<entry key-ref="EmpBean" value-ref="AdrsBean"></entry>
+</map>
+</constructor-arg>
+</bean>
+
+</beans>

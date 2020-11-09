@@ -1,0 +1,406 @@
+Spring
+--------
+Spring is a lightweight framework. It can be thought of as a framework of frameworks because it provides support to various frameworks such as Struts,
+ Hibernate, Tapestry, EJB, JSF, etc. The framework, in broader sense, can be defined as a structure where we find solution of the various technical problems.
+ 
+ 
+Inversion Of Control (IOC) 
+-----------------------------------------------------
+- Inversion of Control is a principle in software engineering by which the control of objects or portions of a program is transferred to a container or framework. 
+  It's most often used in the context of object-oriented programming.
+-  If we want to add our own behavior, we need to extend the classes of the framework or plugin our own classes.
+ 
+  advantages of Inversion Of Control (IOC)
+  ------------------------------------------
+
+1.decoupling the execution of a task from its implementation
+2.making it easier to switch between different implementations
+3.greater modularity of a program
+4.greater ease in testing a program by isolating a component or mocking its dependencies and allowing components to communicate through contracts
+
+ Dependency Injection
+ ---------------------
+ - Dependency injection is a pattern through which we implement IoC.
+ - The act of connecting objects with other objects, or “injecting” objects into other objects, is done by an assembler rather than by the objects themselves.
+ 
+ 
+ex:
+  create an object dependency in traditional programming:
+
+public class Store {
+    private Item item;
+ 
+    public Store() {
+        item = new ItemImpl1();    
+    }
+}
+
+   
+   By using Dependancy Injection, we can rewrite the example without specifying the implementation of Item that we want:
+
+public class Store {
+    private Item item;
+    public Store(Item item) {
+        this.item = item;
+    }
+}
+ 
+  - IOC makes the code loosely coupled. so,there is no tight coupling and there is no need to modify the code if our logic is moved to new environment.
+  - In Spring framework, IOC container is responsible to inject the dependency. 
+  - We provide metadata to the IOC container either by XML file or annotation.
+ 
+Advantage of Dependency Injection
+makes the code loosely coupled so easy to maintain
+makes the code easy to test
+ 
+ 
+ 
+ Advantages of Spring Framework
+ ---------------------------------
+ 1) Predefined Templates
+ Spring framework provides templates for JDBC, Hibernate, JPA etc.
+ 2) Loose Coupling
+ The Spring applications are loosely coupled because of dependency injection.
+ 3) Easy to test
+ The Dependency Injection makes easier to test the application. 
+ 4) Lightweight
+ Spring framework is lightweight because of its POJO implementation. The Spring Framework doesn't force the programmer to inherit any class or implement any interface.
+ That is why it is said non-invasive.
+ 5) Fast Development
+ The Dependency Injection feature of Spring Framework and it support to various frameworks makes the easy development of JavaEE application.
+ 6) Powerful abstraction
+ It provides powerful abstraction to JavaEE specifications such as JMS, JDBC, JPA and JTA.
+ 7) Declarative support
+ It provides declarative support for caching, validation, transactions and formatting.
+ 
+ 
+ 
+ Spring Modules
+ ---------------
+1.Test
+This layer provides support of testing with JUnit and TestNG.
+
+2.Spring Core Container
+The Spring Core container contains core, beans, context and expression language (EL) modules.
+   - Core and Beans
+     These modules provide IOC and Dependency Injection features.
+   - Context
+     This module supports internationalization (I18N), EJB, JMS, Basic Remoting.
+   - Expression Language
+     It is an extension to the EL defined in JSP. It provides support to setting and getting property values,
+     method invocation, accessing collections and indexers, named variables, logical and arithmetic operators, retrieval of objects by name etc.
+
+3.AOP, Aspects and Instrumentation
+These modules support aspect oriented programming implementation where you can use Advices, Pointcuts etc. to decouple the code.
+The aspects module provides support to integration with AspectJ.
+The instrumentation module provides support to class instrumentation and classloader implementations.
+
+4.Data Access / Integration
+This group comprises of JDBC, ORM, OXM, JMS and Transaction modules. These modules basically provide support to interact with the database.
+
+5.Web
+This group comprises of Web, Web-Servlet, Web-Struts and Web-Portlet. These modules provide support to create web application.
+ 
+ IoC Container
+ ---------------
+ - The IoC container is responsible to instantiate, configure and assemble the objects.
+ - The IoC container gets informations from the XML file and works accordingly.
+ 
+ The main tasks performed by IoC container are:
+
+1.to instantiate the application class
+2.to configure the object
+3.to assemble the dependencies between the objects
+
+There are two types of IoC containers.(interfaces)
+  1.BeanFactory - org.springframework.beans.factory.BeanFactory // depriciated
+  2.ApplicationContext - org.springframework.context.ApplicationContext
+  
+The ApplicationContext interface is built on top of the BeanFactory interface.
+It adds some extra functionality than BeanFactory such as simple integration with Spring's AOP, message resource handling (for I18N), event propagation, application layer specific context 
+(e.g. WebApplicationContext) for web application. 
+So it is better to use ApplicationContext than BeanFactory.
+ 
+ ex: ApplicationContext context =  new ClassPathXmlApplicationContext("applicationContext.xml");  
+ 
+ Dependency Injection (DI)
+ --------------------------
+ - a design pattern that removes the dependency from the programming code so that it can be easy to manage and test the application. 
+ - Dependency Injection makes our programming code loosely coupled. 
+ 
+ Dependency Lookup and its disadvantages.
+ -----------------------------------------
+ - The Dependency Lookup is an approach where we get the resource after demand. 
+ 
+ ways of dependancy injection:
+ - A obj = new AImpl();  
+ - A obj = A.getA(); 
+ - (By JNDI (Java Naming Directory Interface) )
+   Context ctx = new InitialContext();  
+   Context environmentCtx = (Context) ctx.lookup("java:comp/env");  
+   A obj = (A)environmentCtx.lookup("A");  
+   
+ Problems
+ 1.Tightly coupling.
+ 2. Not easy for testing.
+ 
+ Dependency Injection
+ --------------------
+ The Dependency Injection is a design pattern that removes the dependency of the programs. In such case we provide the information from the external source such as XML file. 
+ 
+Two ways to perform Dependency Injection in Spring framework
+
+1.By Constructor
+2.By Setter method
+
+By Constructor:
+--------------
+ex:
+gitrepo\workspace\springWS\springFirst\src\main\java\com\spring\constructorDI\TestEmployee.java
+gitrepo\workspace\springWS\springFirst\src\main\java\DIconstructor.xml
+
+- which constructor will be called, depends on the <constructor-arg> passed from the xml.
+- if no  <constructor-arg> passed. default constructor will be called.
+- for string type <constructor-arg>, we dont have to define type.(by default takes as string.)
+- if <constructor-arg> doesnot match any constructor, Error.Unsatisfied dependency...
+Injecting Object
+-------------------
+- Define the injecting class bean first.
+- The ref attribute is used to define the reference of another object, such way we are passing the dependent object as an constructor argument.
+
+ex:
+gitrepo\workspace\springWS\springFirst\src\main\java\PersonContext.xml
+gitrepo\workspace\springWS\springFirst\src\main\java\com\spring\constructorDI\TestPerson.java
+
+Injecting collections
+----------------------
+- We can inject collection values by constructor in spring framework
+- There can be used three elements inside the constructor-arg element.
+   1.list
+   2.set
+   3.map
+- For list<String>,
+   ex:gitrepo\workspace\springWS\springFirst\src\main\java\ConfigQuestion.xml
+      gitrepo\workspace\springWS\springFirst\src\main\java\com\spring\constructorDI\TestQsn.java	  
+<constructor-arg>  
+<list>  
+<value>Java is a programming language</value>  
+<value>Java is a Platform</value>  
+<value>Java is an Island of Indonasia</value>  
+</list>  
+</constructor-arg> 
+
+- for list<Object>
+ex: gitrepo\workspace\springWS\springFirst\src\main\java\configQstn1.xml
+    gitrepo\workspace\springWS\springFirst\src\main\java\com\spring\constructorDI\Questions1.java
+	
+- for Map<String,String>
+ex:/springFirst/src/main/java/DepartmentConfig.xml
+   /springFirst/src/main/java/com/spring/constructorDI/Department.java
+
+- for Map<Obj,obj>
+ex:/springFirst/src/main/java/CompnyContext.xml
+   /springFirst/src/main/java/com/spring/constructorDI/TestComp.java
+   
+- for bean inheriting bean:
+parent=""
+ex: /springFirst/src/main/java/InheritBeanContext.xml
+    /springFirst/src/main/java/com/spring/constructorDIInherit/Person.java
+
+Setter Injection
+------------------
+use <property> insted of <constructor-arg>
+
+Setter Injection VS Constructor Injection
+------------------------------------------
+- Partial dependency: can be injected using setter injection but it is not possible by constructor. Suppose there are 3 properties in a class, having 3 arg constructor and setters methods. 
+  In such case, if you want to pass information for only one property, it is possible by setter method only.
+  
+- Overriding: Setter injection overrides the constructor injection. If we use both constructor and setter injection, IOC container will use the setter injection.
+
+- Changes: We can easily change the value by setter injection. It doesn't create a new bean instance always like constructor. So setter injection is flexible than constructor injection.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
