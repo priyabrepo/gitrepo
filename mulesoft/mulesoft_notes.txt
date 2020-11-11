@@ -1,0 +1,25 @@
+Mulesoft
+---------------
+
+contact:918088910831
+sivaprasad.valluru@gmail.com
+*************************************************************************
+Mule 4 :
+---------
+pre requirment
+--------------
+soap,soap messaging,soap Q
+jms
+wsdl
+rest
+studio
+------------
+anypoint studio
+
+ESB(Enterprise Service Bus)
+---
+ - for using SOAP WS.
+ - for loos coupling.
+ (logical coupling: consumer need not know the service provider and vise versa)
+ - 
+

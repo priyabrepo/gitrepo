@@ -1,0 +1,164 @@
+Web Service Components
+-------------------------
+1.SOAP
+2.WSDL
+3.UDDI
+
+
+
+
+SOAP (Simple Object Access Protocol)
+-------------------------------------
+- It is a XML-based protocol for accessing web services.
+
+Advantages
+-----------
+- WS Security: SOAP defines its own security known as WS Security.
+- Language and Platform independent:Becaous of xml.
+
+Disadvantages
+-------------
+- Slow: SOAP uses XML format that must be parsed to be read. It defines many standards that must be followed while developing the SOAP applications. So it is slow and consumes more bandwidth and resource.
+- WSDL dependent: SOAP uses WSDL and doesn't have any other mechanism to discover the service.
+
+
+WSDL
+-------
+- Web Services Description Language
+- WSDL is a xml document containing information about web services such as method name, method parameter and how to access it.
+- WSDL is a part of UDDI. It acts as a interface between web service applications.
+
+UDDI
+-----
+- UDDI is an acronym for Universal Description, Discovery and Integration.
+- UDDI is a XML based framework for describing, discovering and integrating web services.
+- UDDI is a directory of web service interfaces described by WSDL, containing information about web services.
+
+SOA (Service Oriented Architecture)
+------------------------------------
+- a design pattern which is designed to build distributed systems that deliver services to other applications through the protocol.
+- It is only a concept and not limited to any programming language or platform.
+
+Service
+---------
+- A service is a unit of functionality i.e well-defined, self-contained function.
+-  A service can exchange information from another service.
+- It is not dependent on the state of another service. It uses a loosely coupled, message-based communication model to communicate with applications and other services.
+
+Service-Oriented Terminologies
+----------------------------------
+- Services - The services are the logical entities defined by one or more published interfaces.
+- Service provider - It is a software entity that implements a service specification.
+- Service consumer - It can be called as a requestor or client that calls a service provider. A service consumer can be another service or an end-user application.
+- Service locator - It is a service provider that acts as a registry. It is responsible for examining service provider interfaces and service locations.
+- Service broker - It is a service provider that pass service requests to one or more additional service providers.
+
+SOA charactors
+------------------
+- loosely coupled.
+- support interoperability.
+- location-transparent(defined location).
+- self-contained.
+
+Components of SOA
+------------------
+1. Functional aspects
+     - Transport - It transports the service requests and service responses.
+	 - Service Communication Protocol - It allows the service provider and the service consumer to communicate with each other by mutual protocol.
+	 - Service Description - It describes the service and data required to invoke it.
+	 - Service - It is an actual service.
+	 - Business Process - It represents the group of services called in a particular sequence associated with the particular rules to meet the business requirements.
+	 - Service Registry - It contains the description of data which is used by service providers to publish their services.
+2.Quality of Service aspects
+     - Policy - It represents the set of protocols according to which a service provider make and provide the services to consumers.
+	 - Security - It represents the set of protocols required for identification and authorization.
+	 - Transaction - It provides the surety of consistent result. This means, if we use the group of services to complete a business function, either all must complete or none of the complete.
+	 - Management - It defines the set of attributes used to manage the services.
+	 
+advantages of SOA:
+
+Easy to integrate - In a service-oriented architecture, the integration is a service specification that provides implementation transparency.
+Manage Complexity - Due to service specification, the complexities get isolated, and integration becomes more manageable.
+Platform Independence - The services are platform-independent as they can communicate with other applications through a common language.
+Loose coupling - It facilitates to implement services without impacting other applications or services.
+Parallel Development - As SOA follows layer-based architecture, it provides parallel development.
+Available - The SOA services are easily available to any requester.
+Reliable - As services are small in size, it is easier to test and debug them.
+
+Java Web Services
+-----------------
+1.SOAP : JAX-WS 
+      The are two ways to write JAX-WS application code: by RPC style and Document style.
+2.RESTfull : JAX-RS
+      2 implementation currently in use for creating JAX-RS application: Jersey and RESTeasy.
+	  
+java web service application perform communication through WSDL (Web Services Description Language).	 
+
+JAX-WS
+-------------
+- provides concepts and examples of JAX-WS API
+1.RPC style
+2.Document style
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
