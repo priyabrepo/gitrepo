@@ -9853,3 +9853,15 @@ org.eclipse.core.runtime.CoreException: Launch configuration HelloRPCPublisher r
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-11-11 06:25:37.418
 !MESSAGE executing callback sts4.classpath.ikelddLa SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-11-11 07:57:16.295
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.ikelddLa
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-11-11 07:57:16.296
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.ikelddLa
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-11-11 07:57:16.296
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-11-11 07:57:16.297
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.ikelddLa => OK

@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.poireport.monthlytimesheet.GenarateTimeSheet"/>
-    <fullyQualifiedTypeName name="javax.swing.JLabel"/>
-    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
-    <fullyQualifiedTypeName name="javax.swing.JButton"/>
-    <fullyQualifiedTypeName name="javax.swing.JPanel"/>
-    <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
-    <fullyQualifiedTypeName name="java.awt.GridLayout"/>
-    <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
-    <fullyQualifiedTypeName name="java.awt.event.ActionEvent"/>
-    <fullyQualifiedTypeName name="javax.xml.bind.JAXB"/>
-    <fullyQualifiedTypeName name="com.webserviceBasics.xml.SetterAndGetters"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="jakarta.xml.bind.annotation.XmlRootElement"/>
     <fullyQualifiedTypeName name="jakarta.xml.bind.JAXBContext"/>
@@ -60,4 +49,15 @@
     <fullyQualifiedTypeName name="org.apache.commons.io.FileUtils"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.core.JsonParser"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.core.JsonToken"/>
+    <fullyQualifiedTypeName name="javax.jws.soap.SOAPBinding"/>
+    <fullyQualifiedTypeName name="javax.jws.WebMethod"/>
+    <fullyQualifiedTypeName name="javax.jws.WebService"/>
+    <fullyQualifiedTypeName name="javax.xml.ws.Endpoint"/>
+    <fullyQualifiedTypeName name="com.soap.rpcStyle.HelloRPCPublisher"/>
+    <fullyQualifiedTypeName name="javax.xml.namespace.QName"/>
+    <fullyQualifiedTypeName name="java.net.URL"/>
+    <fullyQualifiedTypeName name="com.sun.xml.ws.wsdl.writer.document.Service"/>
+    <fullyQualifiedTypeName name="javax.xml.ws.Service"/>
+    <fullyQualifiedTypeName name="com.soap.rpcStyle.HelloRPC"/>
+    <fullyQualifiedTypeName name="com.soap.rpcStyle.HelloRPCImpl"/>
 </qualifiedTypeNameHistroy>

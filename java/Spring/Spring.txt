@@ -1,3 +1,20 @@
+topics
+-----------
+1.IoC ..
+2.DI ..
+3.Autowriting ..
+4.Factory method ..
+5.Spring JDBC
+6.Spring Anotation
+7.Spring MVC
+   - Tag Library
+   - Applications
+   - MVC Validation
+   - MVC Tiles
+8.SPring Web
+9.Spring Security
+10.Spring Boot
+
 Spring
 --------
 Spring is a lightweight framework. It can be thought of as a framework of frameworks because it provides support to various frameworks such as Struts,
@@ -232,6 +249,112 @@ No.	Mode	             Description
 3)	byType	            The byType mode injects the object dependency according to type. So property name and bean name can be different. It internally calls setter method.
 4)	constructor      	The constructor mode injects the dependency by calling the constructor of the class. It calls the constructor having large number of parameters.
 5)	autodetect	        It is deprecated since Spring 3.
+
+
+Spring AOP(Aspect Oriented Programming )
+-----------------------------------------
+- compliments OOPs in the sense that it also provides modularity. But the key unit of modularity is aspect than class.
+- AOP breaks the program logic into distinct parts (called concerns). It is used to increase modularity by cross-cutting concerns.
+- A cross-cutting concern is a concern that can affect the whole application and should be centralized in one location in code as possible,
+  such as transaction management, authentication, logging, security etc.
+- It provides the pluggable way to dynamically add the additional concern before, after or around the actual logic.
+AOP is mostly used in following cases:
+---------------------------------------------
+to provide declarative enterprise services such as declarative transaction management.
+It allows users to implement custom aspects.
+
+AOP concepts and terminologies are as follows:
+---------------------------------------------
+1.Join point
+  - Join point is any point in your program such as method execution, exception handling, field access etc. Spring supports only method execution join point.
+
+2.Advice
+  - Advice represents an action taken by an aspect at a particular join point. 
+    Types of advice
+	---------------
+	1.Before Advice: it executes before a join point.
+	2.After Returning Advice: it executes after a joint point completes normally.
+	3.After Throwing Advice: it executes if method exits by throwing an exception.
+	4.After (finally) Advice: it executes after a join point regardless of join point exit whether normally or exceptional return.
+	5.Around Advice: It executes before and after a join point.
+	
+3.Pointcut
+  - It is an expression language of AOP that matches join points.
+  - It means introduction of additional method and fields for a type. It allows you to introduce new interface to any advised object.
+  
+4.Introduction
+  - It means introduction of additional method and fields for a type. It allows you to introduce new interface to any advised object.
+
+5.Target Object
+  - It is the object i.e. being advised by one or more aspects. It is also known as proxied object in spring because Spring AOP is implemented using runtime proxies.
+  
+6.Aspect
+  - It is a class that contains advices, joinpoints etc.
+  
+7.Interceptor
+  - It is an aspect that contains only one advice.
+8.AOP Proxy
+  - It is used to implement aspect contracts, created by AOP framework. It will be a JDK dynamic proxy or CGLIB proxy in spring framework.
+9.Weaving
+  - It is the process of linking aspect with other application types or objects to create an advised object. Weaving can be done at compile time, 
+    load time or runtime. Spring AOP performs weaving at runtime.
+
+Spring JDBC
+-------------
+Spring JdbcTemplate is a powerful mechanism to connect to the database and execute SQL queries. It internally uses JDBC api, but eliminates a lot of problems of JDBC API
+
+problems of JDBC API that spring JDBC fixes
+-------------------------------------------------
+1.lot of code before and after executing the query, such as creating connection, statement, closing resultset, connection etc.
+2.need to perform exception handling code on the database logic.
+3.need to handle transaction.
+4.Repetition of all these codes from one to another database logic is a time consuming task.
+
+Spring framework provides following approaches for JDBC database access:
+
+1.JdbcTemplate
+2.NamedParameterJdbcTemplate
+3.SimpleJdbcTemplate
+4.SimpleJdbcInsert and SimpleJdbcCall
+
+1.JdbcTemplate
+--------------------
+- the central class in the Spring JDBC support classes.
+- It takes care of creation and release of resources such as creating and closing of connection object 
+- It handles the exception and provides the informative exception messages by the help of excepion classes defined in the org.springframework.dao package.
+- We can perform all the database operations by the help of JdbcTemplate class such as insertion, updation, deletion and retrieval of the data from the database.
+
+sl     method                                                      Description
+1.  -  public int update(String query)                        -    is used to insert, update and delete records.
+2.  -  public int update(String query,Object... args)         -    is used to insert, update and delete records using PreparedStatement using given arguments.
+3.  -  public void execute(String query)                      -    is used to execute DDL query.
+4.  -  public T execute(String sql,
+              PreparedStatementCallback action)               -    executes the query by using PreparedStatement callback.
+5.  -  	public T query(String sql, ResultSetExtractor rse)    -    is used to fetch records using ResultSetExtractor.
+6.  -   public List query(String sql, RowMapper rse)          -    is used to fetch records using RowMapper.			  
+			 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
