@@ -333,10 +333,120 @@ sl     method                                                      Description
 5.  -  	public T query(String sql, ResultSetExtractor rse)    -    is used to fetch records using ResultSetExtractor.
 6.  -   public List query(String sql, RowMapper rse)          -    is used to fetch records using RowMapper.			  
 			 
+//for oracle
+<bean id ="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+<property name="url" value="jdbc:oracle:thin:@//localhost:1521/orcl"></property>
+<property name="username" value="C##admin"></property>
+<property name="password" value="admin"></property>
+</bean>
+
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+<property name="dataSource" ref="ds"></property>  
+</bean>  
+
+<bean id="edao" class="com.spring.jdbc.EmployeeDao">  
+<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+</bean> 
 
 
+//jdbc bean
+public int saveEmployee(Employee e){  
+    String query="insert into employee values(  
+    '"+e.getId()+"','"+e.getName()+"','"+e.getSalary()+"')";  
+    return jdbcTemplate.update(query);  
+}  
+public int updateEmployee(Employee e){  
+    String query="update employee set   
+    name='"+e.getName()+"',salary='"+e.getSalary()+"' where id='"+e.getId()+"' ";  
+    return jdbcTemplate.update(query);  
+}  
+public int deleteEmployee(Employee e){  
+    String query="delete from employee where id='"+e.getId()+"' ";  
+    return jdbcTemplate.update(query);  
+}  
+
+//prepaired statement
+
+public Boolean saveEmployeeByPreparedStatement(final Employee e){  
+    String query="insert into employee values(?,?,?)";  
+    return jdbcTemplate.execute(query,new PreparedStatementCallback<Boolean>(){  
+    @Override  
+    public Boolean doInPreparedStatement(PreparedStatement ps)  
+            throws SQLException, DataAccessException {  
+              
+        ps.setInt(1,e.getId());  
+        ps.setString(2,e.getName());  
+        ps.setFloat(3,e.getSalary());  
+              
+        return ps.execute();  
+              
+    }  
+    });  
+}  
+
+//resultset
+public List<Employee> getAllEmployees(){  
+ return template.query("select * from employee",new ResultSetExtractor<List<Employee>>(){  
+    @Override  
+     public List<Employee> extractData(ResultSet rs) throws SQLException,  
+            DataAccessException {  
+      
+        List<Employee> list=new ArrayList<Employee>();  
+        while(rs.next()){  
+        Employee e=new Employee();  
+        e.setId(rs.getInt(1));  
+        e.setName(rs.getString(2));  
+        e.setSalary(rs.getInt(3));  
+        list.add(e);  
+        }  
+        return list;  
+        }  
+    });  
+  }  
+}  
+
+//row mapper
+
+public List<Employee> getAllEmployeesRowMapper(){  
+ return template.query("select * from employee",new RowMapper<Employee>(){  
+    @Override  
+    public Employee mapRow(ResultSet rs, int rownumber) throws SQLException {  
+        Employee e=new Employee();  
+        e.setId(rs.getInt(1));  
+        e.setName(rs.getString(2));  
+        e.setSalary(rs.getInt(3));  
+        return e;  
+    }  
+    });  
+}  
+
+//named parameters
+
+public  void save (Emp e){  
+String query="insert into employee values (:id,:name,:salary)";  
+  
+Map<String,Object> map=new HashMap<String,Object>();  
+map.put("id",e.getId());  
+map.put("name",e.getName());  
+map.put("salary",e.getSalary());  
+  
+template.execute(query,map,new PreparedStatementCallback() {  
+    @Override  
+    public Object doInPreparedStatement(PreparedStatement ps)  
+            throws SQLException, DataAccessException {  
+        return ps.executeUpdate();  
+    }  
+});  
+}  
 
 
+//
+
+public int update (Emp e){  
+String query="update employee set name=? where id=?";  
+return template.update(query,e.getName(),e.getId());
+}
 
 
 
