@@ -8,9 +8,9 @@ Mule 4 :
 ---------
 pre requirment
 --------------
-soap,soap messaging,soap Q
+soap,soap messaging,soap Q,wsdl
 jms
-wsdl
+
 rest
 studio
 ------------
