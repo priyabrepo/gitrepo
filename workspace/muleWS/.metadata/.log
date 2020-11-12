@@ -202,3 +202,6 @@ Caused by: java.net.UnknownHostException: studio-metrics-report.cloudhub.io
 	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
 	at com.mulesoft.telemetry.TelemetryHttpClient.send(TelemetryHttpClient.java:107)
 	... 9 more
+
+!ENTRY org.mule.tooling.ui.contribution.munit 1 1 2020-11-11 21:18:33.814
+!MESSAGE Deleting MUnit temporary folder in C:\Users\Priya\AppData\Local\Temp\munit-temp-dir
