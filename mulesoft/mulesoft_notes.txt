@@ -1,4 +1,4 @@
-Mulesoft
+Mulesoft 4
 ---------------
 
 contact:918088910831
@@ -6,12 +6,13 @@ sivaprasad.valluru@gmail.com
 *************************************************************************
 Mule 4 :
 ---------
+
 pre requirment
 --------------
 soap,soap messaging,soap Q,wsdl
-jms
-
+jms 
 rest
+
 studio
 ------------
 anypoint studio
@@ -23,3 +24,142 @@ ESB(Enterprise Service Bus)
  (logical coupling: consumer need not know the service provider and vise versa)
  - 
 
+What is Orchestration ?
+----------------------
+- the process of co-ordinating with multiple services and getting the desired work done.
+- A mule application contains multiple no of work flows which contain orchestration logic.
+- Orchestration is implimented thrugh XML
+
+mulesoft provides mule run time.where we can deploy our mule applications.
+mule contains XML files. Each XML contain Orchestration logic.
+
+for SOAP - WSDL
+for RESTfull - --
+for Mulesoft - RAML
+ - (by API designer) - for API designing
+ - API Exchange / Anypoint Exchange - for publishing APIs
+ - API portal - to share the APIs(URLs)
+ - API Manager - for Security 
+ - Anypoint Editor
+ - ipass cloud hub intigration platform(cloud)
+  
+  
+  
+  
+  http://resources.way2learnonline.com/mule4way2learn/mule-2020-labs-may.zip
+  http://resources.way2learnonline.com/mule4way2learn/
+  
+  new- project- ws - create
+  
+  
+  download - extract - lunch
+  
+  set workspace- file - new - mule project-
+  giv name- ren time for deployment(avoilable as plugin) - finish
+  src/main/mule - XML file(configuration of flow)
+  src/main/java - java code.
+  resources - configuration/properties files/ml files
+  pom - group id : com.company
+        artifact id : domain name
+		
+		two default dependancyes.
+		1. mule http connector dependancy
+		2. mule socket connector dependancy
+		
+ purpose:
+ listin to http requests at a port
+ convert http message to mule message and keep it inside a Q
+  - http message contain reqHeader.reqBody
+  - to mule format(mule message)
+ Mule message is a data structure?JavaClass.contains 2 parts.
+    1.Attribute
+	2.Payload
+conversion
+----------
+Http header copyed at Attribute.
+Http body copyed as Payload.
+
+Any request which will take any(can be any type http, soap..) request into the flow is called in-bound end point
+
+- http listiner will convert the http to mule mesage as attribule and payload and wrape both in another object called mule event
+
+mule event.
+ -java class .
+ - has 2 parts.
+    1. mule mesage(attribute+payload)
+	2. variables
+
+|                          |
+|                          |
+|                          |
+|                          |
+|                          |
+|                          |
+---------------------------
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ 
+ 
+ 
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
