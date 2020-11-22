@@ -1,0 +1,34 @@
+SOAP (Simple Object Access Protocol)
+***********************************
+ XML-based messaging protocol for exchanging information/communication protocol designed to communicate via Internet.
+ - SOAP can extend HTTP for XML messaging.
+ - SOAP provides data transport for Web services.
+ - SOAP can exchange complete documents or call a remote procedure.
+ - SOAP is platform- and language-independent.
+ 
+ SOAP message is an ordinary XML document containing the following elements
+ 1.Envelope − Defines the start and the end of the message. It is a mandatory element.
+ 2.Header − Contains any optional attributes of the message used in processing the message, either at an intermediary point or at the ultimate end-point. It is an optional element.
+ 3.Body − Contains the XML data comprising the message being sent. It is a mandatory element.
+ 4.Fault − An optional Fault element that provides information about errors that occur while processing the message.
+ 
+ Structure
+ --------------
+ <?xml version = "1.0"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV = "http://www.w3.org/2001/12/soap-envelope" 
+   SOAP-ENV:encodingStyle = "http://www.w3.org/2001/12/soap-encoding">
+
+   <SOAP-ENV:Header>
+      ...
+      ...
+   </SOAP-ENV:Header>
+   <SOAP-ENV:Body>
+      ...
+      ...
+      <SOAP-ENV:Fault>
+         ...
+         ...
+      </SOAP-ENV:Fault>
+      ...
+   </SOAP-ENV:Body>
+</SOAP_ENV:Envelope>

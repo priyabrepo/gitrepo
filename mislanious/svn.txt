@@ -1,0 +1,12 @@
+SVN
+--------
+instal SVN
+create folder.Right click>Tortois SVN>create repository here
+>copy scm url form project.
+>right click on local folder>Repobrouser
+>right click> checkout
+
+after changes..
+
+right click>svn> svn commit(shows changes)> ok
+

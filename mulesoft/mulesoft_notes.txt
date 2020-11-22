@@ -88,15 +88,10 @@ mule event.
  - has 2 parts.
     1. mule mesage(attribute+payload)
 	2. variables
+in memori Qs aclled channels
 
-|                          |
-|                          |
-|                          |
-|                          |
-|                          |
-|                          |
----------------------------
-	
+
+global elements are gor re usability.	
 	
 	
 	
