@@ -1,0 +1,61 @@
+Yesterday's session : HTTP Status Codes
+-------------------------------------------------------
+-> HTTP Status Codes tell what happend with request
+
+-> Based on Http Status Codes Clients will under how request is processed by server.
+
+-> 2xx status codes represents success
+
+-> 4xx status codes represents client error
+
+-> 5xx status codes represents server error
+
+-------------------------------------------------------------
+
+-> REST Principles
+-> REST Architecture
+-> REST Controller
+-> Rest Controller methods mapping to URL Pattern
+-> GET, POST, PUT and DELETE request
+-> consumes & produces
+-> Content-Type & Accept
+-> QueryParams
+-> PathParams
+-> RequestBody
+-> JAX-B and JSON
+-> Swagger
+-> POSTMAN
+-> Exception Handling
+-> HTTP Methods & Status Codes
+-> ResponseEntity
+-> Embedded Database
+------------------------------------------------------------------------
+
+REST Client
+-----------
+
+-> REST Client is used to acccess REST API
+
+-> Anyone who is capable of sending HTTP Request can act as REST Client
+
+-> For B 2 B communication, we will develop a program to access REST API.
+
+-> The program which is accessing REST API can be called as REST Client.
+
+-> In order to develop REST Client, we need REST API documentation
+
+-> REST API documentation will be provided using Swagger.
+
+Note: Without knowing details of REST API, we can't develop REST Client.
+
+
+Using Spring we can develop REST Client in below 3 ways
+----------------------------------------------------------
+1) RestTemplate ---> Will be deprecated in future releases of spring
+
+2) WebClient --> Introduced in Spring 5.x
+
+3) FeignClient --> Spring Cloud
+
+
+-> RestTemplate is used to develop REST clients in synchronus manner. That means after making rest call we have to wait until we recieve response from REST API then only our execution will continue.

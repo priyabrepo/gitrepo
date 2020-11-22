@@ -1,0 +1,72 @@
+Yesterday's session : POST request example
+-------------------------------------------
+-> Http Post request is used to send information to server in request body.
+
+-> Post request method can use both consumes & produces
+
+-> "consumes" attribute supports resource method supported input formats
+
+-> "produces" attribute supports resource method supported output formats
+
+-> "Content-Type" header represents client sending data format
+
+-> "Accept" header represents client expecting response format
+
+
+-> In Rest API, client can send data to server in below 3 ways
+
+
+		a) Query Parameters
+		b) Path Parameters
+		c) Request Body
+
+-> If client wants to send small piece of info to server then Query Params & Path Params can be used.
+
+Ex : id, name, email etc...
+
+-> If client wants to send secret info or huge amount of info then request body can be used.
+
+Ex : customer info, credit card info, bank acc info etc...
+
+Query Params
+------------
+-> Query Params will represent data in the form of Key & value
+
+-> Query Params will send to server in URL
+
+-> Query Params should present only at the end of the URL
+
+-> Query Params will start with '?' symbol
+
+-> Query Params will be seperated by '&'
+
+Ex : http://localhost:9090/book?isbn=001&type=java
+
+-> To read Query Params from URL we will use @RequestParam annotation.
+
+
+
+----------------------BookRestController.java-------------------
+@RestController
+public class BookRestController {
+
+	@GetMapping("/price")
+	public ResponseEntity<String> getPrice(@RequestParam("isbn") String isbn) {
+		String msg = "Book Price For " + isbn + " :: 450 $";
+		return new ResponseEntity<>(msg, HttpStatus.OK);
+	}
+
+	@GetMapping("/check")
+	public ResponseEntity<String> CheckAvailability(@RequestParam("type") String type,
+			@RequestParam("author") String author) {
+		String msg = type + " Book By " + author + " :: Available ";
+		return new ResponseEntity<>(msg, HttpStatus.OK);
+	}
+}
+----------------------------------------------------------------
+
+http://localhost:9090/price?isbn=ISBN002
+
+http://localhost:9090/check?type=spring&author=johnson
+
+Note: We can't send binary data in query params

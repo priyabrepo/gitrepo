@@ -1,0 +1,144 @@
+Yesterday's session : HTTP GET Method
+------------------------------------------
+-> HTTP GET method is used to get information from server
+
+-> In REST api, we will use @GetMapping annotation to bind method to Http GET request
+
+
+@GetMapping(
+    value = "/user",
+    produces = {
+	  "application/xml",
+	  "application/json"		
+    }
+)
+public User getUserInfo( ){
+	//logic
+	return userObj;
+}
+
+-> When client send http get request to above method, Dispatcher Servlet will process that request.
+
+-> DispatcherServlet will convert userObj to client understandable format and will send as response.
+
+-> produces attribute represents in how many formats resource can produce the response.
+
+Note: client can choose any format which is mentioned in produces for response.
+
+
+--------------------------------------------------------------
+package com.ashokit.rest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ashokit.binding.User;
+import com.ashokit.binding.Users;
+
+@RestController
+public class UserRestController {
+
+	@GetMapping(
+				value = "/user",
+				produces = { 
+						"application/xml", 
+						"application/json"
+				}
+	)
+	public ResponseEntity<User> getUser() {
+		User user = new User();
+		user.setUserId(101);
+		user.setUsername("Ashok");
+		user.setUserEmail("ashokitschool@gmail.com");
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
+	@GetMapping(
+			value = "/users",
+			produces = { 
+					"application/xml", 
+					"application/json"
+			}
+	)
+	public ResponseEntity<Users> getUsers() {
+		User user1 = new User();
+		user1.setUserId(101);
+		user1.setUsername("Ashok");
+		user1.setUserEmail("ashokitschool@gmail.com");
+		
+		User user2 = new User();
+		user2.setUserId(102);
+		user2.setUsername("Chakravarthy");
+		user2.setUserEmail("ashokit4you@gmail.com");
+		
+		List<User> list = new ArrayList<User>();
+		list.add(user1);
+		list.add(user2);
+		
+		Users users = new Users();
+		users.setUser(list);
+		
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
+}
+
+---------------------------------------------------------------
+@Data
+@XmlRootElement
+public class Users {
+
+	private List<User> user;
+
+}
+--------------------------------------------------------------
+
+@Data
+@XmlRootElement
+public class User {
+
+	private Integer userId;
+	private String username;
+	private String userEmail;
+
+}
+---------------------------------------------------------------
+
+Http Post Request
+-----------------
+-> Http post request is used to send info to server
+
+-> Http Post Request Contains request body
+
+-> To bind method to http post request we will use @PostMapping annotation.
+
+-------------------------------------------------------------@RestController
+public class BookRestController {
+
+	@PostMapping(
+			value ="/addbook",
+			consumes = {
+					"application/json",
+					"application/xml"
+			}
+	)
+	public ResponseEntity<String> addBook(@RequestBody Book book) {
+		// logic to store book in db.
+		System.out.println(book);
+		String respMsg = "Book Stored Successfully..!!";
+		return new ResponseEntity<>(respMsg, HttpStatus.CREATED);
+	}
+
+}
+--------------------------------------------------------------
+{
+	"bookId" : 101,
+	"bookName" : "Java",
+	"bookPrice" : 400.00
+	
+}
+----------------------------------------------------------------

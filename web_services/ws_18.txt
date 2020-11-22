@@ -1,0 +1,31 @@
+Last session : GET, POST, PUT and DELETE requests
+---------------------------------------------------
+
+Today's topic : Embedded DB
+---------------------------------------------------------------
+
+-> ORacle, MySql, MS SQL, Mongo DB, POSTGRE SQL these all databases we have to install in machine
+
+-> We are having embedded databases for persistent store like H2, HSQL DB etc. We no need to install embedded databases.
+
+-> Whenever our application starts, db will start, if our application got stopped then database also will be stopped.
+
+-> Embedded databases are temporary databases.
+
+-> SpringBoot is having very good integration with embedded database.
+---------------------------------------------------------------
+
+Steps to develop SpringBoot application with H2 Database
+--------------------------------------------------------
+1) Create SpringBoot application with below dependencies
+
+	a) spring-boot-starter-web
+	b) h2
+	c) devtools
+
+2) Configure Server Port No & DataSource Properties in application.properties file
+
+
+3) Run the application and check embedded database console using below url
+
+	http://localhost:<port>/h2-console

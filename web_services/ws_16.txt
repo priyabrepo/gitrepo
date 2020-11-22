@@ -1,0 +1,105 @@
+Yesterday's session : Query Parameters
+--------------------------------------
+-> Query Parameters are used to send data from client to server in URL
+
+-> Query Parameters will represent data in the form of key - value pair
+
+-> Query Parameters will present only at end of the URL
+
+-> Query Params will start with ? and will seperated by &
+
+-> To Read Query Parameters from the URL we will use @RequestParam annotation in our RestController
+
+--------------------------------------------------------------
+Path Parameters
+---------------
+-> Path Parameters are used to send data from client to server in URL
+
+-> Path Parameters will represent data directley, keys will not be available in path parameters
+
+-> To use path parameters we have to represent them in URL pattern like below
+
+	Ex : /book/{type}/{author}
+
+	type - path parameter
+	author - path parameter
+
+-> Path Parameters can present anywhere in the URL
+
+-> Path Parameters will be seperated by slash
+
+-> To Read Path Parameters from the URL we will use    @PathVariable annotation in rest controller.
+
+
+Query Params vs Path Params
+---------------------------
+-> Query Params & Path Params both are used to send data to server in URL
+
+-> QueryParams represents the data in the form of key-value pair
+-> PathParams represents the data directley (Without key)
+
+-> QueryParams will present only at end of the URL
+-> PathParams can present anywhere in the URL
+
+-> QueryParams will start with ? and will be seperated by &
+-> PathParams will start with / and will be seperated by / only
+
+-> To read QueryParams we will use @RequestParam annotation
+-> To read PathParams we will use @PathVariable annotation
+
+-> QueryParams will not be represented in URL pattern
+-> PathParams will be represented in URL pattern as segments
+
+-> In Spring MVC, both QueryParams and PathParams are mandatory to access rest api methods
+
+
+Note: We shouldn't use QueryParams and PathParams for sensitive data like credit card number, atm pin, secret pin etc..
+
+---------------------------------------------------------------
+
+HTTP GET Request ---> @GetMapping
+---------------------------------
+-> When REST api method is reponsible to send data to client then we will bind that method to HTTP GET Request
+
+-> HTTP GET request will not contain request body
+
+-> If client wants to send data to HTTP GET Request method then QueryParameters & PathParameters should be used.
+
+
+HTTP POST Request ---> @PostMapping
+------------------------------------
+-> When REST Api method is responsible to create a new record with client provided data then we will bind that method to HTTP POST request
+
+-> HTTP POST Request will contain request body
+
+-> Client can send data to HTTP POST Request method using Query Params, Path Params and Request Body
+
+-> Request Body is used to deal with huge amount of data and sensitive data.
+
+
+HTTP PUT Request ----> @PutMapping
+-----------------------------------
+-> When Rest api method is responsible to update existing record then we will bind that method to HTTP PUT Request
+
+-> HTTP Put request contains request body
+
+-> Client can send data to PUT request method using Query Params, Path Params and Request Body
+
+
+HTTP DELETE Request ---> @DeleteMapping
+---------------------------------------
+-> When Rest api method is responsible to delete existing record then we will bind that method to HTTP DELETE request.
+
+-> HTTP DELETE request contains request body
+
+-> Client can send data to DELETE request method using Query Params, Path Params and Request Body.
+
+
+Assignment
+----------
+HTTP Request & HTTP Response Structure : 
+
+https://www.youtube.com/watch?v=y5A4E-NgExM&list=PLpLBSl8eY8jRwbzxXZSCaIujuoO_J4lbe&index=5
+
+
+

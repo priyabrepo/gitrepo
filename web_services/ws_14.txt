@@ -1,0 +1,114 @@
+Last session : Post Request
+----------------------------
+
+-> Post request is used to create a record/resource at server
+
+-> To bind rest controller method to post request we will use @PostMapping annotation.
+
+-> PostRequest mapped method can consume data in request body and can produce output in response body.
+----------------------------------------------------------------
+
+-> consumes attribute represents resource method supported input formats.
+
+-> produces attribute represents resource method supported output formats.
+
+--------------------------------------------------------------
+
+-> XML & JAX-B
+
+-> JSON & Jackson
+
+-> GET method & POST method
+
+-> consumes & produces
+
+-> Accept & Content-Type headers
+---------------------------------------------------------------
+
+-> consumes attribute represents in which format resource can take input
+
+-> Content-Type header represents in which format client sending input to resource method
+
+-> produces attribute represents in which format resource can provide output.
+
+-> Accept header represents in which format client expecting response
+
+
+
+
+
+--------------------------------------------------------------
+@XmlRootElement
+@Data
+public class PassengerInfo {
+
+	private String fname;
+	private String lname;
+	private String doj;
+	private String trainNum;
+	private String from;
+	private String to;
+
+}
+--------------------------------------------------------------
+
+@XmlRootElement
+@Data
+public class TicketInfo {
+
+	private Integer ticketId;
+	private String from;
+	private String to;
+	private String ticketPrice;
+	private String pnrStatus;
+}
+----------------------------------------------------------------
+@RestController
+public class RailRestController {
+
+	@PostMapping(
+			value = "/book-ticket",
+			consumes = {
+					"application/xml",
+					"application/json"
+			},
+			produces = {
+					"application/xml",
+					"application/json"
+			}
+	)
+	public ResponseEntity<TicketInfo> bookTicket(@RequestBody PassengerInfo passenger) {
+		
+		//logic to book ticket
+
+		TicketInfo ticket = new TicketInfo();
+		ticket.setTicketId(796868);
+		ticket.setPnrStatus("CONFIRMED");
+		ticket.setFrom(passenger.getFrom());
+		ticket.setTo(passenger.getTo());
+		ticket.setTicketPrice("450.00");
+
+		return new ResponseEntity<>(ticket, HttpStatus.CREATED);
+	}
+
+}
+--------------------------------------------------------------
+{
+	"from" : "Hyd",
+	"to" : "Pune",
+	"fname" : "Ram",
+	"lname" : "Rahim",
+	"doj" : "20-Nov-2020",
+	"trainNum" : "7689"
+}
+
+
+
+
+
+
+
+
+
+
+
