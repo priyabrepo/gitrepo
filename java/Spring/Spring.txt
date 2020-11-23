@@ -453,7 +453,7 @@ return template.update(query,e.getName(),e.getId());
 Spring MVC
 ------------
 Model-View-Controller design pattern.
- - Uses DispatcherServlet : a class that receives the incoming request and maps it to the right resource such as controllers, models, and views.)
+ - Uses DispatcherServlet : a class that receives the incoming request and maps it to the right resource such as controllers, models, and views.
  - Model: A model contains the data of the application. A data can be a single object or a collection of objects.
  - Controller : A controller contains the business logic of an application. 
                 @Controller annotation is used to mark the class as the controller.
@@ -558,6 +558,39 @@ Creating project:
 5. Display the message in the JSP page
 
 
+**************************************************************************************************
+How it works:
+1.Define dependancy in pom.xml
+2.index.jsp - dispatcher servlet
+  
+3.Hello controller - controller
+@Controller - recognise as controller
+
+@RequestMapping("/hello") // uri : /hello
+	 public String redirect()  
+    {  
+        return "viewpage";  // rout to viewpage.jsp when /hello called
+    }  
+	
+4.web.xml
+- web.xml is part of any JavaEE application, not Spring.
+- Your code sample 1 declares that your app will use an instance of class org.springframework.web.servlet.DispatcherServlet to handle incoming requests.
+
+5.spring-servlet.xml
+- defines resources
+
+
+**********************************************************************************************************
+model
+-----------
+         methods
+Model addAllAttributes(Collection<?> arg)	It adds all the attributes in the provided Collection into this Map.
+Model addAllAttributes(Map<String,?> arg)	It adds all the attributes in the provided Map into this Map.
+Model addAllAttribute(Object arg)	It adds the provided attribute to this Map using a generated name.
+Model addAllAttribute(String arg0, Object arg1)	It binds the attribute with the provided name.
+Map<String, Object> asMap()	It return the current set of model attributes as a Map.
+Model mergeAttributes(Map< String,?> arg)	It adds all attributes in the provided Map into this Map, with existing objects of the same name taking precedence.
+boolean containsAttribute(String arg)	It indicates whether this model contains an attribute of the given name
 
 
 
