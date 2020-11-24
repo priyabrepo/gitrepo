@@ -1,0 +1,24 @@
+Yesterday's session : Client development for GET request using Rest Template
+
+Today's session : Client development for POST request using Rest Template
+----------------------------------------------------------------
+
+API Details
+------------
+Server IP : http://localhost:9090/
+
+Resource Path : /addbook
+
+Request Type : POST
+
+consumes : application/json & application/xml
+
+Produces : text/plain
+
+sample input : 
+---------------
+{
+   "bookId" : 101,
+   "bookName" : "Spring",
+   "bookPrice" : 450.00
+}

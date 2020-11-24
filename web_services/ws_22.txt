@@ -1,0 +1,37 @@
+Yesterday's session : Rest Client development
+------------------------------------------------
+-> By using java program we can send Http request to server
+
+-> Spring also provided support to send http request to server
+
+-> Using Spring we can send http request to server in below 3 ways
+
+	a)RestTemplate (sync)
+	b)WebClient (sync & async)
+	c)FeignClient (inter-service communication)
+
+----------------------------------------------------------------
+-> RestTemplate class provided several methods to send http request to server
+
+-> getForEntity(String url, Class reponseType)
+
+-> exchange(string url, HttpMethod m, Object req, Class rtype)
+
+
+API Details
+-----------
+Server IP : http://localhost:9090/
+
+Resource Path : /user 
+
+Request Method : GET
+
+Response Type : application/json & application/xml
+
+Sample Response :
+-----------------
+<user>
+<userEmail>ashokitschool@gmail.com</userEmail>
+<userId>101</userId>
+<username>Ashok</username>
+</user>
