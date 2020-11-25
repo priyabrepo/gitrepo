@@ -8,7 +8,8 @@
 3.spring boot *
  - annotation
  
-4.webservices *
+4.webservices *Swagger,rest, writing unit tests with JUnits & Mockito or similar libraries,
+Experience on developing/ using CI/CD pipeline using Jenkins/ Git
    xml,jax-B,json,http requests,spring web mvc,Spring anotation
 
 5.opentext bpm *

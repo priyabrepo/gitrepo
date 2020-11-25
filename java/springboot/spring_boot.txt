@@ -2,10 +2,11 @@ Spring Boot
 **********************************
 
 - Spring Boot is a Spring module that provides the RAD (Rapid Application Development) feature to the Spring framework.
-- Spring Boot is a project that is built on the top of the Spring Framework. It provides an easier and faster way to set up, configure, and run both simple and web-based applications.
+- Spring Boot is a project that is built on the top of the Spring Framework. It provides an easier and faster way to set up, configure, and run both simple and web-based applications
+  (RESTfull services)/ not ui...
 - In short, Spring Boot is the combination of Spring Framework and Embedded Servers.
 - In Spring Boot, there is no requirement for XML configuration (deployment descriptor). 
-   It uses convention over configuration software design paradigm that means it decreases the effort of the developer.
+   It uses framework to reduce configurations (convention over configuration software design paradigm) that means it decreases the effort of the developer.
    
 Why Spring Boot Framework?
 
@@ -45,18 +46,44 @@ Goals of Spring Boot
 - Avoids writing lots of import statements
 - Avoids XML Configuration.
 
+
+
+spring vs spring Boot vs Spring MVC  : check the snap
+**************************************
+
+
 There are four layers in Spring Boot 
 - Spring Boot follows a layered architecture in which each layer communicates with the layer directly below or above (hierarchical structure) it.
  1.Presentation Layer
       - The presentation layer handles the HTTP requests, 
 	    translates the JSON parameter to object, and authenticates the request and transfer it to the business layer. In short, it consists of views i.e., frontend part.
- 2.Business Layer
+ 2.Business Layer(service,controller)
       - The business layer handles all the business logic. It consists of service classes and uses services provided by data access layers. 
 	    It also performs authorization and validation.
- 3.Persistence Layer
+ 3.Persistence Layer(model(ex:the dao))
       - The persistence layer contains all the storage logic and translates business objects from and to database rows.
- 4.Database Layer
+ 4.Database Layer(data base(ex: sql,oracle))
       - In the database layer, CRUD (create, retrieve, update, delete) operations are performed.
+
+
+Spring Initializr
+********************
+web-based tool provided by the Pivotal Web Service(sb frame work).
+
+Spring Initializr Modules
+----------------------------
+initializr-actuator: It provides additional information and statistics on project generation. It is an optional module.
+initializr-bom: In this module, BOM stands for Bill Of Materials. In Spring Boot, BOM is a special kind of POM that is used to control the versions of a project's dependencies. It provides a central place to define and update those versions. It provides flexibility to add a dependency in our module without worrying about the versions.
+Outside the software world, the BOM is a list of parts, items, assemblies, and other materials required to create products. It explains what, how, and where to collect required materials.
+initializr-docs: It provides documentation.
+initializr-generator: It is a core project generation library.
+initializr-generator-spring:
+initializr-generator-test: It provides a test infrastructure for project generation.
+initializr-metadata: It provides metadata infrastructure for various aspects of the projects.
+initializr-service-example: It provides custom instances.
+initializr-version-resolver: It is an optional module to extract version numbers from an arbitrary POM.
+initializr-web: It provides web endpoints for third party clients.
+
 
 
 
