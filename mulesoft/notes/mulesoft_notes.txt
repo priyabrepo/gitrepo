@@ -90,9 +90,19 @@ mule event.
 	2. variables
 in memori Qs aclled channels
 
+****************************************************************************************************************************************8
+- mule runtime is a licensed softwere. but a verson comes as build-in along with anypoint studio.
+- 2 dependancyes comes by default.
+     1.mule-http-connector
+     2.mule-sockets-connector
+- out side <flow> tag is global. global works for project level ex: HttpListiner
 
-global elements are gor re usability.	
-	
+*****************************************************************************************************************************************
+
+Java Module
+---------------
+- import mule-java
+- create package in  
 	
 	
 	
