@@ -84,9 +84,109 @@ initializr-service-example: It provides custom instances.
 initializr-version-resolver: It is an optional module to extract version numbers from an arbitrary POM.
 initializr-web: It provides web endpoints for third party clients.
 
+Spring Annotations
+------------------------
+- Spring Annotations is a form of metadata that provides data about a program.annotations are used to provide supplemental information about a program.
 
+@Required: 
+     applies to the bean setter method. 
+	 must be populated at configuration time with the required property 
+	 exception BeanInitilizationException.
 
+@Autowired:
+     When we use @Autowired annotation, the spring container auto-wires the bean by matching data-type.
+	 
+@Configuration: 
+     a class-level annotation. The class annotated with @Configuration used by Spring Containers as a source of bean definitions.
+	 
+@ComponentScan:
+     to scan a package for beans.
+	 used with the annotation @Configuration
+	 We can also specify the base packages to scan for Spring Components.
+	 
+@Bean: 
+     method-level annotation.
+	 It is an alternative of XML <bean> tag. 
+	 tells the method to produce a bean to be managed by Spring Container.
+	 
+@Component:
+      class-level annotation.
+	  used to mark a Java class as a bean. 
+	  A Java class annotated with @Component is found during the classpath.
+	  Framework pick it up and configure it in the application context as a Spring Bean.
+	  
+@Controller: 
+      class-level annotation. 
+	   It is a specialization of @Component
+	   It marks a class as a web request handler. 
+	   often used to serve web pages. By default, it returns a string that indicates which route to redirect.
+	   mostly used with @RequestMapping annotation.
+@Service: 
+      class level.
+	  It tells the Spring that class contains the business logic.
+@Repository: 
+      class-level annotation.
+	  The repository is a DAOs (Data Access Object) that access the database directly.
+	  The repository does all the operations related to the database.
+	  
+Spring Boot Annotations
+------------------------
 
+@EnableAutoConfiguration:
+     auto-configures the bean that is present in the classpath and configures it to run the methods. 
+	 alternative of the annotation, i.e. @SpringBootApplication.
+	 
+@SpringBootApplication: It is a combination of three annotations @EnableAutoConfiguration, @ComponentScan, and @Configuration.
+
+Spring MVC and REST Annotations
+--------------------------------
+@RequestMapping: 
+     It is used to map the web requests.
+	 It has many optional elements like consumes, header, method, name, params, path, produces, and value. We use it with the class as well as the method.
+@GetMapping:
+      It maps the HTTP GET requests on the specific handler method.
+	  to create a web service endpoint that fetches
+	  used instead of using: @RequestMapping(method = RequestMethod.GET)
+@PostMapping:
+      It maps the HTTP POST requests on the specific handler method. 
+	  to create a web service endpoint that creates
+	  used instead of using: @RequestMapping(method = RequestMethod.POST)
+@PutMapping:
+     It maps the HTTP PUT requests on the specific handler method
+	 to create a web service endpoint that creates or updates
+	 used instead of using: @RequestMapping(method = RequestMethod.PUT)
+@DeleteMapping:
+     It maps the HTTP DELETE requests on the specific handler method. 
+	 It is used to create a web service endpoint that deletes a resource.
+	 It is used instead of using: @RequestMapping(method = RequestMethod.DELETE)
+@PatchMapping:
+      It maps the HTTP PATCH requests on the specific handler method.
+	  It is used instead of using: @RequestMapping(method = RequestMethod.PATCH)
+@RequestBody: 
+      used to bind HTTP request with an object in a method parameter. 
+	  Internally it uses HTTP MessageConverters to convert the body of the request. 
+	  When we annotate a method parameter with @RequestBody, the Spring framework binds the incoming HTTP request body to that parameter.
+@ResponseBody: 
+      binds the method return value to the response body.
+	  It tells the Spring Boot Framework to serialize a return an object into JSON and XML format.
+@PathVariable: 
+      used to extract the values from the URI. 
+	  most suitable for the RESTful web service, where the URL contains a path variable.
+	  We can define multiple @PathVariable in a method.
+@RequestParam:
+      used to extract the query parameters form the URL.also known as a query parameter. 
+	  most suitable for web applications. It can specify default values if the query parameter is not present in the URL.	
+@RequestHeader: 
+       used to get the details about the HTTP request headers.
+	   as a method parameter. 
+	   The optional elements of the annotation are name, required, value, defaultValue. For each detail in the header, we should specify separate annotations. We can use it multiple time in a method
+@RestController:
+       can be considered as a combination of @Controller and @ResponseBody annotations. 
+	   @RestController annotation is itself annotated with the @ResponseBody annotation. It eliminates the need for annotating each method with @ResponseBody.
+	   
+@RequestAttribute: 
+      It binds a method parameter to request attribute. It provides convenient access to the request attributes from a controller method.
+      With the help of @RequestAttribute annotation, we can access objects that are populated on the server-side.
 
 
 
