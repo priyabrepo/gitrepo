@@ -102,8 +102,40 @@ in memori Qs aclled channels
 Java Module
 ---------------
 - import mule-java
-- create package in  
-	
+- create package in  src/main/java
+   
+Deployment and server
+---------------------
+deploying in local machine:
+----------------------------
+downloading mule runtime 4.3.0
+ - open internet explorer
+ - login to mule > devloper > documentation > mule runtime(chose current verson) > expand run mule engine on primices > download and unzip mule. 
+ - open bin folder > lunch mule.bat
+ - once the mule starts, .mule file is created. it contains metadata of mule instance.
+ - open project in the anypoint studio.
+ - rc and export> mule > anypoint studio to mule deployable Archrive > chose a location > create a jar in the location
+ - coppy the jar file to ....\mule-enterprise-standalone-4.3.0\apps folder.(the jar will be extracted autometicaly) can creeck in console also.
+ - to undeploy an app , delete anchor.txt file created after deployment
+ - MEMORY and other configurations are stored in ....mule-enterprise-standalone-4.3.0\conf
+ - to change some conf,open wraper.conf
+ - wrapper.java.additional.17=-Dlog4j2.disable.jmx=true (no 17th conf. ) > copy pest the line again, make it 18.change after -D
+ - logs are stored at ....mule-enterprise-standalone-4.3.0\logs > projectname.log
+ - mule uses log4j . configuration can be found at project> src/main/resources/log4j.xml
+   eadit <rolling-file-appender>
+deploying in anypoint platform:
+------------------------------
+- login to anypoint > runtime manager > sand box > servers > 
+- stop local server. delete .mule folder and app files in app folder.
+- at platform,> add platform > copy comand ./amc_setup -H 9db6e1df-05bc-4527-bb6e-0a066016ffb6---412490 server-name
+- go to bin directory. lunch cmd at that location > pest > remove ./ (for windows) > replace server-name > enter
+- amc - anypoint management center 
+- ssl handshake
+- 2 files generated at conf: mule-agent.jks,mule-agent.yml
+- created server will be listed in server window (created.not running)
+- go to bin, run mule.bat
+- platform server will start running after some time.
+- in platform go to applications > deploy application > upload the jar > deployment server: chose server > give name > deploy > 
 	
 	
 	
