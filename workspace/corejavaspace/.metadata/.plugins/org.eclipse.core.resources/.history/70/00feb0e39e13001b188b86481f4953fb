@@ -1,0 +1,14 @@
+package corejava.com.basics;
+
+public class typecasting {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int v1=10;
+		double v2 = 10;
+		System.out.println("int "+v1);
+		System.out.println("double "+v2);
+
+	}
+
+}

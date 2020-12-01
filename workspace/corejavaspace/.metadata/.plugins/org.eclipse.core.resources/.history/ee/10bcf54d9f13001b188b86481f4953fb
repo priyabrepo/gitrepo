@@ -1,0 +1,17 @@
+package corejava.com.basics;
+
+public class typecasting {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int v1=10;
+		double v2 = (double)10;
+		
+		int v3 =(int)v2;
+		System.out.println("int "+v1);
+		System.out.println("double "+v2);
+		System.out.println("int casted from double "+v2);
+
+	}
+
+}

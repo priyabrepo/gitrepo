@@ -1,0 +1,27 @@
+package corejava.com.basics;
+ class MyClass{
+	int x;
+	MyClass()//constructor without patrams
+	{
+		 x =10;
+	}
+	
+	MyClass(int i)//parameterised  constructor 
+	{
+		 i =20;
+	}
+}
+
+public class ConstructorClass {
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		MyClass obj1 = new MyClass();
+		
+		System.out.print(obj1.x);
+
+	}
+
+}
