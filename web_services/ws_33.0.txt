@@ -1,0 +1,29 @@
+Yesterday's session : Service Registry, Services & API Gateway
+
+Today's session : Routings in API Gateway
+------------------------------------------------------------------
+
+
+welcome api : http://localhost:3333/api/welcome/wmsg
+
+greet api : http://localhost:3333/api/greet/gmsg
+
+-----------------------api-gateway yml file-------------------
+server:
+  port: 3333
+spring:
+  application:
+    name: API-GATEWAY
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5050/eureka/
+zuul:
+  prefix: /api
+  routes:
+    welcome:
+      path: /welcome/**
+      serviceId: WELCOME-API
+    greet:
+      path: /greet/**
+      serviceId: GREET-API
