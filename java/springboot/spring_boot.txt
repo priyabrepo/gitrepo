@@ -191,6 +191,327 @@ Spring MVC and REST Annotations
 
 
 
+Spring Boot Dependancy
+------------------------
+
+Each release of Spring Boot provides a list of dependencies(supporting versons of pom jars) that it supports.
+ (if we define BOM verson, we dont necessrily need to define version of each jar. spring auto meticaly picks suitable version.even if we do define version, it ignores the <version> tag for that dependencies.)
+The list of dependencies(versions) is available as a part of the Bills of Materials - BOM (spring-boot-dependencies) that can be used with Maven. 
+ex:
+
+
+Maven project inherits the following features from spring-boot-starter-parent:
+
+- The default Java compiler version
+- UTF-8 source encoding
+- It inherits a Dependency Section from the spring-boot-dependency-pom. It manages the version of common dependencies. It ignores the <version> tag for that dependencies.
+- Sensible resource filtering
+- Sensible plugin configuration
+
+
+
+- Defining BOM:
+
+<parent>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-parent</artifactId>  
+<version>2.2.2.BUILD-SNAPSHOT</version>      <!-- lookup parent from repository -->  
+<relativePath/>   
+</parent>  
+
+
+- Changing the Java version:
+
+<properties>    
+<java.version>1.8</java.version>    
+</properties>
+
+- Adding Spring Boot Maven Plugin
+
+<build>    
+<plugins>    
+<plugin>    
+<groupId>org.springframework.boot</groupId>    
+<artifactId>spring-boot-maven-plugin</artifactId>    
+</plugin>    
+</plugins>    
+</build>    
+
+
+- Spring Boot without Parent POM
+If we don't want to use spring-boot starter-parent dependency, but still want to take the advantage of the dependency management, we can use <scope> tag, as follows:
+
+<dependencyManagement>  
+<dependencies>  
+<dependency><!-- Import dependency management from Spring Boot -->  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-dependencies</artifactId>  
+<version>2.2.2.RELEASE</version>  
+<type>pom</type>  
+<scope>import</scope>  
+</dependency>  
+</dependencies>  
+</dependencyManagement>  
+
+
+Spring Boot Application Properties
+---------------------------------------
+1. built-in mechanism for application configuration using a file called application.properties.
+- in src/main/resources
+ex:
+#configuring application name  
+spring.application.name = demoApplication  
+#configuring port  
+server.port = 8081  
+
+2.YAML Properties File
+he Yaml file works because the Snake YAML jar is present in the classpath.
+Instead of using the application.properties file, we can also use the application.yml file, but the Yml file should be present in the classpath.
+
+ex:
+
+spring:  
+application:  
+name: demoApplication  
+server:  
+port: 8081  
+
+
+Spring Boot Starters
+-----------------------
+Spring Boot provides a number of starters that allow us to add jars in the classpath. Spring Boot built-in starters make development easier and rapid. Spring Boot Starters are the dependency descriptors.
+
+all the starters follow a similar naming pattern: spring-boot-starter-*, where * denotes a particular type of application.
+For example, if we want to use Spring and JPA for database access, we need to include the spring-boot-starter-data-jpa dependency in our pom.xml file of the project.
+We can also include third party starters in our project. But we do not use spring-boot-starter for including third party dependency.
+The third-party starter starts with the name of the project. For example, the third-party project name is abc, then the dependency name will be abc-spring-boot-starter.
+
+
+Spring Boot Starter Parent:
+
+- spring-boot-starter-parent is a project starter. It provides default configurations for our applications. It is used internally by all dependencies.
+- All Spring Boot projects use spring-boot-starter-parent as a parent in pom.xml file.
+
+<parent>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-parent</artifactId>  
+<version>1.4.0.RELEASE</version>  
+</parent>  
+
+- 
+Parent Poms allow us to manage the following things for multiple child projects and modules:
+
+Configuration: It allows us to maintain consistency of Java Version and other related properties.
+Dependency Management: It controls the versions of dependencies to avoid conflict.
+Source encoding
+Default Java Version
+Resource filtering
+It also controls the default plugin configuration.
+
+
+Spring Boot Starter Parent Internal:
+--------------------------------------------
+Spring Boot Starter Parent defines spring-boot-dependencies as a parent pom. It inherits dependency management from spring-boot-dependencies.
+
+<parent>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-dependencies</artifactId>  
+<version>1.6.0.RELEASE</version>  
+<relativePath>../../spring-boot-dependencies</relativePath>  
+</parent>  
+
+Default Parent Pom
+
+<properties>  
+<java.version>1.8</java.version>  
+<resource.delimiter>@</resource.delimiter>   
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
+<maven.compiler.source>${java.version}</maven.compiler.source>  
+<maven.compiler.target>${java.version}</maven.compiler.target>  
+</properties>  
+
+
+
+Spring Boot Starter without Parent
+In some cases, we need not to inherit spring-boot-starter-parent in the pom.xml file. To handle such use cases, Spring Boot provides the flexibility to still use the dependency management without inheriting the spring-boot-starter-parent.
+
+<dependencyManagement>  
+<dependencies>  
+<dependency>  
+<!-- Import dependency management from Spring Boot -->  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-dependencies</artifactId>  
+<version>2.1.1.RELEASE</version>  
+<type>pom</type>  
+<scope>import</scope>  
+</dependency>  
+</dependencies>  
+</dependencyManagement>  
+
+Spring Boot Starter Web
+--------------------------
+1. to develop a web application
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-web</artifactId>  
+<version>2.2.2.RELEASE</version>  
+</dependency>  
+
+depends on:
+org.springframework.boot:spring-boot-starter
+org.springframework.boot:spring-boot-starter-tomcat
+org.springframework.boot:spring-boot-starter-validation
+com.fasterxml.jackson.core:jackson-databind
+org.springframework:spring-web
+org.springframework:spring-webmvc
+By default, the spring-boot-starter-web contains the following tomcat server dependency:
+
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-tomcat</artifactId>  
+<version>2.0.0.RELEASE</version>  
+<scope>compile</scope>  
+</dependency>  
+
+2.The spring-boot-starter-web auto-configures the following things that are required for the web development:
+
+Dispatcher Servlet
+Error Page
+Web JARs for managing the static dependencies
+Embedded servlet container
+
+
+
+Spring Boot Embedded Web Server
+---------------------------------
+
+- default embedded server is Tomcat. 
+
+Spring Boot also supports another two embedded servers:
+Jetty Server
+Undertow Server
+
+- to add the Jetty server in the application, we need to add the spring-boot-starter-jetty dependency in our pom.xml file.
+  make sure that the default Tomcat server is excluded from the spring-boot-starter-web. 
+  <dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-web</artifactId>  
+<exclusions>  
+<exclusion>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-tomcat</artifactId>  
+</exclusion>  
+</exclusions>  
+</dependency>  
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-jetty</artifactId>  
+</dependency>  
+
+Undertow Server
+---------------
+- another server called Undertow.
+It is written in Java and manage and sponsored by JBoss. 
+make sure that the default Tomcat server is excluded from the spring-boot-starter-web.
+
+The main advantages of Undertow server are:
+Supports HTTP/2
+HTTP upgrade support
+Websocket Support
+Provides support for Servlet 4.0
+Flexible
+Embeddable
+
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-web</artifactId>  
+<exclusions>  
+<exclusion>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-tomcat</artifactId>  
+</exclusion>  
+</exclusions>  
+</dependency>  
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-undertow</artifactId>  
+</dependency>  
+
+spring-boot-starter-web vs. spring-boot-starter-tomcat
+The spring-boot-starter-web contains the spring web dependencies that includes spring-boot-starter-tomcat. The spring-boot-starter-web contains the following:
+
+spring-boot-starter
+jackson
+spring-core
+spring-mvc
+spring-boot-starter-tomcat
+While the spring-boot-starter-tomcat contains everything related to Tomcat server.
+
+core
+el
+logging
+websocket
+The starter-tomcat has the following dependencies:
+
+<dependency>  
+<groupId>org.apache.tomcat.embed</groupId>  
+<artifactId>tomcat-embed-core</artifactId>  
+<version>8.5.23</version>  
+ <scope>compile</scope>  
+</dependency>  
+<dependency>  
+<groupId>org.apache.tomcat.embed</groupId>  
+<artifactId>tomcat-embed-el</artifactId>  
+<version>8.5.23</version>  
+<scope>compile</scope>  
+</dependency>  
+<dependency>  
+<groupId>org.apache.tomcat.embed</groupId>  
+<artifactId>tomcat-embed-websocket</artifactId>  
+<version>8.5.23</version>  
+<scope>compile</scope>  
+</dependency>  
+We can also use spring-mvc without using the embedded Tomcat server. If we want to do so, we need to exclude the Tomcat server by using the <exclusion> tag, as shown in the following code.
+
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-web</artifactId>  
+<exclusions>  
+<exclusion>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-tomcat</artifactId>  
+</exclusion>  
+</exclusions>  
+</dependency>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
