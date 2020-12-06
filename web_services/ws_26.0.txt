@@ -1,0 +1,73 @@
+Yesterday's session : WebClient sync & async requests
+-----------------------------------------------------
+
+Synchronus GET Request Using WebClient
+-------------------------------------
+WebClient webClient = WebClient.create();
+
+	webClient.get()
+		 .uri(URI uri)
+		 .retrieve( )
+		 .bodyToMono(Class cls)
+		 .block( );
+
+
+Asynchronus GET Request using WebClient
+----------------------------------------
+WebClient webClient = WebClient.create();
+
+	webClient.get()
+		 .uri(URI uri)
+		 .retrieve( )
+		 .bodyToMono(Class cls)
+		 .subscribe(ResponseHandler);
+
+
+HTTP Post Request using WebClient
+---------------------------------
+@RestController
+public class BookRestController {
+
+	@PostMapping(
+			value ="/addbook",
+			consumes = {
+					"application/json",
+					"application/xml"
+			}
+	)
+	public ResponseEntity<String> addBook(@RequestBody Book book) {
+		// logic to store book in db.
+		System.out.println(book);
+		String respMsg = "Book Stored Successfully..!!";
+		return new ResponseEntity<>(respMsg, HttpStatus.CREATED);
+	}
+
+}
+----------------------------------------------------------------
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(Application.class, args);
+		
+		Book b = new Book();
+		b.setBookId(101);
+		b.setBookName("Spring");
+		b.setBookPrice(450.00);
+		
+		String endpointUrl = "http://localhost:9090/addbook";
+		
+		WebClient webClient = WebClient.create();
+		 	String response = webClient.post()
+						   .uri(new URI(endpointUrl))
+						   .bodyValue(b)
+						   .retrieve()
+						   .bodyToMono(String.class)
+						   .block();
+		 	
+		 	System.out.println("Response :: "+response);
+							  
+							  
+	}
+}
+----------------------------------------------------------------

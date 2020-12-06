@@ -1,0 +1,60 @@
+Yesterday's session : Microservices Architecture
+------------------------------------------------
+
+1) Services (REST apis)
+
+2) Service Registry (All services will registered)
+
+3) API Gateway (front door for all services)
+
+
+
+Service Registry
+----------------
+-> Service Registry is an API which is used to register all the services available in our application.
+
+-> With the help of Service Registry we can easily monitor all the services which are registered in one plance.
+
+-> Service Registry will provide Name, Status and URL of services which are registered.
+
+-> Spring Cloud libraries provided support to work with Service Registry.
+
+-> In Spring Cloud we have EurekaServer which acts as Service Registry.
+
+Steps to create Service Registry application
+--------------------------------------------
+1) Create Spring Boot Starter application with below dependencies
+
+	a)spring-boot-starter-web
+	b)spring-cloud-starter-netflix-eureka-server
+
+2) Configure @EnableEurekaServer annotation at Spring Boot Start Class to represent this project as Service Registry.
+
+3) Configure Server Port number as 8761 in application.properties file.
+
+4) Run the application and access Eureka Server Dashboard using below URl
+
+	http://localhost:8761/
+
+
+
+Service
+-------
+-> Service is a REST API which contains business logic
+
+-> Service is also called as API.
+
+Steps to create Service
+-------------------------
+-> Create Spring Boot application with below dependencies
+
+	a)spring-boot-starter-web
+	b)spring-cloud-starter-netflix-eureka-client
+
+-> Configure @EnableDiscoveryClient annotation at Spring Boot Start class to represent this application as Service REgistry client.
+
+-> Create Rest Controller class with Required Methods
+
+-> Configure Port Number in application.properties file
+
+-> Run the application and verify Eureka Dashboard.

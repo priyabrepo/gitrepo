@@ -1,0 +1,82 @@
+Last session : WebClient Introduction
+
+Today's session : WebClient examples
+---------------------------------------------
+-> WebClient is provided as part of Spring 5.x version
+
+-> Using WebClient we can develop Rest Client logics
+
+-> WebClient supports for both synchronus and Asynchronus communications.
+
+-> Mono object represents single response
+
+-> Flux object represents continuous responses.
+
+
+Note: In realtime we will have use cases for both synchronus and asynchronus communications.
+
+-> To use WebFlux in our application we should use below starter
+
+ 	spring-boot-starter-webflux (Reactive Web)
+
+API Details
+-----------
+Server IP : http://localhost:9090/
+
+Resource Path : /welcome
+
+Request Type : GET
+
+Produces : text/plain
+
+-----------------WelcomeRestController.java--------------------
+@RestController
+public class WelcomeRestController {
+
+	@GetMapping("/welcome")
+	public String welcome() {
+		String msg = "Welcome to Ashok IT...!!";
+		return msg;
+	}
+
+	@GetMapping("/greet")
+	public ResponseEntity<String> greet() {
+		String msg = "Good Morning...!!";
+		return new ResponseEntity<>(msg, HttpStatus.OK);
+	}
+}
+--------------------Client Program------------------------------
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(Application.class, args);
+		
+		String endpointUrl = "http://localhost:9090/greet";
+		
+		WebClient webClient = WebClient.create();
+		
+		/*String response =  webClient.get()
+				 					.uri(new URI(endpointUrl))
+				 					.retrieve()
+				 					.bodyToMono(String.class)
+				 					.block();
+		
+		System.out.println("Response :: " + response);*/
+		
+				webClient.get() 
+						 .uri(new URI(endpointUrl))
+						 .retrieve()
+						 .bodyToMono(String.class)
+						 .subscribe(Application::handleResponse);
+				
+		System.out.println("**** After Sending Request ******* ");
+		
+	}
+	
+	public static void handleResponse(String msg) {
+		System.out.println("Response :: " + msg);
+	}
+
+}
+------------------------------------------------------------

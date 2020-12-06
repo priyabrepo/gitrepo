@@ -1,0 +1,36 @@
+Yesterday's session : Microservices Introduction
+------------------------------------------------
+
+Microservices is an Architectural Design Pattern which is used to develop applications
+
+Microservices architecture came into market to resolve the problems of Monolith Architecture.
+
+Challenges With Microservices
+------------------------------
+1) Bounded Context
+
+2) Lot of configuration
+
+3) Visibility
+
+4) Pack of cards problem
+
+
+
+-> Deciding boundary for Microservice is difficult
+
+-> As we are developing multiple services in project, we have to configuration in every service. We will end up by writing lot of configurtion.
+
+-> All the team members will not have clarity on all services because services will be developed by multiple teams.
+
+-> If any crucial microservice got failed then remaining services also will fail to process that request.
+
+Advantages of microservices
+---------------------------
+1) Easy Maintenence
+
+2) Faster Releases
+
+3) Parallel Development
+
+4) We can use several technologies in project

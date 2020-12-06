@@ -1,0 +1,45 @@
+Yesterday's session : Monolith Architecture & LBR
+
+-----------------------------------------------------
+
+-> In realtime application will be deployed into multiple servers to distribute the load.
+
+-> When application is deployed in multiple servers we will configure all those servers to Load Balancer.
+
+-> Load Balancer is responsible to distribute the load to servers which are connected.
+
+Load Balancer Techniques
+-------------------------
+1) Round Robbin algorithm
+
+2) Sticky Session
+
+3) IP hashing
+
+-> LBR infrastructure is costly.
+
+-> When we have Monolith application, to reduce burden on server we will use LBR. It is costly solution.
+
+
+-> To overcome the drawbacks of Monlith Architecture, Microservices Architecture came into market.
+-------------------------------------------------------------
+
+-> Microservies is not a technology
+
+-> Microservices is not an API
+
+-> Microservices is not a framework.
+
+-> Microservices is an Architectural design pattern which is used to simplifi application development and maintenence.
+
+-> Microservices Architecture talks about 'Divide & Conquer'
+
+Limitations of Microservices
+-----------------------------
+1) Bounded Context
+2) Lot of configuration
+3) Visibility
+4) Pack of cards
+
+
+-> Defining boundary for Microservice is difficult

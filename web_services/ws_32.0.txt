@@ -1,0 +1,50 @@
+Yesterday's session : Service Registry & Services
+
+-----------------------------------------------------------
+
+-> Service Registry is used to register all the services which are available in our application.
+
+-> Spring Cloud Netflix library provided 'Eureka Server' which we can use as 'Service Registry'.
+
+-> One Service is nothing but one Rest API
+
+------------------------------------------------------------------
+-> If Eureka Server running on 8761 port number then clients will be auto registered.
+
+
+-> If we don't want to register Service Registry project with Eureka Server then we should add below property in service-registery application yml file.
+
+eureka:
+  client:
+    register-with-eureka: false
+
+-> If Eureka Server Running with different number (not 8761) or in different machine client application should be registered manually with eurkea. For client registration we will write below property
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: <Eureka-Sever-URL>
+
+
+Steps to develop API Gateway Application
+-----------------------------------------
+1) Create Spring Boot application with below dependencies
+
+	a)spring-boot-starter-web
+	b)spring-cloud-starter-netflix-eureka-client
+	c)spring-cloud-starter-netflix-zuul
+	d)devtools
+
+2) Configure below 2 annotations at Spring Boot start class
+
+	a) @EnableDiscoveryClient
+	b) @EnableZuulProxy
+
+3) Configure below properties in application.yml file
+
+	a)server port
+	b)application name
+	c)eureka server url 
+	d) routings
+
+4) Run the application and test it.

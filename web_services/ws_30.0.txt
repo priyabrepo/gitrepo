@@ -1,0 +1,18 @@
+Yesterday's session : Challenges & Advantages of Microservices
+
+Today's session : Microservices Architecture
+--------------------------------------------------------------
+
+Building Blocks Of Microservices Architecture
+---------------------------------------------
+1) REST APIs (Services)
+
+2) Service Registry
+
+3) API Gateway
+
+-> Services are nothing but rest apis that we develop for our application. Every Rest api or service is called as one microservice. Every Microservice will be developed as a seperate project.
+
+-> Service Registry is used to maintain list of services and services details in one place.
+
+-> API Gateway acts as front door for all our services. Filters and Routing we will do in API Gateway.

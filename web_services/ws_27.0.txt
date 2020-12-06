@@ -1,0 +1,47 @@
+Spring Boot & Microservices (05-SBMS @9 AM IST)
+-----------------------------------------------
+Part-1 : Spring Boot Basics & Internals
+
+Part-2 : Spring Data JPA
+
+Part-3 : Spring Web MVC
+
+Part-4 : RESTful Services
+
+Part-5 : Microservices (Pending)
+--------------------------------------------------------------
+-> A project nothing but collection modules
+
+-> Software Projects are used to reduce human efforts
+
+-> A software Project can be developed in 2 ways
+
+		a)Monolith Architecture
+		b)Microservices Architecture
+
+What is Monolith Architecture?
+------------------------------
+-> If we develop all the modules & Components in single project then it is called as Monolith Architecture Based Project.
+
+-> For monolith architecture based project we will create one war file which contains all functionalities of project.
+
+-> Monolith Architecture Based Project war is called as Fat war
+
+-> We will deploy fat war file to single server
+
+-> All incoming requests which are coming to application should be processed by Single server
+
+-> As single server is handling all incoming requests burden will be increased on the server
+
+-> When burden got increased on server, then problems will occur
+
+		a) Request Processing May take more
+
+		b) Request Process may fail
+
+		c) Server Can crash
+
+-> To overcome the above problems, we will use Load Balancer concept in Industry.
+
+-> Load Balancing is the process of distributing the load
+
