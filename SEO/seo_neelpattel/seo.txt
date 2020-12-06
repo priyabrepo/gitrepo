@@ -22,3 +22,14 @@ google search liaison,Danny sullivan,think with google
 
 - optimise all apges.
 - should not be slow. for every second delay,7% reduction in conversions (hubspot)
+- mobile site optimision
+- keep content short and optimised.
+- short url llength
+- keep things short: provide back links
+- brand name
+- security. No cookies,ssl certificste(https)
+- keyword suggest. ubersuggect>dashbord> create your project
+
+Keyword Reserch
+----------------
+- 
