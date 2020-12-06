@@ -1,0 +1,43 @@
+G - grab
+G+ X / Y / Z - move in the axis
+G+ Midle mouse - move on any axis
+
+Same for 
+ Rotating (user R)
+ Scaling (use S)
+ 
+- orbiting middle mouse
+- shift + middle mouse
+- shift + D - duplicate
+- shift + A - Add
+- F3 - SEARCH
+- tab - eadit mode
+
+
+- propersonal eaditing - O
+1- font
+2-down
+3- side 
+4- left
+5 prespective/ortho
+6- right7
+7- top 
+8- up
+9- opposit
+/ - isolate 
+  or 
+  altr + middle mouse
+  
+  alt + z - xray mode
+  ctrl+L - select all vertices of an object
+  select +alt + RIGHT click - select individual edge  : then ctrl + i 
+  
+  h - hide 
+  alt+h un hide
+  
+  select 2 vertices + E extructe (extend)
+  
+  
+  sclupting
+  ---------------
+  f- change brush size
