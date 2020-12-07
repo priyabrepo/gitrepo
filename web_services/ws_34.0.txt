@@ -1,0 +1,92 @@
+Yesterday's session : Dealing with application properties
+--------------------------------------------------------------
+
+-> As part of application execution we need to display few messages like success and failure msgs.
+
+-> It is not at all recommended to hard code success and failure messages in source code.
+
+-> To avoid hard coding we will configure msgs in application.properties file or application.yml file
+
+-> In boot application, we can application.yml file msgs into java class using below annotations
+
+	@ConfigurationProperties
+	@EnableConfigurationProperties
+
+------------------------------------------------------------------
+-> It is not recommended to write duplicate string literals in our source code.
+
+-> To avoid duplicate String literals we will use Constants.
+
+------------------------------------------------------------------
+Today's session : Code Review
+------------------------------------------------------------------
+-> Code Review is the process of verifying coding standards followed by developers in coding.
+
+-> In realtime Code Review will happen in 2 ways
+
+	1) Automated Review using Tool
+	2) Peer Review
+
+-> We will use SonarQube server to perform code review. It will verify our source code and it will identify problems in our code.
+
+Note: Sonar Qube will not check logic of the program is correct or not.
+
+-> Peer Review is the process of verifying logic of the program. Juniour developers logic will be verified by senior developers in the project.
+-------------------------------------------------------------------
+
+What is SonarQube?
+------------------
+-> SonarQube is an open-source platform developed by SonarSource    for continuous inspection of code quality to perform automatic      reviews with static analysis of code to detect bugs, code    smells, and security vulnerabilities on 20+ programming    languages.
+
+-> SonarQube developed using Java
+-----------------------------------------------------------------
+
+Installing Sonar Software in Local
+--------------------------------------
+-> Download Sonar Software from below url
+	
+	URL : https://www.sonarqube.org/downloads/
+	Version : 6.3.1
+
+-> Start Sonar Server by executing StartSonar.bat	
+
+	Location :Sonar-Folder/bin/windows64/StartSonar.bat
+
+-> Once Sonar Server is started it will display Sonar up and running message in console.
+
+-> By Default Sonar Server will run on 9000 port number
+
+-> Open Sonar Server Dashboard using below URL	
+	http://localhost:9000/
+
+
+Running Project with SonarQube Server
+-------------------------------------
+Add below 1 plugin in project pom.xml file (in <build> tag)
+
+<plugin>
+   <groupId>org.sonarsource.scanner.maven</groupId>
+   <artifactId>sonar-maven-plugin</artifactId>
+   <version>3.4.0.905</version>
+</plugin>
+
+-> Do Maven build of project with below goal
+	
+	mvn clean compile package
+
+-> For project do maven build with below goal To Do Code Review
+	
+	mvn sonar:sonar
+
+-> After maven build completed, check sonar server dashboard.
+	
+-> We can our project report under Projects
+
+-> Report contains below details
+	
+		1) Bugs(Blocker, Critical, Major & Minor)
+		2) Vunerabilities
+		3) Code Smells
+		4) Code Coverage
+		5) Duplicates etc...
+
