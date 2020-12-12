@@ -1,0 +1,9 @@
+Last session : Mini Project Requirement (Stock App)
+Today's session : Stock App Implementation
+------------------------------------------------------------
+
+-> Create ServiceRegistry application using Eureka Server
+
+-> Create STOCK-PRICE-API with H2 Database and insert few stock price details for few companies.
+
+-> Create STOCK-CALC-API and make rest call to STOCK-PRICE-API and calculate total cost based on Qty and return as response.
