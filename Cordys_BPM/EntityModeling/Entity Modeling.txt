@@ -1,0 +1,17 @@
+Entity Modeling
+--------------------
+(OpenTextProcess Platform 16.3)
+
+Entity Modeling is a feature available with Process Platform for OpenText Process Suite. entity modeling as a component of Process Platform.
+allows more teams in an organization to model and describe common elements of an industry’s data without performing low-level code development
+this development process allows work to be distributed evenly across a business, and includes more teams in the contribution of the overall solution.
+
+- Entity Modeling for OpenText Process Platform v16.0 - First Edition: April 2016
+  Entity Modeling for OpenText Process Platform v16.3 - Second Edition: March 2018
+
+
+create and build entities > populate by modeling tools and building blocks. >  use your entities to create full user interfaces
+
+CUSP refers to the user start page.Entity modeling is an application in the palette.
+
+The content of the application palette depends on the roles that are assigned 
