@@ -1,0 +1,37 @@
+Last session : Stock Market Application using MS architecture
+
+Today's session : Actuators in Spring Boot
+-------------------------------------------------------------
+-> Actuators are used to provide "production" ready features of application.
+
+-> Whenever we deploy our application into higher environments (DEV, QA, UAT, Pilot & PROD) it is very important to monitor our application behaviour.
+
+-> To monitor and manage our applications in higher environments we will configure Actuators.
+
+--------------------------------------------------------------
+
+-> To configure actuators for our application we need to add 'actuator' starter in pom.xml file.
+
+-> By default few actuators are enabled and health, info actuators are exposed.
+
+Note: actuator endpoint should be enabled and exposed to access.
+
+-> To access actuator endpoints, we should use /actuator as prefix
+
+	Ex : http://localhost:9090/actuator/health
+
+----------------------application.yml----------------
+server:
+  port: 9090
+info:
+  app:
+    name: SB_REST_API
+    description: This is sample app for actuators
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+---------------------------------------------------------
+-> To see all the exposed endpoints we can use below url
+	http://localhost:9090/actuator/
