@@ -1,0 +1,47 @@
+Yesterday's session : Actuators in SpringBoot
+----------------------------------------------
+-> To configure production ready features for our application we should add spring-boot-starter-actuator dependency in pom.xml file
+
+-> By default health, info endpoints are enabled and exposed.
+
+-> To expose remaining actuator endpoints we should add configuration in application.yml file
+
+management:	
+   endpoint:
+	web:
+	  exposure:
+		include: "*"
+		exclude: beans,env
+
+-> We can check all the exposed endpoints using below url
+
+		http://localhost:port-num/actuator
+
+-> We can access particular actuator endpoint using /actuator as prefix
+
+	/actuator/health   
+	/actuator/info
+	/actuator/beans 
+
+
+Details of actuator endpoints
+-----------------------------
+health : It provides application health (UP or DOWN)
+
+info : It provides application information
+
+Note : info endpoint details we should add in application.yml file
+
+beans : It provides all bean classes loaded by our application
+
+mappings: It provides all url-patterns available in our application.
+
+heapdump : Using this we can download heap details of jvm. It will download heap dump file. To analyze heap dump we will use MAT (Memory Analyzer Tool)
+
+threadump : Using this we can get threads details which are running in our application
+
+env : It provides env details of our application
+
+**shutdown** : Using this we can stop the application
+
+Note:: By default shutdown endpoint will be in disable mode. All the actuator endpoints are binded to HTTP GET Request where as 'SHUTDOWN' endponint is binded to HTTP POST Request.

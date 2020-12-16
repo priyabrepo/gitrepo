@@ -487,7 +487,76 @@ We can also use spring-mvc without using the embedded Tomcat server. If we want 
 
 
 
+Spring Data JPA
+--------------------
 
+handles most of the complexity of JDBC-based database access and ORM (Object Relational Mapping).
+It makes the implementation of your persistence layer easier and faster.
+
+Features
+ 1. No-code repository
+ 2. Reduced boilerplate code
+ 3. Generated Queries
+      ex: 
+	    public interface EmployeeRepository extends CrudRepository<Employee, Long>   
+           {  
+             Employee findByName(String name);  
+           }  
+		   
+	  Employee is the entity that is to be managed, and Long is the data type of primary key.
+	  Spring internally generates a JPQL (Java Persistence Query Language) query based on the method name.
+	  
+	  
+Spring Data JPA provides three repositories are as follows:
+ 1.CrudRepository:
+     standard create, read, update, and delete It contains method like findOne(), findAll(), save(), delete(), etc.
+ 2.PagingAndSortingRepository: 
+     CrudRepository and adds the findAll methods. It allows us to sort and retrieve the data in a paginated way.
+ 3.JpaRepository:
+     It is a JPA specific repository It is defined in Spring Data Jpa. It extends the both repository CrudRepository and PagingAndSortingRepository. 
+	 It adds the JPA-specific methods, like flush() to trigger a flush on the persistence context.
+
+dependancies
+  1. 
+  <dependency>  
+<groupId>org.springframework.data</groupId>  
+<artifactId>spring-data-jpa</artifactId>  
+<version>2.2.3.RELEASE</version>  
+</dependency>  	 
+	
+Spring Boot Starter Data JPA.
+---------------------------------	
+spring-boot-starter-data-jpa internally uses the spring-boot-jpa dependency (since Spring Boot version 1.5.3).
+
+<dependency>  
+<groupId>org.springframework.boot</groupId>  
+<artifactId>spring-boot-starter-data-jpa</artifactId>  
+<version>2.2.2.RELEASE</version>  
+</dependency>  
+	 
+	 
+1. Entity Manager: Once we define the mapping, it handles all the interactions with the database.
+2. PQL (Java Persistence Query Language): It provides a way to write queries to execute searches against entities. It is different from the SQL queries.
+                                       JPQL queries already understand the mapping that is defined between entities. We can add additional conditions if required.	
+3. Criteria API: It defines a Java-based API to execute searches against the database.
+
+Hibernate vs. JPA:
+--------------------
+Hibernate is the implementation of JPA. It is the most popular ORM framework, while JPA is an API that defines the specification.
+Hibernate understands the mapping that we add between objects and tables. 
+It ensures that data is retrieved/ stored from the database based on the mapping. It also provides additional features on the top of the JPA.	
+
+Spring Boot Starter Actuator
+Spring Boot Starter Test
+Spring Boot DevTools
+Spring Boot Multi-Module Project
+Spring Boot Packaging
+Spring Boot Auto-configuration
+Project Deployment Using Tomcat
+Spring Boot AOP
+Spring Boot Database - crud
+SB Caching
+Spring Boot Change Port
 
 
 
