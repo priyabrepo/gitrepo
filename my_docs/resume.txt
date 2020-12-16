@@ -1,33 +1,33 @@
 1.java
  - creating-reading xls,date time, io stream,bert report
  
-2.jdbc,servlet,jsp
+2.jdbc,jsp
  - sql,workbench
  
  
 3.spring boot *
- - annotation
  
-4.webservices *Swagger,rest, writing unit tests with JUnits & Mockito or similar libraries,
+ 
+4.webservices *
+Swagger,rest, writing unit tests with JUnits & Mockito or similar libraries,
 Experience on developing/ using CI/CD pipeline using Jenkins/ Git
    xml,jax-B,json,http requests,spring web mvc,Spring anotation
 
-5.opentext bpm *
+5.opentext bpm 
 
-6.tibco stream base *
 
-7.tomcat *
+6.tomcat *
 
-8.maven 
+7.maven 
 
-9.git
+8.git
 
-10.svn
+9.svn
 
-11.azure
+10.azure
 
-12.jira (issue and project tracking) 
+11.jira (issue and project tracking) 
 
-13. react * 
+12.react * 
 
-14.spring MVC *
+13.spring MVC 

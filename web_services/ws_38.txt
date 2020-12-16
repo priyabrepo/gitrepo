@@ -1,0 +1,41 @@
+Last session : Actuators in Spring Boot
+---------------------------------------
+-> Actuators are used to provide production ready features for our application
+
+-> Using Actuators we can monitor and manage our applications
+--------------------------------------------------------------
+
+What is the purpose Spring Boot admin server?
+---------------------------------------------
+-> Spring Boot admin server provides centralized UI to monitor and manage all services available in our application.
+
+-> Which services we need to monitor in centralized UI we need to register them as Admin Client.
+---------------------------------------------------------------
+Today's concept : Distributed Log Tracing using Sleuth & Zipkin
+--------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+payment.log
+------------
+101-sdfsdfsdf
+fjfjgkg
+resafsdfsdf
+
+shipping.log
+------------
+fghgjhgj
+101-htytjtgg
+j;jlyuiyt
+
+tracking.log
+-------------
+rgsvdgffg
+retwerewe
+101-tyrertert
