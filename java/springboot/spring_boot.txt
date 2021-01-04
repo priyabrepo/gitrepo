@@ -547,6 +547,27 @@ Hibernate understands the mapping that we add between objects and tables.
 It ensures that data is retrieved/ stored from the database based on the mapping. It also provides additional features on the top of the JPA.	
 
 Spring Boot Starter Actuator
+--------------------------------
+
+Actuator brings production-ready features to our application.
+features like,
+    Monitoring our app
+	gathering metrics
+	understanding traffic
+	understanding the state of our database
+main benefit of this library is that we can get production-grade tools without having to actually implement these features ourselves.
+expose operational information about the running application.It uses HTTP endpoints or JMX beans to enable us to interact with it.
+
+
+
+
+
+
+
+
+
+
+
 Spring Boot Starter Test
 Spring Boot DevTools
 Spring Boot Multi-Module Project

@@ -15,3 +15,609 @@ create and build entities > populate by modeling tools and building blocks. >  u
 CUSP refers to the user start page.Entity modeling is an application in the palette.
 
 The content of the application palette depends on the roles that are assigned 
+
+identity package is a construct in Process Suite which represents an
+organizational model across multiple platforms, including Process
+Experience and OpenText Directory Services (OTDS)
+
+
+Q and April
+-------------------
+1.What is an application palette?
+An Application palette is a window from which you can open or select applications, documents
+etc. Examples are: My Applications, the Shortcut bar and your personalized view.
+2. What is an artifact?
+An application palette contains options that you can start, open, select, etc., like the User
+Manager and My Inbox in the My Applications App Palette. The generic name for each is an
+Artifact. In your own application you can also use this technique to select options instead of,
+for example, a drop-down box.
+3. When you open the User Manager application, which users do you see by default?
+By default, only your own user name is displayed when opening the User Manager. When you
+click the Show All button, you will see all the users in your organization.
+4. Which version of OpenText Process Platform is currently installed?
+The build information comes in three parts:  Version: 16.3  Build: 2039  Revision: 329539
+
+
+
+Create a collaborative workspace (CWS)
+-------------------------------------------------
+1. In the browser, click the Process Platform shortcut for the Warehouse
+organization in the Favorites bar.
+2. Log in to Process Platform with the user name analyst@training.local
+and password opentext if you are not logged in already.
+3. In the upper right corner of the user start page, confirm that you are
+using the Warehouse organization.
+If you are in any organization other than Warehouse, select Warehouse
+from the Organizations drop-down. Wait for the user start page to
+refresh when you switch organizations.
+4. If you did not do so in the previous exercise, create shortcuts for
+Workspace Documents and New Document in the shortcut bar.
+You will use these shortcuts frequently in this course
+5. Click the Workspace Documents artifact.
+The first time the Workspace Document Explorer is started it takes a while
+to load all the required components.
+6. Click the insert (+) button to create a new workspace.
+7. Provide the following details:
+a. Name: Northwind Workspace
+b. Description: Workspace for Northwind applications
+c. Source Control Management type: SVN for team development
+8. Click Next.
+9. Complete the source control repository properties:
+a. URL: file:///C:/SVNRepository/bpm
+b. Username: sysadmin
+c. Password: opentext
+10. Click Test Connection and ensure that you are able to connect to the
+local repository.
+11. Click Next.
+12. Fill in the properties of the project, providing the following values:
+a. Project Name: Warehouse Application
+b. Package Owner: Northwind
+c. Product Name: Warehouse Application
+13. Click Next.
+14. Review the summary and click Create
+15. Click Close when the workspace has been created successfully.
+
+Build a Product entity
+-------------------------
+4. Right-click the Entities folder and select New > Other.
+5. In the New Document dialog, type entity in the search bar. 
+6. Click Entity.
+The Entity Designer appears. Remember that an Identity is added by
+default to every new entity.
+7. Click Show/Hide entity properties.
+8. In the Entity properties section, set the Display name and Name to
+Product
+9. save
+10. Click Identity in the left section.
+The Identity’s properties are opened in the right section of the window.
+Every entity has a mandatory Identity with a default name: Identity. This
+name cannot be edited.
+11. Close the entity.
+The Product entity is listed inside the Entities folder in your project.
+
+Validate and commit the Warehouse Application project
+--------------------------------------------------------
+1. Open the Workspace Documents application if it is not already open.
+2. Right-click the Warehouse Application project.
+3. Select Validate.
+Validation should complete successfully.
+4. Click Close
+5. Commit your changes to the repository. Click Make Changes Available
+to Others ( ) in the workspace toolbar.
+Changes will be synchronized with the repository
+6. In the committal dialog, enter a comment: “My first entity”.
+7. Click Make Available.
+8. Click Close once the changes have been committed.
+9. If you wish to review the changes in the repository, click Show Change
+History
+
+Create a subtype of Product
+----------------------------------
+1. In the Northwind workspace, right-click the Product entity and select
+Create subtype.
+The entity editor dialog appears.
+2. Show the entity properties if they are not already present.
+3. Set the Display name and Name to PerishableProduct.
+4. Save your changes.
+
+
+Answers to test your knowledge
+-----------------------------------
+1. What makes a workspace “collaborative”?
+Each workspace is stored on Process Platform server according to its organization. If a Source
+Control Management (SCM) system is installed, the workspace can be checked into the SCM
+server and checked out by other team members who have access to it. In this way, other users
+can contribute to the contents of the workspace in a global initiative and share work with their
+teammates anywhere in the world.
+2. What is the common name given to objects you build in Process Platform (for example,
+entities, business process models, case models, business rules, etc.)?
+Documents.
+3. What are the two types of organizations in Process Platform? What are the differences
+between them?
+System and Development.
+The System Organization is included by default with every Process Platform installation. It is
+the single organization which a system administrator will use to manage information relevant
+to the entire Process Platform system. It is not intended for development, nor is it intended for
+any user other than the system administrator.
+Development organizations are created by the Process Platform system administrator in order
+to perform development work. These organizations are created specific to each business.
+Users are granted access to these organizations by the system administrator to perform
+certain duties (e.g., developer, deployer, analyst, etc.) relevant to the organization.
+4. Which property or building block is automatically added to a new entity? What is the
+significance of this property?
+Identity.
+The Identity building block functions as a primary key to help uniquely identify each instance of
+the entity. Examples of an Identity may be Product Number for Products, Order ID for Orders,
+Social Security Number for People, Employee ID for Employees, etc.
+
+Add property building blocks to an entity
+----------------------------------------------
+
+3. Double-click the Product entity to open it in the editor.
+4. Click Add.
+5. Select Property from the building blocks on the left.
+6. Set the Display Name to Name
+7. Set the Name to ProductName
+8. Set the Property Type to Text
+9. Set the Length to 64
+10. Click Add.
+11. Add another Property (Add > Property).
+12. Set the Display Name to Category.
+13. Set the Name to CategoryID
+14. Set the Property Type to Enumerated Integer.
+15. Select the Sort list by display name check box.
+16. The initial value in the enumerated integer list is a null value. Set the display Name of the null value to N/A 
+ Click + to add a new value.
+18. Set the display name to Beverages and the value to 1.
+19. Include the following additional values and Display Names:
+
+Display Name       Value
+Condiments           2
+Confections          3
+Dairy Products       4
+Grains/Cereals       5
+Meat/Poultry         6
+Produce              7
+Seafood              8
+
+
+20. Click Add and continue
+21. Add the following Property building blocks:
+
+
+DisplayName                 Name                 PropertyType       Length            Currency
+Shipping Units           QuantityPerUnit               Text             64
+Price per Unit           UnitPrice                Currency                                CAD
+In Stock                 UnitsInStock             Integer
+On Order                 UnitsOnOrder              Integer
+Reorder Level            ReorderLevel             Integer
+Discontinued             Discontinued              Boolean
+
+
+22. After creating the Property of Boolean type, set the Display Name of the
+true value to Yes, the false value to No, and the “none” value to N/A
+23. Set the false value of the Boolean property type to be Default
+24. Click Add to add the Boolean property.
+25. Save and close the Product entity.
+26. Validate the entity in the workspace.
+
+
+
+Create a parent-child relationship in the Order entity
+---------------------------------------------------------
+2. Expand the Warehouse Application and the Entities folder.
+3. Double-click the Order entity to open it in the editor.(create order entity)
+4. Click Add.
+5. Choose the Relationship building block.
+6. Set the Display Name to Order Line and Name to childOrderLine
+7. Set the Type to To child.The Multiplicity is automatically set to many.
+8. Set the Child display name to Line Item
+9. Click Add.
+The Relationship is added under the list of Relationship building blocks in
+the editor.
+10. Save the Order entity.
+11. Click Configure child entity.
+
+
+
+Add title to the Order entity
+1. Open the Order entity from the Warehouse Application if it is not already open.
+2.click Add.
+3. Select Title.
+4. Leave the default values selected.
+5. Click Add.
+6. Select the Title building block from the entity editor.
+7. Change the Create By option to System.
+8. Set the Title Specification to Order.
+9. Save and close the Order entity
+10.Validate application.
+
+
+Create a theme for the Northwind application
+-----------------------------------------------
+1. Return to Process Platform and the Northwind Workspace.
+2. Right-click the Warehouse Application project and select New > Folder.
+3. Set the name of the folder to Themes
+4. Right-click the Themes folder and select New > Other.
+5. In the New Document dialog, select Theme
+You can use the search filter to narrow down the documents by name.
+6. In the Header section, click Browse image
+7. Navigate to C:\Support Files and select Northwind Banner.gif.
+8. Click Open.
+9. For the Background, select Gradient.
+10. Set the Top color to be #65dfdf and the Bottom color to be #429c9c
+11. Set the Font name to Helvetica.
+12. Set the Panels Border color to #c9f9f9.
+13. Set the Text color for the Global action bar to #429c9c and the
+Background color to #f7f7aa
+14. Save the theme with the name Northwind Theme
+Make sure the location is Warehouse Application/Themes.
+15. Click Preview in the theme editor header
+16. Close the preview window.
+17. Close the theme editor.
+
+
+Create a list for the product entity in Process Platform
+------------------------------------------------------------------
+
+2. Expand the Warehouse Application and Entities folder.
+3. Double-click the Product entity to open it in the editor.
+4. Click Add.
+5. Select List.
+6. Set the Display Name to Product Catalog
+7. Set the Name to ActiveProducts
+8. Set the Default Category to Products
+9. Set the Display Count to Only in results
+10. Set the Results per page to 200
+11. Make sure that Visible to end user is selected.
+12. Click Add.
+
+
+
+Add properties and filters to a list
+-------------------------------------
+
+1. Open the Product entity 
+2. Select the ActiveProducts list from the list of building blocks.
+3. Click Configure
+4. On the Properties tab, select Name, Price per Unit, In Stock, Category,
+and Discontinued in that order.
+If you make a mistake with the order, select the correct property from
+the right panel and use the Move Up/Move Down buttons as
+appropriate.
+5. Set the Column label to Name
+6. Set the Column alignment for Name to Left
+7. Set the Sorting for Name to Ascending
+8. Select the Include as filter check box for Name.
+9. Set the other following details for the remaining Properties:
+
+Property                Columnlabel    Alignment      Sorting        Include as filter    Hide in results
+Price per Unit             Cost          Right          None                True              False
+In Stock                  On Hand        Left           None                False             False
+Category                                 Left           None                True              False
+Discontinued                             Left           None                False             True
+
+
+10.Select the filters tab.
+11. Set the evaluation criteria to one.
+12. From the select drop-down, select Discontinued.
+Although you set Discontinued to be hidden from the results, it is still part of
+the list.
+13. Set the operator for Discontinued to equal to
+14. Set the operand for Discontinued to False
+The list will only select those products which are not discontinued (i.e.,
+active products).
+15. Click Save.
+16. Close the ActiveProducts list.
+17. Save the Product entity.
+18. Close the editor.
+19. Validate the Warehouse Application.
+
+
+Build an action bar for product
+----------------------------------------
+1. Open the Product entity from the Warehouse Application.
+2. Click Add.
+3. Select Action bar.
+4. Set the Display Name to Default.
+5. Set the Name to abarDefault
+6. Set the Description to Default action bar.
+7. Click Add.
+8. Select the abarDefault action bar from the list of action bar building
+blocks in the entity.
+9. Click Configure
+10. Under the Identity actions, select Open and Print.
+11. Click Save.
+12. Close the action bar editor.
+13. Save and close the entity.
+14. Validate the Warehouse Application project.
+
+
+Add an action bar to a list
+-------------------------------
+1. From the Warehouse Application project, open the Product entity.
+2. Select the ActiveProducts list.
+3. In the right panel, change the Action Bar field to Default
+4. Save and validate the entity
+
+
+Administer Northwind workspace in Process Experience
+Administration Console
+-------------------------------------------------------
+1. Save and close any open entities you may have.
+2. Validate the Warehouse Application.
+3. Right-click the Warehouse Application and select Publish to
+Organization
+.
+Only those projects which can be validated will be published.
+4. Open a new browser window.
+5. Use the bookmarks to navigate to the Process Experience
+Administration Console:
+http://localhost:81/home/warehouse/app/admin/web/config ->  http://nb1001:8080/home/Biswal/app/admin/web/config
+
+6. Log in as user analyst@training.local if you need to.
+You should not need to log in: you should automatically be logged in
+through the single sign-on aspects.
+7. Select the NorthwindWarehouseApplication from the list of
+Workspaces.
+There should not be any warnings.
+8. Expand the Solution Security configurable element.
+9. Select Use Solution.
+10. On the right, under the Roles grouping, make sure the Entity Runtime
+User... and everyoneInwarehouse roles are checked.
+You may need to scroll to the bottom of the role list to find
+everyoneInwarehouse
+11. Open another new browser window.
+12. Navigate to the Process Experience home page:
+http://localhost:81/home/warehouse/app/processExperience/web/perform  ->  http://nb1001:8080/home/Biswal/app/processExperience/web/perform
+
+13. Log in as user analyst@training.local if you need to.
+14. Click Home Page > Home Page.
+15. Confirm that the Product Catalog list appears under the lists panel.
+16. Click the Filter icon to confirm that you are able to filter on name, cost,
+and category
+
+Add a generic business customer form
+-------------------------------------
+3. Double-click the Business entity to open it in the editor.
+4. Click Add.
+5. Select Form
+6. Set the Display Name to Create Business Customer.
+7. Set the Name to Create
+8. Set the Description to Default form for creating business customers
+9. Click Add.
+
+Build the presentation for a business customer form
+-----------------------------------------------------------
+1. Select the Create form from the Business entity.
+2. Click Configure
+3. Click Toggle grid.
+4. In the Components panel, drag the Id property and drop it in the
+Presentation panel.
+5. Change the Type feature on the right side to Text only.
+6. Under the Show label feature, change the label to Business ID
+7. Drag the Client Code property and drop it to the right of the ID field.
+8. Set the Client Code field to Required
+9. Drag the Company property and drop it beneath the ID field.
+10. Set the Display of Company to Required
+11. Drag the Contact field and place it to the right of Company.
+12. Save and close the form.
+13. Your form should resemble the following example.
+
+
+
+Build an order form with relationships
+---------------------------------------
+1. Open the Warehouse Application in the Northwind Workspace and
+expand the Entities folder.
+2. Double-click the Order entity to open it in the editor.
+3. Click Add.
+4. Select Form
+5. Set the Display Name to New Order.
+6. Set the Name to Create
+7. Set the Description to Form for new orders
+8. Click Add.
+9. In the editor, select the form and click Configure
+10. Click Toggle grid.
+11. Drag the Id field and drop it on the presentation.
+12. Set the presentation of the Id field to Text only
+13. Change the Label of the Id field to “Order Number”.
+14. Drag the Order Date property and drop it onto the presentation.
+15. Drag the Requested Date property and drop it onto the presentation.
+16. Drag the Employee property and drop it onto the presentation.
+By default, since the data type of the property is an enumerated integer, the presentation will be set to a radio button option.
+17. Change the Type to Drop list.
+18. Resize and align the fields in the Presentation panel.
+19. Under the Other section on the left of the editor, drag a Tab Container
+and drop it next to the fields in the presentation.
+20. Select a gray area in the header of the tab container, to the right of the new tab.
+It may help if you make the tabbed container larger.
+21. On the right, set the number of tabs to 3
+22. Select the first tab.
+23. Set the tab’s container heading to Customer Info
+24. From the Components section on the left, drag the [0..1] Bill To
+relationship and drop it in the tabbed container.
+25. Under Presentation on the right side, change the type from Button(s)
+only to Drop list
+26. Set the Browse list to Client List
+This is the list which will be referenced for contents to the drop list.
+27. Set the Property to Client Code
+This is the value which will be visible to the user in the drop list.
+28. Set Required to true.
+29. Further down in the right-hand properties pane, under the Actions
+section, make sure the Create option is selected.
+This option, when enabled, allows users to create ad hoc Customer
+instances while creating an Order instance.
+30. Expand the Bill To relationship on the left and expand Properties.
+31. Drag Address, City, Postal Code, and Phone to the Customer Info tab.
+32. Set the Read-only property to true on each of these four fields.
+33. Select the second tabbed container.
+34. Set the tab’s container heading to Shipping Info
+35. Drag the following Order properties and drop them on the Shipping Info
+tab:
+a. Ship Via (set the type to Drop list)
+b. Freight
+c. Shipped Date (set the Display to Read Only)
+36. Select the third tabbed container.
+37. Set the tab’s container heading to Items
+38. Save and close the form.
+39. Save and close the Order entity.
+40. Validate the Warehouse Application.
+
+Build and use a sub-form for customers
+--------------------------------------------
+1. Open the Warehouse Application if it is not already open.
+2. Open the Customer entity.
+3. Click Add.
+4. Select Form
+.
+5. Set the Display Name to Address subform
+.
+6. Set the Name to subformAddress
+.
+7. Set the Description to Sub-form containing address info
+.
+8. Click Add.
+9. Select the sub-form from the entity editor and click Configure
+.
+10. Under the Components section on the left, expand Properties.
+11. Drag the Address, City, Region, Country, and Postal Code properties
+and drop them onto the canvas.
+12. Change the display name (i.e., label) of the Address field to Street in
+order to prevent any ambiguity.
+13. Resize and align the fields on the canvas appropriately.
+14. Save and close the sub-form. Save the Customer entity if required.
+15. Open the Business entity.
+16. In the entity editor, select the Create form and click Configure.
+17. On the left side, under Components, scroll to the bottom and drag the
+Address sub-form into the editor.
+18. Clear the Show container heading option.
+19. Clear the Default border option.
+20. Set the border style to No border.
+21. Save and close the Create form.
+22. Save and close the Business entity.
+23. Validate your project.
+24. Publish your project to the organization.
+25. Open a browser window and navigate to Process Experience.
+26. Log in as user analyst@training.local if you need to.
+27. Click the Create (+) button in the upper right.
+28. Select Business
+.
+The Create form that you prepared for the Business entity should be
+displayed in a separate window.
+29. Complete the form with some random values and click Create.
+30. On the Process Experience home page, select Customer > Client List
+from the left.
+Your new customer should be displayed in the Results panel.
+31. Click Create (+) and select Order to create an order.
+32. Set the date ordered and employee name.
+33. On the Customer Info tab, use the drop-down to select the customer
+you just created.
+If you added address values for your new customer item, they should be
+automatically populated into the read-only fields of the form.
+34. On the Shipping Info tab, set some values for Ship Via and a cost for
+freight.
+35. Click Create to finish building the new order. You do not need any
+values for the items yet.
+36. Select the Order list. Does your new order appear in the list?
+37. Click the new order or, alternatively, select it and click Open. Are you
+able to edit the order? Discuss.
+
+
+
+Build a sub-form for Order with grid container
+1. Return to the Process Platform collaborative workspace.
+2. Open the Order entity from the Warehouse Application.
+3. Click Add > Form
+.
+4. Set the display name to Order Items Grid subform and the name to
+subformOrderItemsGrid
+.
+5. Set the Description to Order Items sub-form with grid presentation
+.
+6. Click Add, then click Configure
+.
+7. Under the Relationships section in the Components panel, drag the
+[1..*] Order Line relationship to the editor.
+Since Order Line is in a child relationship with Order, Process Platform will
+automatically create a multi-item group container. By default, Process
+Platform uses a repeating group container.
+8. Clear the Show container heading setting.
+9. Change the type of container to Grid
+.
+10. Under the Available actions section on the right, make sure the Open,
+Delete, and Create options are enabled for the container.
+11. Under the Order Line item in the Components panel, locate the
+Relationships section.
+12. Drag the [0..1] Product Ordered relationship and drop it inside the Order
+Line grid container.
+You must drop the Product Ordered relationship inside the Order Line
+repeating group because there could be many products ordered, but only
+product per line.
+The relationship is added as a column to the grid.
+13. For the Product Ordered relationship column, set the Browse list to
+Product Catalog
+.
+14. Set the Property to Name
+.
+15. Make sure that Browse and Clear are the only available actions which
+are enabled.
+End users should be able to select or remove a product for the Order, but
+should not be able to create new products during an order.
+16. Drag the following properties and drop them inside the Order Line grid
+container:
+a. Order Line > Price (set to Read-only)
+b. Order Line > Quantity
+c. Order Line > Discount
+17. Resize and align the fields on the form to create an organized, ordered
+presentation. You can drag columns in the grid container to rearrange
+them.
+18. Save and close the sub-form.
+19. Open the Create form for order.
+20. Click Configure
+.
+21. Switch to the Items tab in the order form.
+22. Drag the Order Items Grid subform and drop it into the Items tab.
+23. Clear Show container heading.
+24. Clear Default border and set the border type to No border.
+25. Resize the tabbed panel container as required to make sure that
+scrolling is not necessary.
+26. Save and close the Create form.
+27. Save and close the Order entity.
+28. Validate and publish your solution.
+29. Switch to Process Experience. Refresh the browser to collect your
+published changes.
+30. Click the ‘+’ button and create an order.
+31. Set the date ordered, employee, and client fields. Remember that you
+can create an ad hoc customer instance with the customer create
+button.
+32. Select the Items tab.
+33. Click ‘+’ to add a new row to the grid.
+34. Select the first column and click the drop-down arrow.
+35. Click Browse.
+The Product Catalog opens in a separate dialog.
+You have not yet created a Create form for the Product entity, so there are
+no items for you to select.
+36. Click Cancel.
+37. Click Create: you will add items later.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
