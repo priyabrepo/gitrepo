@@ -1,0 +1,14 @@
+Yesterday's session : Client Side Load Balancing
+----------------------------------------------------------
+-> We can run one application with multiple instances
+
+-> If we have multiple instances, we can reduce burden on server
+
+-> Every instance will run on different server and will have its own URL.
+
+-> When we use @FeignClient, it will internally uses Ribbon concept to distrubute the load.
+
+-> @FeignClient will identify instances urls using service name.
+------------------------------------------------------------
+Today's concept : Circuit Breaker
+-----------------------------------------------------------

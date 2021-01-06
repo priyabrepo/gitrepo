@@ -1,0 +1,54 @@
+Yesterdays's session : .properties vs .yml
+----------------------------------------------------------
+-> .properties file will represent data in key-value format
+
+-> .yml represents data in hierarchical manner
+
+-> .yml files will have more readability than .properties file
+
+-> .yml files indent spaces are very important.
+-------------------------------------------------------------
+
+-> To read yml file data into java class we will use below annotations
+
+	@EnableConfigurationProperties
+	@ConfigurationProperties
+--------------------------------------------------------------
+Embedded Servers
+--------------------------------------------------------------
+-> When we develop Spring Boot application using web-starter it will provide tomcat as default embedded container to run our web application.
+
+-> We can use jetty server also as embedded container to run our spring boot web applications.
+
+Configuring Jetty as Embedded Container
+---------------------------------------
+-> Exclude tomcat dependency from starter-web using <exclusions>
+
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+	<exclusions>
+	   <exclusion>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-tomcat</artifactId>
+	   </exclusion>
+       </exclusions>
+</dependency>
+
+-> Configure Jetty starter dependency in pom.xml file
+
+  	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jetty</artifactId>
+	</dependency>
+
+
+Deploy Boot Application To External Server
+------------------------------------------
+-> Package our application as war file
+
+-> keep our application war file in Tomcat Server -> webapps folder
+
+-> Start the server and access the url
+
+Note: When we deploy our project into external server, project name (war file name) is mandatory in url.

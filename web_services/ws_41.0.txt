@@ -1,0 +1,12 @@
+Yesterday's session : Client Side Load Balancing
+
+Today's session : Ribbon implementation in STOCK_CALC_API
+-------------------------------------------------------------
+
+-> Spring Cloud Libraries provided Ribbon concept
+
+-> Ribbon is used to establish client side load balancing
+
+-> To work with ribbon, we should add ribbon-starter in pom.xml file
+
+-> @FeignClient will use ribbon by default

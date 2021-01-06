@@ -1,0 +1,107 @@
+Last session : Http Basic Authentication
+Today's session : Http Basic Authentication Example
+----------------------------------------------------
+
+-> Http Basic Auth is one type of security Technique which is used to secure our rest apis with uname and pwd.
+
+-> Resource team will share uname and pwd to clients to access secured rest api.
+
+-> Clients has to send uname and pwd as header in below format to access api.
+
+	Authorization: Basic Base64.encode(uname:pwd);
+
+
+Steps to develop REST API with Http Basic Auth
+----------------------------------------------
+1) Create Spring Boot application with below dependencies
+
+	a)spring-boot-starter-web
+	b)spring-boot-starter-security
+
+
+2) Create a rest controller with required method
+
+@RestController
+public class WishRestController {
+
+	@GetMapping("/wish")
+	public String wishMsg() {
+		return "Welcome To Ashok IT....";
+	}
+}
+
+3) Create SecurityConfig class to configure uname and pwd for request validation.
+
+package com.ashokit.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	
+	/**
+	 * configuring Http Basic Security
+	 */
+	@Override
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.csrf()
+					.disable()
+					.authorizeRequests()
+					.anyRequest()
+					.authenticated()
+					.and()
+					.httpBasic();
+	}
+	
+	
+	/**
+	 * Configuring In-Memory Credentials
+	 * @param authentication
+	 * @throws Exception
+	 */
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder authentication) throws Exception {
+		authentication.inMemoryAuthentication()
+					  .withUser("admin")
+					  .password(passwordEncoder().encode("admin@123"))
+					  .authorities("ROLE_USER");
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+}
+
+
+----------------------------------------------------------------------------------
+		String url = "http://localhost:9091/wish";
+
+		RestTemplate rt = new RestTemplate();
+	
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBasicAuth("admin", "admin@123");
+		
+		HttpEntity<String> req = new HttpEntity<>(headers);
+		
+		ResponseEntity<String> responseEntity =
+				rt.exchange(url, HttpMethod.GET, req, String.class);
+		
+		String body = responseEntity.getBody();
+
+--------------------------------------------------------------------------------
+
+-> setBasicAuth(String uname, String pwd) method will prepare header like below
+
+	Authorization: Basic Base64.encode(uname:pwd)

@@ -1,0 +1,190 @@
+ https://youtu.be/yUpP8pNVyKs
+
+Today's topic : Configuring Multiple Databases in Spring Boot
+-------------------------------------------------------------
+
+-> We discussed Spring Data JPA to perform DB operations
+
+-> While Working with Spring Data JPA we used Repositories
+
+-> Using Data JPA Repositories we can perform DB Operations
+
+	1) CrudRepository (I)
+	2) JpaRepository (I)
+
+
+Components
+-----------
+Entity class : Mapping DB table
+-----------------------------------------
+@Entity
+@Table(name="USER_TBL")
+public class User{
+
+     @Id
+     @Column(name="USER_ID")
+     private Integer userId;
+
+     @Column(name="USER_NAME")
+     private String userName;
+}
+---------------------------------------------
+
+
+Repository interface : Providing methods to do operations
+
+----------------------------------------------------------
+public interface UserRepository extends JpaRepository<UserEntity, 						    Serializable>{
+
+}
+-----------------------------------------------------------------
+
+
+
+application.properties or application.yml : DataSource config props
+-------------------------------------------------------------------
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=
+
+
+
+-> When we configure DataSource config props in application.properties file or application.yml file Spring Boot will take care of DB connections.
+
+
+
+Configuring 2 Data Sources in Spring Boot
+-----------------------------------------
+
+
+
+-------------------application.properties-----------------------
+
+#Oracle Data Source for Users Data
+spring.user.datasource.url=
+spring.user.datasource.username=
+spring.user.datasource.password=
+spring.user.datasource.driver-class-name=
+
+#MySql DataSource For Books Data
+spring.book.datasource.url=
+spring.book.datasource.username=
+spring.book.datasource.password=
+spring.book.datasource.driver-class-name=
+------------------------------------------------------------------
+package com.ashokit.config;
+
+import java.util.HashMap;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+		entityManagerFactoryRef = "bookEntityManagerFactory", 
+		transactionManagerRef = "bookTransactionManager", 
+		basePackages = {
+				"com.ashokit.book.repository"
+		}
+)
+public class BookDBConfig {
+
+	@Bean(name = "bookDataSource")
+	@ConfigurationProperties(prefix = "spring.book.datasource")
+	public DataSource dataSource() {
+		return DataSourceBuilder.create().build();
+	}
+
+	@Bean(name = "bookEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean bookEntityManagerFactory(EntityManagerFactoryBuilder builder,
+			@Qualifier("bookDataSource") DataSource dataSource) {
+		
+		HashMap<String, Object> properties = new HashMap<>();
+		properties.put("hibernate.hbm2ddl.auto", "update");
+		
+		return builder.dataSource(dataSource)
+					  .properties(properties)
+					  .packages("com.ashokit.book.model")
+					  .persistenceUnit("Book")
+					  .build();
+	}
+
+	@Bean(name = "bookTransactionManager")
+	public PlatformTransactionManager bookTransactionManager(@Qualifier("bookEntityManagerFactory") EntityManagerFactory bookEntityManagerFactory) {
+		return new JpaTransactionManager(bookEntityManagerFactory);
+	}
+}
+-------------------------------------------------------------
+package com.ashokit.config;
+
+import java.util.HashMap;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+		entityManagerFactoryRef = "entityManagerFactory", 
+		basePackages = {
+				"com.ashokit.user.repository"
+		}
+)
+public class UserDBConfig {
+	
+	@Primary
+	@Bean(name = "dataSource")
+	@ConfigurationProperties(prefix = "spring.user.datasource")
+	public DataSource dataSource() {
+		return DataSourceBuilder.create().build();
+	}
+
+	@Primary
+	@Bean(name = "entityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder,
+			@Qualifier("dataSource") DataSource dataSource) {
+		
+		HashMap<String, Object> properties = new HashMap<>();
+		properties.put("hibernate.hbm2ddl.auto", "update");
+		
+		return builder.dataSource(dataSource)
+					  .properties(properties)
+					  .packages("com.ashokit.user.model")
+					  .persistenceUnit("User")
+					  .build();
+	}
+
+	@Primary
+	@Bean(name = "transactionManager")
+	public PlatformTransactionManager transactionManager(@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
+	}
+}
+

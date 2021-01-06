@@ -1,0 +1,46 @@
+Yesterday's session : Distributed logging Introduction
+------------------------------------------------------
+
+-> Zipkin server is used for distributed log tracing
+
+-> Sleuth is used to generate unique id for every request
+
+
+Zipkin Setup
+-------------
+-> Download Zipkin server jar file and execute it
+
+	java -jar <zipkin-jar>
+
+Note: By default zipkin server will run 9411 port number
+
+-> Once zipkin server is started we can access zipkin server dashboard using below URL
+
+	http://localhost:9411/
+
+
+Develop a rest api which will act as client for Zipkin
+-------------------------------------------------------
+
+-> In REST api add below 2 dependencies
+
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-sleuth</artifactId>
+</dependency>
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-zipkin</artifactId>
+</dependency>
+
+
+Log message with sleuth & zipkin dependencies
+----------------------------------------------
+2020-12-17 09:30:06.050  INFO [Distributed-Log-Service,cfcc26d1392eddc4,cfcc26d1392eddc4,true] 1844 --- [nio-9090-exec-1] com.ashokit.rest.WelcomeRestController   :  **** getWelcomeMsg( ) execution started ****
+
+Log message without sleuth & zipkin dependencies
+------------------------------------------------
+2020-12-17 09:35:30.254  INFO 3212 --- [nio-9090-exec-1] com.ashokit.rest.WelcomeRestController   :  **** getWelcomeMsg( ) execution started ****
+
+
+-> One request will have One Trace ID

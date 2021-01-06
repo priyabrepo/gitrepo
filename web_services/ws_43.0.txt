@@ -1,0 +1,44 @@
+Yesterday's session : Circuit Breaker Introduction
+--------------------------------------------------
+-> Circuit Breaker is used to handle fault tolerence occured in microservices execution
+
+
+-> When a service is failing continously, then circuit breaker will trip to fallback logic for a specific time period.
+
+-> After given time period is completed, test requests will go to actual logic.. If requests are successfull Cirbuit Breaker will establish connection to actual logic else fallback logic will execute.
+
+------------------------------------------------------------
+-> To implement Circuit Breaker, Spring Cloud Netflix library provided Hystrix.
+
+
+<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+--------------------------------------------------------------
+package com.ashokit;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
+@RestController
+public class DemoController {
+
+	@GetMapping("/work")
+	@HystrixCommand(fallbackMethod = "m2")
+	public String m1() {
+		String msg = "Hi, i am from m1() method....!!";
+		// logic to access data from cache
+		return msg;
+	}
+
+	public String m2() {
+		String msg = "Hi, i am from fallback method...";
+		// logic to access data from db
+		return msg;
+	}
+
+}
+--------------------------------------------------------------

@@ -526,6 +526,7 @@ able to edit the order? Discuss.
 
 
 Build a sub-form for Order with grid container
+-----------------------------------------------------------
 1. Return to the Process Platform collaborative workspace.
 2. Open the Order entity from the Warehouse Application.
 3. Click Add > Form
@@ -600,6 +601,689 @@ You have not yet created a Create form for the Product entity, so there are
 no items for you to select.
 36. Click Cancel.
 37. Click Create: you will add items later.
+
+
+
+Build an item layout with basic information
+--------------------------------------------------
+1. double-click the Business entity to open it in the
+editor.
+2. Click Add.
+3. Select Layout.
+4. Set the Display Name to Business Contact
+5. Set the Name to workWithBusiness
+6. Set the Description to Default layout for working with business
+entities
+7. Set Full Layout to true.
+8. Click Add
+
+
+Build the desktop for an item layout
+---------------------------------------
+1. Open the Business entity from the Warehouse Application, if it is not
+open already.
+2. Select the workWithBusiness layout.
+3. On the right, click Configure
+4. Drag the Results panel from the set of panels and drop it onto the
+Desktop editor.
+5. Under the General properties section, set the name to Clients and the
+Chrome to Title only.
+6. On the right side, under Panel Properties at the bottom of the attribute
+list, select Run list
+7. From the drop-down of lists, select Client List
+8. Drag a Form panel from the panels palette and drop it to the right of the
+results panel on the Desktop editor.
+As you drag the panel to position it, you should notice a blue bar which
+provides hints as to where the panel will be placed when it is dropped.
+9. Under the General section on the right, set the name to Client Info and
+the Chrome to Full
+10. At the bottom of the Properties section on the right, and with the form
+panel selected, select the Panel Properties.
+11. Under the form drop-down, select Create Business Customer.
+12. Drag an Actions panel and drop it above the Results and Form panels.
+13. Set the Panel properties of the actions panel to the Default action bar.
+14. Grab the handle separating the actions panel from the other two and
+resize it so the actions panel takes less desktop real estate.
+15. Resize the results and form panels so the form panel has more real
+estate than the results panel (about 15%).
+16. Save and close the layout.
+17. Close the Business entity.
+18. Validate the Warehouse application and publish it to the organization.
+19. Open Process Experience in another window.
+20. Refresh the browser.
+21. From the Process Experience home page, select the Customer > Client
+List from the Lists panel.
+22. Open your new client from the Results panel to confirm that the layout is
+displayed properly
+
+
+Stack sub-forms to create a tabbed panel in a layout
+-----------------------------------------------------------
+1. Open the Person entity in the Warehouse Application of your
+collaborative workspace.
+2. Click Add > Form
+3. Set the Display Name to Create Person
+4. Set the Name to Create
+5. Click Add.
+6. Click Configure
+7. Drag the following fields onto the form: Id, Client Code, First Name and
+Last Name
+8. Set Id to be Text Only and both Client Code and Last Name to be
+required.
+9. Save and close the form.
+10. Click Add > Layout.
+11. Set the Display Name to Edit Person and Name to workWithPerson
+.
+12. Set Full Layout to true.
+13. Click Add.
+14. Click Configure
+.
+15. Drag a Results panel to the desktop editor.
+16. Set the name of the Results pane to Clients
+.
+17. Set the Chrome to Title only.
+18. Set the panel properties to Run list and the list to Client List
+.
+19. Drag a Form panel and place it to the right of the results panel.
+20. Set the name of the form panel to Personal Info and Chrome to Full
+.
+21. In the panel properties section, set the Form to Create Person
+.
+22. Drag another form panel and layer it on top of the personal info form.
+You can tell if the forms are stacked if the panel is completely outlined in
+blue.
+23. Set the name of the new form to Address Info
+.
+Layered panels are always full chrome.
+24. Set the form in the panel properties to Address subform
+.
+This form was inherited from the parent entity: Customer.
+25. Save and close the layout.
+26. Save and close the entity.
+27. Validate and publish the application
+28. Switch to Process Experience and refresh the browser to capture the
+published changes.
+29. Add a new Person item.
+30. Select the Client List on the home page.
+31. Locate the new person item you created and open it in the editor
+
+
+
+
+Build a home page layout for outstanding orders
+------------------------------------------------------
+
+2. Right-click the Themes folder and select Rename
+.
+3. Set the name of the folder to Themes and Layouts
+.
+4. Select the folder, right-click it and select New > Other.
+5. Select Home Page Layout from the list of available documents.
+To filter through the documents easier, start typing the name of the
+document in the filter field above.
+6. In the new home page layout document, set the Display Name to
+Outstanding Orders
+.
+7. Set the Name to hpOutstandingOrders
+.
+8. Set the Layout Type to Home Page
+.
+9. Save the document.
+10. Click Configure
+.
+The layout editor appears.
+11. Add the following panels to the layout desktop:
+
+a. Lists: set Chrome to Full
+b. Results: set name to Outstanding Orders and Chrome to Full
+c. Create: set Chrome to full 
+
+12. In the Outstanding Orders results panel, under Panel Properties, select
+Run list.
+13. Set the list to Outstanding Orders
+.
+14. Resize the panels to fit comfortably in the desktop.
+15. Save and close the home page layout.
+16. Save and close the home page layout document.
+17. Validate your project and publish it to the organization.
+18. Open Process Experience (or refresh the Process Experience page if it
+is already open).
+19. Click Home Page in the top left and confirm that the Outstanding Orders
+homepage layout is available.
+20. Click Outstanding Orders and confirm the page layout is displayed
+correctly
+
+
+Add a discussion with layout to the business entity
+----------------------------------------------------------
+Occasionally, your customer service team may want to include and maintain
+notes about business customers in the company portfolio. A Discussion
+building block will capture this aspect of the customer service application.
+1. Open the Business entity from the Warehouse Application.
+2. Click Add.
+3. Select Discussion
+.
+4. Click Add.
+5. Select the workWithBusiness layout and click Configure
+.
+6. Drag a Discussion panel to the far right of the Desktop presentation.
+7. Set the width of the discussion panel to approximately 30%.
+8. Save and close the layout.
+9. Save and close the entity.
+10. Validate and publish your Warehouse Application.
+11. On the Process Experience page, refresh the browser to accept the
+changes.
+12. From the Process Experience home page, select the Customer > Client
+List.
+13. Open a business customer in the new layout. You should have at least
+one business customer. If you don’t, create one first.
+14. In the discussion panel on the far right, click ‘+’ to begin a new
+conversation.
+15. Add a title and message to your discussion entry
+
+
+RULE
+****************
+
+Add a Rule building block to an entity
+-----------------------------------------
+2. double-click the Order entity to open it in
+the editor.
+3. Click Add > Rule
+4. Set the Display Name to Speedy base price property set
+5. Set the Name to propSetSpeedyBasePrice
+6. Set the Description to Set Speedy base price for freight cost.
+7. Click Add.
+8. Save the Order entity
+
+Add logic to the rule
+-------------------------
+1. Open the Order entity if it is not open already.
+2. Select the propSetSpeedyBasePrice rule from the list.
+The rule will currently be in an invalid state. This is normal and acceptable
+because you have not added any logic to the rule yet.
+3. Click Configure
+4. Set the trigger “When” to A property changes
+The rule will be evaluated whenever a property changes.
+5. Under the condition section (“If”), set the inclusivity drop-down to all
+6. From the set of properties, select Ship Via
+7. Change the operator to equal to
+8. Select Speedy Express as the operand.
+9. Add a nested condition.
+10. Change the inclusivity condition to one
+11. Select Freight and the operator empty
+12. Add a condition in the nest.
+13. Select Freight and the operator less than
+14. Set the value to 9.95
+15. Under the action section (“Then”), set the action to Set.
+16. Set the Target to FreightCost
+If you have the name of the property correct (not the display name), then the
+rule editor will complete the full expression language automatically.
+17. Set the Source value to 9.95
+18. Click Save
+19. Close the rule logic dialog.
+20. Examine the Rule summary in the entity editor.
+
+Write a basic rule and edit it in advanced mode using expression language
+-------------------------------------------------------------------------------
+1. Open the Customer entity from the Warehouse Application.
+2. Click Add > Rule
+3. Set the Display Name to Compare Fax and Phone warning
+4. Set the Name to propWarnFaxPhoneCompare
+5. Set the Description to Warn user if fax and phone number are identical
+6. Click Add.
+7. Click Configure.
+8. Set the “When” trigger to A property changes
+9. Set the inclusivity operator for the “If” condition to all
+10. Select Phone as the first property.
+11. Select not empty as the operator.
+12. Click the plus (+) button to add a condition.
+13. Select Fax as the property.
+14. Select not empty as the operator.
+15. Click the plus (+) button to add another condition.
+16. Select Phone as the property.
+17. Select equal to as the operator
+18. Set the operand to Fax
+19. Change the action (“Then”) to Show warning
+20. Set the message to “Phone number and fax number are identical.
+Please confirm with customer if this is valid.”
+21. Save the rule.
+You must compare the phone and fax properties, but currently, you are only
+comparing the value of the phone property to text. You can only change this
+in advanced mode.
+22. Click the Advanced tab.
+23. Delete the word “Fax” after the equals signs, including the quotes, and
+replace it with item.Properties.Fax
+24. Save the modified rule.
+25. Close the rule.
+26. Examine the rule summary in the Customer entity.
+27. Close the Customer entity.
+28. Validate the Warehouse Application.
+
+Use expression language in a title building block
+-----------------------------------------------------------
+1. Open the Order entity.
+2. In the entity editor, on the left side, select the Title building block.
+3. In the Title Specification field, set the value to:
+Order {item.Identity.Id}: Placed {item.Properties.OrderDate}
+4. Save the Order entity.
+5. Open the sub-form of the Order entity which uses the basic order info,
+such as Id, OrderDate, and Employee.
+6. Click Configure
+7. In the presentation header, click Insert section before.
+This option adds a divided section above the presentation of the form.
+8. Drag the title to the upper section.
+9. Resize the upper section to fit the title.
+10. Clear the Show label option.
+11. Set the Type to Text only.
+12. Clear the Default text style option.
+13. Change the text style to Size 20px and Color blue (#0000ff).
+14. Save and close the form.
+15. Save the Order entity.
+16. Validate and publish your changes to Process Experience.
+17. Refresh the Process Experience home page and confirm that the title is
+added to the form.
+
+Add a button rule to an action bar
+-----------------------------------------------------------
+1. Open the Order entity from the Warehouse Application.
+2. Click Add > Rule
+3. Set the display name to Ship Order.
+The display name will be used as the button label.
+4. Set the name to pbShipOrder and the description to Button rule to set
+the shipped date
+5. Click Add.
+6. Click Configure.
+7. Set the ‘When’ to A user triggers an action button
+8. Set inclusivity to all
+9. Add the following conditions to the ‘If’ clause. Click the add condition (+)
+button to add a new condition:
+a. Employee not empty.
+b. Freight not empty.
+c. Freight greater than/equal to 0.
+d. Ship Via not empty.
+e. Shipped Date empty.
+The logic which forms this rule is to make sure all relevant fields are
+complete before allowing an order to be shipped.
+10. Set ‘Then’ to Set
+11. Set Target to item.Properties.ShippedDate
+12. Set Source to now
+now is a function which uses today’s date	 and time.
+13. Set After actions are performed to Close current item
+14. Save and close the rule.
+15. Select the Order entity’s default action bar and click Configure
+16. Under the Rules header on the left, select Ship Order.
+17. Save and close the action bar.
+18. Save the Order entity.
+19. Validate and publish the Warehouse Application.
+20. Check an order you have active in the Process Experience workspace.
+21. Click Ship Order
+Three things should occur:
+1. You should be returned to the default layout (i.e., the layout you were
+using before you opened the item).
+2. The Shipped Date should be set to today’s date and time.
+3. The order should NOT appear in the Outstanding Orders list.
+
+
+
+Add audit history to the Order entity
+--------------------------------------------
+1. Open the Order entity from the Warehouse Application.
+2. Click Add > History.
+3. Click the Search button next to History Log.
+There are no history log documents currently available, but you can create
+one.
+4. Click New > History Log
+.
+5. Set the Display Name to Order History.
+6. Set the Name to logOrderHistory
+.
+7. Set the Compression Type to GZip
+.
+8. Set the Description to Audit log for company orders
+9. Click Save
+.
+10. In the save dialog, keep the name and description. Next to the Location
+field, click Search
+.
+11. Right-click Warehouse Application and select New Folder.
+12. Set the folder name to Security.
+13. Select Security as the folder and click OK.
+14. Confirm that the History Log will be stored in the Security folder of the
+Warehouse Application and click OK.
+15. Close the document.
+16. Select the logOrderHistory log from the selection dialog and click OK.
+17. Set Record access events to true.
+18. Set On Deletion to Discard history.
+19. Click Add.
+20. Save the Order entity.
+21. Select the default action bar.
+22. Click Configure
+.
+23. Select the History option to add the History button to the default action
+bar.
+24. Save and close the action bar editor.
+25. Save and close the Order entity.
+26. Publish the Warehouse Application.
+
+
+Identity package and security
+-----------------------------------------------------------
+
+Add data to the identity package
+---------------------------------
+1. Log in to Process Experience as the analyst@training.local user
+(password: opentext) if you are not already logged in.
+2. Click Home Page > Identity Homepage
+3. Examine each of the lists provided under the Identity category.
+4. Select All countries.
+5. In the results panel, click add (+).
+6. Set the name to Spain and the 2-digit ISO code to “ES”.
+7. Click Create
+.
+8. Open the country from the results list.
+The country layout includes a list of all states/provinces.
+9. Click add (+) to insert a new row into the state/province table.
+10. Set the name to Valencia.
+11. Return to the identity home page.
+12. You may add languages, contacts, phone number types, social media
+entries, and visa types, if you wish.
+
+
+Connect an entity into the identity package
+---------------------------------------------
+1. Open the Business entity in the Warehouse Application.
+2. Locate the property named ContactName and click Delete
+.
+3. When prompted with a confirmation dialog, click Yes
+.
+4. Click Add > Relationship
+.
+5. Set the display name to Contact Name and the name to oneContact.
+6. Set the type to “To peer” and the multiplicity to “To one”.
+7. Click the Browse button for the target entity
+8. Select Person (Platform) from the filtered results and click OK.
+9. Click Add. Your solution is connected to the identity package.
+The next step is to modify the form to include the new connection.
+10. Select the Create form from your Business entity.
+11. Click Configure
+.
+The contact name field has been removed from the form because the field
+was deleted.
+12. Drag the [0..1] Contact Name relationship from the Components list to
+the form presentation.
+13. Change the Type to Text box.
+14. Set the Browse list to PersonList.
+This list was included with the identity package.
+15. Set the Property to DisplayName
+.
+16. Change the label to Contact Name.
+17. Under the Actions subsection on the right, make sure that Browse,
+Create, and Clear are all selected.
+18. Save and close the form.
+19. Click Add > Form
+.
+20. Set the display name to Contact ID Package subform and the name to
+subformContactIDPkg.
+You created a Contact subform at the end of a previous chapter.
+21. Click Add.
+22. Click Configure
+.
+23. Drag the [0..1] Contact Name relationship and drop it on the
+presentation.
+24. Change the type of the presentation to text box.
+25. Set the Browse list to PersonList.
+26. Set the Property to DisplayName
+.
+27. Set the label to Contact Name.
+28. Make sure that the Clear, Create, and Browse actions are available.
+29. Drag the following fields from the [0..1] Contact Name relationship and
+drop them in a sensible arrangement on the presentation:
+ FirstName
+ LastName
+ User_ID
+ Email
+ Phone
+ Mobile
+30. Set each of these properties from the identity package to Read only.
+31. Save and close the form.
+32. Select the workWithBusiness layout.
+33. Click Configure
+.
+34. Select the Contact Info subform from the stack of forms if it is present. If
+it is not present, add a new form panel to the stack of forms.
+35. Set the Name of the form to Contact.
+36. Set the Form to Contact ID Package subform
+.
+37. Save and close the layout.
+38. Validate your work and publish it to the Process Experience runtime.
+39. Return to Process Experience and refresh the browser to collect the
+published changes.
+40. Select the Client List from the home page
+41. Open one of your business customers and select the Contact tab.
+42. Click the add (+) button to create a contact for the customer.
+43. Add some information and save the contact
+
+
+Add a user
+---------------------------------------------------------------------
+1. Start the Windows Server Manager.
+2. Click Tools > Active Directory Users and Computers.
+3. Click Create a new user.
+4. Set the First name, Last name, and the Full name.
+For the purpose of this exercise, we will use Ramiro Alba
+.
+5. Set the User logon names to a shorter representation of the name
+which is between 4-8 characters.
+In this example, we will use ralba
+.
+6. Click Next.
+7. Set the password and confirmation to opentext
+.
+8. Clear the User must change password at next logon option.
+9. Set the User cannot change password and Password never expires
+options.
+10. Click Next.
+11. Review the settings then click Finish
+.
+The user should appear in the active directory list.
+12. Open a browser window.
+13. Launch the OTDS administration console.
+http://localhost:8080/otds-admin
+This is available as a shortcut in both Google Chrome and Internet
+Explorer.
+14. Log in with user name otadmin@otds.admin and password opentext
+.
+15. In the OTDS administration console, select Partitions.
+16. Click ClassDomain > Actions (at the end of the row) > View Members.
+17. Wait several moments. The user should be added automatically to the
+partition.
+18. Assign the user some roles specific to Process Platform. Click the
+Actions link for user ralba and select Edit Membership.
+19. Click Add To Group.
+20. Search the list for the Cordys@Work#Developer role. Select it and click
+Add Selected.
+21. Add the Cordys@Work#Analyst role as well.
+22. Close the group window.
+23. Wait several moments. Log in to Process Platform as user
+analyst@training.local (password: opentext, if required).
+24. Switch to the System organization.
+25. Start the User Manager application from the application palette.
+26. With Users - Roles selected in the drop-down, click Show All.
+27. Locate your new user, Ramiro Alba, from the list of all users.
+28. Switch back to the warehouse organization afterwards.
+
+
+Build an organizational model with an enterprise
+------------------------------------------------------------------
+1. Log in to Process Experience as the analyst@training.local user if you
+are not logged in already (password: opentext).
+2. Select the identity homepage.
+3. Expand Identity and click the All enterprises list.
+Currently, there are no enterprises in the results panel.
+4. Click add (+) in the results panel.
+5. Set the Name of the enterprise to Northwind Trading Company.
+You may also add a random description.
+6. Set the type of enterprise to Hierarchical
+.
+7. In the All Addresses grid, click add (+) to build a new address for the
+enterprise.
+8. Expand the row to see the fields of the address.
+9.Set the address to be: 6 Carrer de la Safor, Sant Pau, Spain, 46015
+.
+10. Next to the State/Province field, click the browse button and select the
+province you created in a previous exercise: Valencia
+.
+11. Click Select.
+12. Click Create
+.
+The enterprise is presented in the All enterprises results panel.
+13. Open the new enterprise in the layout.
+14. Select the Positions tab.
+15. Click the add (+) button to add the following positions to the enterprise.
+You do not need a description. Leave the Lead set to false:
+ Finance manager
+ Director (Lead is true)
+ Warehouse manager
+ Sales manager
+ Business analyst
+16. Select the Members tab
+17. Return to the Identity Homepage.
+18. Select the All organizational units list.
+19. In the results panel, click add (+) to add an organizational unit.
+20. Set the name to Northwind Home Office and the type to None.
+21. In the All Addresses list, click add (+) to insert an address into the
+repeating group container.
+22. Set the address to: 1599 Park Ave., Springfield, United States, Ohio,
+45503.
+23. Next to the Create button, click the options arrow and select Save and
+create another.
+24. Set the Name to Northwind Distribution Center and the type to None.
+25. Add an address to the list: 415 Keyser Ave., United States,
+Pennsylvania, 18504.
+26. Click Create
+27.select all enterprise list from the Identity Homepage.
+28. Open the Northwind Trading Company enterprise.
+29. Select the Subunits tab.
+30. Click the browse tool.
+31. Select the Northwind Home Office and Northwind Distribution Center
+and click Select.
+
+Build a worklist for a team
+-------------------------------------
+1. Open the Identity Homepage from Process Experience.
+2. Select the All worklists list.
+3. In the results panel, click the add (+) button.
+4. Set the Name to Billable Account Setup.
+5. Set the Description to: Setup accounts for new customers as billable or
+pre-paid.
+6. Click Create.
+7. Locate the new worklist in the results panel and open it.
+8. Select the Units tab.
+9. Click the browse button.
+Work must be assigned to organizational units.
+10. Select the Northwind Home Office org unit and click Select
+.
+11. Select the Lead position(s) tab.
+12. Click the browse button.
+13. Select the Finance manager position and click Select.
+
+Add tracking to the Order entity
+------------------------------------------
+1. Open the Order entity from the Warehouse Application.
+2. Click Add > Tracking
+.
+No other details are necessary.
+3. Click Add.
+4. Select the All Orders list.
+5. Click Configure
+6. In the list of available properties, select Tracking > Last Modified Date.
+7. Select LastModifiedBy > Properties > FullName.
+8. Set the column label to “Last Modified By”.
+9. Save and close the list.
+10. Validate and publish the solution.
+11. Refresh the Process Experience page. Make changes to an order and
+examine it in the All Orders list
+
+
+Add security to the Product entity
+--------------------------------------
+1. Open the Product entity from the Warehouse Application.
+2. Click Add > Security.
+3. Click Add.
+4. Select the Security building block from the list.
+5. Click Configure
+.
+6. Only Product Managers should be able to delete products from the
+database.
+On the Roles side of the ACL editor, click the plus(+) button to add a
+role. The current roles available are only for using the identity package.
+7. Click New > Role
+.
+8. Set the Name of the role to Product Manager.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

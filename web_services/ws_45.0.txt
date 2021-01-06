@@ -1,0 +1,80 @@
+Today's session : How to avoid hard coded messages or URLS in our application
+---------------------------------------------------------------
+
+-> In spring boot applications we will get application.properties file to configure properties 
+
+	-> server port
+	-> application name
+	-> view resolver
+	-> data source etc...
+
+-> Now a days people are using application.yml file instead of properties file
+
+-> yml files are more readable when compared with properties files
+
+--------------------------------------------------------------
+
+-> .properties file will represent data in key-value format where as .yml file will represent data in hierarchical manner
+
+-> .properties will supported by only java where as .yml file will be supported by multiple programming languages.
+
+-> Each profile should have seperate .properties file where as single .yml file is sufficient to manager multiple profiles.
+
+Note: In yml file each profile will be seperated using '---'.
+
+
+-----------------------------------------------------------------------
+server:
+  port: 9090
+spring:
+  application:
+    name: IES
+app:
+  properties:
+    welcomeMsg: Welcome to Ashok IT...!!
+    greetMsg: Good Morning...!!
+    stockPriceApiURL: http://www.nse.com/price/{name}
+----------------------------------------------------------------------
+package com.ashokit.props;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+import lombok.Data;
+
+@Data
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "app")
+@Configuration
+public class AppProperties {
+
+	private Map<String, String> properties = new HashMap<>();
+
+}
+--------------------------------------------------------------------
+package com.ashokit;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ashokit.props.AppProperties;
+
+@RestController
+public class DemoRestController {
+
+	@Autowired
+	private AppProperties appProps;
+
+	@GetMapping("/welcome")
+	public String getMsg() {
+		System.out.println(appProps.getProperties());
+		String welcomeMsg = appProps.getProperties().get("welcomeMsg");
+		return welcomeMsg;
+	}
+}
+

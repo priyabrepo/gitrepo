@@ -1,0 +1,15 @@
+Last session : Sleuth & Zipkin
+----------------------------------------------------
+-> Sleuth api is used to add trace_id for log messages
+
+-> Zipkin server is used for distributed log tracing
+
+-> Using zipkin server we can understand which api is taking more time to process our request.
+---------------------------------------------------------------
+Today's session : Client Side Balancing using Ribbon
+------------------------------------------------------------
+-> Load Balancers are used to distribute the load to multiple servers.
+
+-> Load Balancing can be implemented in 2 ways
+		1) Server Side Load balancer
+		2) Client Side Load Balancer
