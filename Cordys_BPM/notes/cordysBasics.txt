@@ -7,7 +7,7 @@ END //
 connectors : the objective of connector is process specific.it understands the request.
                lets say we send "Select * from EMPLOYEE". the request is sent as SOAP request in XML format.
 			   the connector understands the request. processes it.and gives a similar responce.
-           : sope to ack en d and back end to soap
+           examples
            : reading the data from external system : uddi
 		   : LDAP connector is used to extract the directry info from LDAP
 		   : EMAIL connector is for sending email information
@@ -55,7 +55,7 @@ Service group
 					  HTTP request > 
 					      web Server (web get way)>
 						         cordys server> 
-								            LDAP >
+								            LDAP >CARS>
 											 service group >
   								                 service container> 
 												      application connector> 
@@ -111,7 +111,14 @@ web getway
  
  
  
- 
+to import external web-service:
+----------------------------------
+- new > web service > select the source
+                     database metadata
+					 ws-server package
+					 bpm
+				*****import WSDL
+					 
  
  
  

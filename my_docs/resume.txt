@@ -30,4 +30,20 @@ Experience on developing/ using CI/CD pipeline using Jenkins/ Git
 
 12.react * 
 
-13.spring MVC 
+13.spring MVC    
+
+for tata motors
+-----------------------------------------------------------------------
+cordys: External ws,xform intigration ,types of processes,loop,condition(08 for xforms)
+java basics - bert report,email,excel(check code)
+sql - joins
+javascript -
+
+22 jan - cordys
+java basics,sql: 23
+javascript: 24
+25 - applay
+
+
+expect : 6.5lpa
+------------------------------------------------------------------------

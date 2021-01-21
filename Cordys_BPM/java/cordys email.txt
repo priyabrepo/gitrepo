@@ -1,0 +1,103 @@
+
+    public static String generateEmailBodyforExpReturnDate() throws UnsupportedEncodingException, XMLException
+    {
+    String emailSubject = "";
+    String htmString = "";
+    String htmString1 = "";
+    String htmStringJP = "";
+   
+    String chk = "";    
+    String initiator_ID = "";
+   
+    String from_id = "WORKFLOW_ADMIN@mahindra.com";
+    DateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
+   
+    emailSubject = "Details of Vehicles Due for return - Internal Proj Work";
+       
+    //Notification to Stores
+    emailSubject = "Details of Vehicles Due for return - Internal Proj Work";
+    htmString = "<dynamicHTML><p>Dear Sir</p>";
+    htmString = htmString +"<p style=\"font-family:Verdana;font-size:12px\">The Details of the Vehicles Due for return to Stores are given below.</p>";
+    htmString = htmString +"<p></p>";
+   
+    htmString=htmString+"<table border='1' bordercolor=\"black\" cellspacing='0' cellpadding=\"3px\" style='font-family:Verdana;font-size:12px' width='750px'>";
+    htmString=htmString+"<tr style='background-color:#0D8AA0;color:white;height:50px;text-align:center;font-size:12px'>";
+    htmString=htmString+"<td style='width:100px'>Vehicle Body No</td>";
+    htmString=htmString+"<td style='width:100px'>Vehicle Sl No</td>";
+    htmString=htmString+"<td style='width:100px'>Model Name</td>";
+    htmString=htmString+"<td style='width:100px'>Expected Return Date</td>";
+    htmString=htmString+"<td style='width:100px'>Vehicle Custodian Token No</td>";
+    htmString=htmString+"<td style='width:100px'>Vehicle Custodian Name</td>";
+    htmString=htmString+"<td style='width:100px'>Vehicle Custodian Contact No</td>";
+    htmString=htmString+"<td style='width:100px'>Vehicle Custodian HOD</td></tr>";
+   
+    BusObjectIterator<VMS_VEHICLE_REQ_FORM> VRFDetbyexpRtnDat1 = VMS_VEHICLE_REQ_FORM.getDetailsbyExpRtnDateandStatusforStores();
+
+    //code for support starts
+htmStringJP = htmStringJP + "<dynamicHTML><table border='1' bordercolor=\"black\" cellspacing='0' cellpadding=\"3px\" style='font-family:Verdana;font-size:12px' width='750px'>"
++ "<tr><td>VMS_VRF_SL_NO</td><td>VMS_VRF_REM_COUNT</td><td>VMS_VRF_EXP_RETURN_DATE</td><td>VMS_VRF_NEXT_REM_DATE</td></tr>";
+//code for support ends
+    while(VRFDetbyexpRtnDat1.hasMoreElements())
+    {
+   
+    VMS_VEHICLE_REQ_FORM VRF = (VMS_VEHICLE_REQ_FORM) VRFDetbyexpRtnDat1.nextElement();
+       
+    htmString1 = htmString1 + "<tr><td>" + VRF.getVMS_CVRE_SL_NOObject().getVMS_CVRE_VEHICLE_BODY_SL_NO() + "</td><td>" + VRF.getVMS_CVRE_SL_NOObject().getVMS_CVRE_VEHICLE_SL_NO() + "</td><td>" + removeSpChar(VRF.getVMS_CVRE_SL_NOObject().getVMS_CVRE_MODEL_NAME()) + "</td><td>" +  formatter.format(VRF.getVMS_VRF_EXP_RETURN_DATE())+"</td><td>"+VRF.getVMS_VRF_CUST_TOKEN_NO()+"</td><td>"+removeSpChar(VRF.getVMS_VRF_CUST_NAME())+"</td><td>"+removeSpChar(VRF.getVMS_VRF_CUST_CONTACT_NO())+"</td><td>"+VRF.getVMS_VRF_CUST_HOD()+"-"+VRF.getVMS_VRF_CUST_HODObject().getUM_USER_NAME()+"</td></tr>";
+   
+    //code for support starts
+    htmStringJP = htmStringJP + "<tr><td>" +VRF.getVMS_VRF_SL_NO()  + "</td><td>" + VRF.getVMS_VRF_REM_COUNT() + "</td><td>" +VRF.getVMS_VRF_EXP_RETURN_DATE()  + "</td><td>" + VRF.getVMS_VRF_NEXT_REM_DATE() + "</td></tr>";
+    //code for support ends
+   
+    chk="1";
+    }  
+    htmString = htmString + htmString1;
+   
+    //code for support starts
+    htmStringJP = htmStringJP + "</table></dynamicHTML>";
+    //code for support ends
+   
+    htmString=htmString+"</table></dynamicHTML>";
+   
+    VMS_NOTIFICATIONS VMSN = VMS_NOTIFICATIONS.getUsersbyNotificationStage("StoresNotiforExpRtnDate");
+    String[] to_email_ids;
+    to_email_ids = VMSN.getVMS_NOTI_USERS().split(";");
+    //System.out.println(to_email_ids);
+    //logger.log(Severity.ERROR,"---VRF Stores---- : "+htmString);
+    if(chk.equals("1") && (to_email_ids.length)>=1)
+    {
+    //code for support starts
+   
+    //code for support ends
+   
+      String req = "<SendMail xmlns=\"http://schemas.cordys.com/1.0/email\">"+
+"<to>";
+      for(int i=0;i<to_email_ids.length;i++)
+      {
+      if(to_email_ids[i].trim() != null)
+      {
+      req = req + "<address>"+            
+"<emailAddress>"+to_email_ids[i].trim()+"@mahindra.com"+"</emailAddress>"+
+"<displayName>"+to_email_ids[i].trim()+"</displayName>"+
+"</address>";
+      }
+
+      }
+req = req + "</to>"+
+"<bcc>"+
+            "<address>"+
+              "<displayName>P CHANDRASEKHAR</displayName>"+
+              "<emailAddress>PCHANDR-CONT@mahindra.com</emailAddress>"+
+            "</address>"+
+          "</bcc>";
+req = req + "<subject>"+emailSubject+"</subject>"+
+"<body type=\"html\"><![CDATA["+htmString+"]]></body>"+
+"<from>"+
+"<displayName>"+from_id+"</displayName>"+
+"<emailAddress>"+from_id+"</emailAddress>"+
+"<replyTo></replyTo>"+
+"</from>"+
+"</SendMail>";
+
+    int reqst = new Document().parseString(req);
+    int resp = executeSOAPRequest(reqst, BSF.getUser());
+    }

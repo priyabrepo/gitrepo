@@ -1221,6 +1221,110 @@ role. The current roles available are only for using the identity package.
 7. Click New > Role
 .
 8. Set the Name of the role to Product Manager.
+9. Set the Description to Manager of Product Catalog
+.
+10. Set the Type to Functional
+11. Click Save
+.
+12. In the Save dialog, keep the Name and Description of the role.
+13. In the Location field, click the Browse button.
+The Warehouse Application folder structure appears.
+14. Expand Warehouse Application.
+15. Right-click Warehouse Application and select New Folder.
+16. Set the name of the folder to Roles.
+17. Select the Roles folder and click OK.
+New roles will be stored in the Warehouse Application/Roles folder.
+18. Click OK in the Save dialog.
+19. Close the Role editor.
+20. Select the Product Manager role and click OK.
+The Product Manager role is added to the list of roles in the ACL.
+21. Select the Product Manager role on the left.
+22. Select all the permissions on the right.
+23. Save the configuration window.
+24. Close the editor.
+25. Save and close the Product entity.
+26. Validate and publish the Warehouse Application.
+27. Open the application palette and launch the User Manager application.
+28. Select Users - Roles as the mapping and click Show All
+.
+The left list will display the set of users and the right list will display the list of
+roles, of which the Product Manager is one available role.
+29. From the list of users, select user Anna Lyst (analyst@training.local).
+A number of roles will be highlighted on the right. This is the list of roles
+currently assigned to user analyst.
+30. From the list of available roles, right-click the Product Manager role and
+select Assign to select User(s)
+31. Close the User Manager application.
+32. Return to Process Experience and refresh the page. You should have
+access to the Product entity and its list now.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
