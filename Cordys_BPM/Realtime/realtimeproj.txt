@@ -1,0 +1,13 @@
+creating project
+--------------------
+- get acess for your organisation
+- get svn url
+- create workspace from svn url
+- svn bash with svn url
+- create a java workspace with eclipse
+- link the java and web folders
+- create 3 service groups 
+   1.ws-app 
+   2.bpm
+   3.email
+- add service groups to 
