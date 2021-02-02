@@ -11,3 +11,10 @@ creating project
    2.bpm
    3.email
 - add service groups to 
+
+BPM_SG - BPM_SC:
+DB: SYSTEM-CordysSystem
+EMAIL_SG - EMAIL_SC:
+DB: SYSTEM-CordysSystem
+WSAPP_SG - WSAPP_SC:
+DB: ORG-LOCALDB
