@@ -1,0 +1,479 @@
+public static String GenerateSummaryofQuotes(String VOBD_REF_NO) throws IOException, BiffException {
+		
+		
+		
+		String[] fields = { "SM_VENDOR_CODE", "VSSD_MANUFACTURING_SUPPLIER", "VSSD_MANUFACTURING_LOCATION",
+				"VSSD_QUOTE_DATE", "VSSD_SECTOR", "VSSD_ANNUAL_VOLUME", "VSSD_BATCH_SIZE", "VSSD_QUOTATION_CURRENCY",
+				"VSSD_PAYMENT_TERMS", "VSSD_DELIVERY_TRERMS", "VOB_SB_RM_BASE", "VOB_SB_FOREX_BASE",
+				"VSSD_RAW_MATERIAL_COST", "VSSD_PROCESS", "VSSD_OVERHEADS", "VSSD_PROFIT_COST", "VSSD_REJECTION_COST",
+				"VSSD_PACKAGING_COST", "VSSD_EXWORKS_PRICE", "VSSD_LOGISTICS_COST", "VSSD_MM_WORKS",
+				"VSSD_TAXES_AND_DUTIES", "VSSD_LANDED_COST", "VSSD_TOOLING_DEVELOPMENT_COST", "VSSD_YEAR_PRODUCTIVITY"
+				};
+
+		String mainXML = "<SUMMARY_DETAILS>";
+
+		BusObjectIterator SUPPLIER_BASKET = VOB_SUPPLIER_SUMMARY_DETAILS.getSupplierBasketMasterDetails(VOBD_REF_NO);
+
+		if (SUPPLIER_BASKET != null && SUPPLIER_BASKET.hasMoreElements()) {
+			while (SUPPLIER_BASKET.hasMoreElements()) {
+				BusObject bo = SUPPLIER_BASKET.nextElement();
+
+				double VOB_SB_REF_NO = bo.getDoubleProperty("VOB_SB_REF_NO");
+				String SM_VENDOR_CODE = bo.getStringProperty("SM_VENDOR_CODE");
+
+				VOB_SUPPLIER_SUMMARY_DETAILS vssd = VOB_SUPPLIER_SUMMARY_DETAILS
+						.getLatestSupplierSummaryDetail(VOB_SB_REF_NO);
+
+				if (vssd != null) {
+					mainXML += "<DETAILS>";
+					for (int i = 0; i < fields.length; i++) {
+						if (i == 0) {
+							mainXML += "<" + fields[i] + ">" + SM_VENDOR_CODE + "</" + fields[i] + ">";
+						} else
+						{
+							if("VOB_SB_RM_BASE".equalsIgnoreCase(fields[i]))
+							{
+								mainXML += "<" + fields[i] + ">" + bo.getStringProperty(fields[i]) + "</" + fields[i]
+										+ ">";
+							}
+							else if("VOB_SB_FOREX_BASE".equalsIgnoreCase(fields[i]))
+							{
+								mainXML += "<" + fields[i] + ">" + bo.getStringProperty(fields[i]) + "</" + fields[i]
+										+ ">";
+							}
+							else
+							{
+								mainXML += "<" + fields[i] + ">" + vssd.getStringProperty(fields[i]) + "</" + fields[i]
+										+ ">";
+							}
+							
+						}
+
+					}
+
+					mainXML += "</DETAILS>";
+
+				}
+
+			}
+		}
+
+		mainXML += "</SUMMARY_DETAILS>";
+		
+
+		String filePath = EIBProperties.getInstallDir()
+				+ "//webroot//shared//MAHINDRA_UPLOADS//VOB//SUPPLIER_QUOTES//"
+				+ "SUPPLIER_SUMMARY_QUOTE_TEMPLATE.xls";
+		try {
+
+
+			FileInputStream inputstream = new FileInputStream(new File(filePath));
+
+			HSSFWorkbook workbook = new HSSFWorkbook(inputstream);
+
+			HSSFSheet sheet = workbook.getSheetAt((short) 0);
+
+			String summary = mainXML;
+					
+					
+
+			int xmlLength = summary.length();
+
+			HSSFCellStyle emptyStyle = workbook.createCellStyle();
+			emptyStyle.setBorderBottom(HSSFCellStyle.BORDER_NONE);
+			emptyStyle.setBorderTop(HSSFCellStyle.BORDER_NONE);
+			emptyStyle.setBorderLeft(HSSFCellStyle.BORDER_NONE);
+			emptyStyle.setBorderRight(HSSFCellStyle.BORDER_NONE);
+
+			HSSFSheet delSheet = workbook.getSheetAt(0);
+			for (int r1 = 1; r1 <= 25; r1++) {
+				for (int c = 1; c < delSheet.getRow(r1).getLastCellNum(); c++) {
+					delSheet.getRow((short)r1).getCell((short)c).setCellStyle(emptyStyle);
+					delSheet.getRow((short)r1).getCell((short)c).setCellValue("");
+				}
+			}
+
+			int i = 0;
+			int col = 1;
+			while (summary.contains("<DETAILS>")) {
+				HSSFRow row = sheet.getRow((short) 1);
+
+				HSSFFont boldFont = workbook.createFont();
+				boldFont.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+
+				HSSFCellStyle boldStyle = workbook.createCellStyle();
+				boldStyle.setFont(boldFont);
+				boldStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+				boldStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+				boldStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+				boldStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+
+				HSSFCellStyle thinStyle = workbook.createCellStyle();
+				thinStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+				thinStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+				thinStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+				thinStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+
+				int start_index = summary.indexOf("<DETAILS>");
+				int last_inddx = summary.indexOf("</DETAILS>");
+
+				String Sup_data = summary.substring(start_index, last_inddx);
+				summary = summary.substring((last_inddx + 10), (summary.length() - 1));
+				i++;
+
+				while (Sup_data.contains("<SM_VENDOR_CODE>")) {
+
+					HSSFCell cell = row.createCell((short) (col++));
+					
+
+					sheet.setColumnWidth((short) col, (short) 8000);
+
+					String SM_VENDOR_CODE = Sup_data.substring((Sup_data.indexOf("<SM_VENDOR_CODE>") + 16),
+							Sup_data.indexOf("</SM_VENDOR_CODE>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</SM_VENDOR_CODE>") + 16), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 1);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					/*cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(SM_VENDOR_CODE);*/
+					cell.setCellValue("Supplier " + (col - 1) +": "+SM_VENDOR_CODE);
+					cell.setCellStyle(boldStyle);
+				}
+				while (Sup_data.contains("<VSSD_MANUFACTURING_SUPPLIER>")) {
+
+					String VSSD_MANUFACTURING_SUPPLIER = Sup_data.substring(
+							(Sup_data.indexOf("<VSSD_MANUFACTURING_SUPPLIER>") + 29),
+							Sup_data.indexOf("</VSSD_MANUFACTURING_SUPPLIER>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_MANUFACTURING_SUPPLIER>") + 28),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 2);
+					HSSFCell cell3 = row1.createCell((short) i);
+
+					cell3.setCellStyle(thinStyle);
+					cell3.setCellValue(VSSD_MANUFACTURING_SUPPLIER);
+				}
+				while (Sup_data.contains("<VSSD_MANUFACTURING_LOCATION>")) {
+
+					String SM_VENDOR_CODE = Sup_data.substring((Sup_data.indexOf("<VSSD_MANUFACTURING_LOCATION>") + 29),
+							Sup_data.indexOf("</VSSD_MANUFACTURING_LOCATION>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_MANUFACTURING_SUPPLIER>") + 29),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 3);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(SM_VENDOR_CODE);
+				}
+				while (Sup_data.contains("<VSSD_QUOTE_DATE>")) {
+
+					String VSSD_QUOTE_DATE = Sup_data.substring((Sup_data.indexOf("<VSSD_QUOTE_DATE>") + 17),
+							Sup_data.indexOf("</VSSD_QUOTE_DATE>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_QUOTE_DATE>") + 17), Sup_data.length());
+					HSSFRow row5 = sheet.getRow((short) 4);
+					HSSFCell cell2 = row5.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_QUOTE_DATE);
+				}
+				while (Sup_data.contains("<VSSD_SECTOR>")) {
+
+					String VSSD_SECTOR = Sup_data.substring((Sup_data.indexOf("<VSSD_SECTOR>") + 13),
+							Sup_data.indexOf("</VSSD_SECTOR>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_SECTOR>") + 13), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 5);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_SECTOR);
+				}
+				while (Sup_data.contains("<VSSD_ANNUAL_VOLUME>")) {
+
+					String VSSD_ANNUAL_VOLUME = Sup_data.substring((Sup_data.indexOf("<VSSD_ANNUAL_VOLUME>") + 20),
+							Sup_data.indexOf("</VSSD_ANNUAL_VOLUME>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_ANNUAL_VOLUME>") + 20), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 6);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_ANNUAL_VOLUME);
+				}
+				while (Sup_data.contains("<VSSD_BATCH_SIZE>")) {
+
+					String VSSD_BATCH_SIZE = Sup_data.substring((Sup_data.indexOf("<VSSD_BATCH_SIZE>") + 17),
+							Sup_data.indexOf("</VSSD_BATCH_SIZE>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_BATCH_SIZE>") + 17), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 7);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_BATCH_SIZE);
+				}
+				while (Sup_data.contains("<VSSD_QUOTATION_CURRENCY>")) {
+
+					String VSSD_QUOTATION_CURRENCY = Sup_data.substring(
+							(Sup_data.indexOf("<VSSD_QUOTATION_CURRENCY>") + 25),
+							Sup_data.indexOf("</VSSD_QUOTATION_CURRENCY>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_QUOTATION_CURRENCY>") + 25),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 8);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_QUOTATION_CURRENCY);
+				}
+				while (Sup_data.contains("<VSSD_PAYMENT_TERMS>")) {
+
+					String VSSD_PAYMENT_TERMS = Sup_data.substring((Sup_data.indexOf("<VSSD_PAYMENT_TERMS>") + 20),
+							Sup_data.indexOf("</VSSD_PAYMENT_TERMS>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_PAYMENT_TERMS>") + 20), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 9);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_PAYMENT_TERMS);
+				}
+				while (Sup_data.contains("<VSSD_DELIVERY_TRERMS>")) {
+
+					String VSSD_DELIVERY_TRERMS = Sup_data.substring((Sup_data.indexOf("<VSSD_DELIVERY_TRERMS>") + 22),
+							Sup_data.indexOf("</VSSD_DELIVERY_TRERMS>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_DELIVERY_TRERMS>") + 22),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 10);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_DELIVERY_TRERMS);
+				}
+				
+				while (Sup_data.contains("<VOB_SB_RM_BASE>")) {
+
+					String VOB_SB_RM_BASE = Sup_data.substring((Sup_data.indexOf("<VOB_SB_RM_BASE>") + 16),
+							Sup_data.indexOf("</VOB_SB_RM_BASE>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VOB_SB_RM_BASE>") + 16),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 11);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VOB_SB_RM_BASE);
+				}
+				while (Sup_data.contains("<VOB_SB_FOREX_BASE>")) {
+
+					String VOB_SB_FOREX_BASE = Sup_data.substring((Sup_data.indexOf("<VOB_SB_FOREX_BASE>") + 19),
+							Sup_data.indexOf("</VOB_SB_FOREX_BASE>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VOB_SB_FOREX_BASE>") + 19),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 12);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VOB_SB_FOREX_BASE);
+				}
+				
+				
+				while (Sup_data.contains("<VSSD_RAW_MATERIAL_COST>")) {
+
+					String VSSD_RAW_MATERIAL_COST = Sup_data.substring(
+							(Sup_data.indexOf("<VSSD_RAW_MATERIAL_COST>") + 24),
+							Sup_data.indexOf("</VSSD_RAW_MATERIAL_COST>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_RAW_MATERIAL_COST>") + 24),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 13);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_RAW_MATERIAL_COST);
+				}
+				while (Sup_data.contains("<VSSD_PROCESS>")) {
+
+					String VSSD_PROCESS = Sup_data.substring((Sup_data.indexOf("<VSSD_PROCESS>") + 14),
+							Sup_data.indexOf("</VSSD_PROCESS>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_PROCESS>") + 14), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 14);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_PROCESS);
+				}
+				while (Sup_data.contains("<VSSD_OVERHEADS>")) {
+
+					String VSSD_OVERHEADS = Sup_data.substring((Sup_data.indexOf("<VSSD_OVERHEADS>") + 16),
+							Sup_data.indexOf("</VSSD_OVERHEADS>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_OVERHEADS>") + 16), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 15);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_OVERHEADS);
+				}
+				while (Sup_data.contains("<VSSD_PROFIT_COST>")) {
+
+					String VSSD_PROFIT_COST = Sup_data.substring((Sup_data.indexOf("<VSSD_PROFIT_COST>") + 18),
+							Sup_data.indexOf("</VSSD_PROFIT_COST>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_PROFIT_COST>") + 18), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 16);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_PROFIT_COST);
+				}
+				while (Sup_data.contains("<VSSD_REJECTION_COST>")) {
+
+					String VSSD_REJECTION_COST = Sup_data.substring((Sup_data.indexOf("<VSSD_REJECTION_COST>") + 21),
+							Sup_data.indexOf("</VSSD_REJECTION_COST>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_REJECTION_COST>") + 21), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 17);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_REJECTION_COST);
+				}
+				while (Sup_data.contains("<VSSD_PACKAGING_COST>")) {
+
+					String VSSD_PACKAGING_COST = Sup_data.substring((Sup_data.indexOf("<VSSD_PACKAGING_COST>") + 21),
+							Sup_data.indexOf("</VSSD_PACKAGING_COST>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_PACKAGING_COST>") + 21), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 18);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_PACKAGING_COST);
+				}
+				while (Sup_data.contains("<VSSD_EXWORKS_PRICE>")) {
+
+					String VSSD_EXWORKS_PRICE = Sup_data.substring((Sup_data.indexOf("<VSSD_EXWORKS_PRICE>") + 20),
+							Sup_data.indexOf("</VSSD_EXWORKS_PRICE>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_EXWORKS_PRICE>") + 20), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 19);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_EXWORKS_PRICE);
+				}
+				while (Sup_data.contains("<VSSD_LOGISTICS_COST>")) {
+
+					String VSSD_LOGISTICS_COST = Sup_data.substring((Sup_data.indexOf("<VSSD_LOGISTICS_COST>") + 21),
+							Sup_data.indexOf("</VSSD_LOGISTICS_COST>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_LOGISTICS_COST>") + 21), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 20);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_LOGISTICS_COST);
+				}
+				while (Sup_data.contains("<VSSD_MM_WORKS>")) {
+
+					String VSSD_MM_WORKS = Sup_data.substring((Sup_data.indexOf("<VSSD_MM_WORKS>") + 15),
+							Sup_data.indexOf("</VSSD_MM_WORKS>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_MM_WORKS>") + 15), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 21);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_MM_WORKS);
+				}
+				while (Sup_data.contains("<VSSD_TAXES_AND_DUTIES>")) {
+
+					String VSSD_TAXES_AND_DUTIES = Sup_data.substring(
+							(Sup_data.indexOf("<VSSD_TAXES_AND_DUTIES>") + 23),
+							Sup_data.indexOf("</VSSD_TAXES_AND_DUTIES>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_TAXES_AND_DUTIES>") + 23),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 22);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_TAXES_AND_DUTIES);
+				}
+				while (Sup_data.contains("<VSSD_LANDED_COST>")) {
+
+					String VSSD_LANDED_COST = Sup_data.substring((Sup_data.indexOf("<VSSD_LANDED_COST>") + 18),
+							Sup_data.indexOf("</VSSD_LANDED_COST>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_LANDED_COST>") + 18), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 23);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_LANDED_COST);
+				}
+				while (Sup_data.contains("<VSSD_TOOLING_DEVELOPMENT_COST>")) {
+
+					String VSSD_TOOLING_DEVELOPMENT_COST = Sup_data.substring(
+							(Sup_data.indexOf("<VSSD_TOOLING_DEVELOPMENT_COST>") + 31),
+							Sup_data.indexOf("</VSSD_TOOLING_DEVELOPMENT_COST>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_TOOLING_DEVELOPMENT_COST>") + 31),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 24);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_TOOLING_DEVELOPMENT_COST);
+				}
+				while (Sup_data.contains("<VSSD_YEAR_PRODUCTIVITY>")) {
+
+					String VSSD_YEAR_PRODUCTIVITY = Sup_data.substring(
+							(Sup_data.indexOf("<VSSD_YEAR_PRODUCTIVITY>") + 24),
+							Sup_data.indexOf("</VSSD_YEAR_PRODUCTIVITY>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VSSD_YEAR_PRODUCTIVITY>") + 24),
+							Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 25);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VSSD_YEAR_PRODUCTIVITY);
+				}
+				/*while (Sup_data.contains("<VOB_SB_EXCEPTION>")) {
+
+					String VOB_SB_EXCEPTION = Sup_data.substring((Sup_data.indexOf("<VOB_SB_EXCEPTION>") + 18),
+							Sup_data.indexOf("</VOB_SB_EXCEPTION>"));
+
+					Sup_data = Sup_data.substring((Sup_data.indexOf("</VOB_SB_EXCEPTION>") + 18), Sup_data.length());
+					HSSFRow row1 = sheet.getRow((short) 27);
+					HSSFCell cell2 = row1.createCell((short) i);
+
+					cell2.setCellStyle(thinStyle);
+					cell2.setCellValue(VOB_SB_EXCEPTION);
+				}*/
+
+			}
+
+			inputstream.close();
+
+			FileOutputStream outputStream = new FileOutputStream(filePath);
+			workbook.write(outputStream);
+			outputStream.close();
+			
+			
+			
+
+		} catch (Exception e) {
+			filePath = "";
+		}
+
+		return filePath;
+	}
