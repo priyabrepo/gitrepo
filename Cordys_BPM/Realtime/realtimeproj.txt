@@ -34,3 +34,14 @@ Files.copy(
     new URL("http://example.com/update/PubApp_2.0.jar").openStream(),
     Paths.get("C:/PubApp_2.0/update/lib/kitap.jar"));
 // specify StandardCopyOption.REPLACE_EXISTING as 3rd argument to enable overwriting
+or
+
+ ReadableByteChannel readChannel = Channels.newChannel(new URL("http://example.com/update/PubApp_2.0.jar").openStream());
+    FileOutputStream fileOS = new FileOutputStream("C:\\PubApp_2.0\\update\\lib\\kitap.jar");
+    FileChannel writeChannel = fileOS.getChannel();
+    writeChannel
+            .transferFrom(readChannel, 0, Long.MAX_VALUE);
+
+
+
+
