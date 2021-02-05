@@ -18,3 +18,19 @@ EMAIL_SG - EMAIL_SC:
 DB: SYSTEM-CordysSystem
 WSAPP_SG - WSAPP_SC:
 DB: ORG-LOCALDB
+
+to debug in eclipse from cordys:
+->debug as remote javaapp(from the opened java file)
+->host: server name
+-> port: same port specified as ws-app server
+
+
+to get absolute path of download folder :
+String home = System.getProperty("user.home");
+File file = new File(home+"/Downloads/" + fileName + ".txt"); 
+
+do download a file with java:
+Files.copy(
+    new URL("http://example.com/update/PubApp_2.0.jar").openStream(),
+    Paths.get("C:/PubApp_2.0/update/lib/kitap.jar"));
+// specify StandardCopyOption.REPLACE_EXISTING as 3rd argument to enable overwriting
