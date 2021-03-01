@@ -1,0 +1,184 @@
+Angularjs
+---------------
+
+
+<title>                                 <-- tag
+<title>My Webpage</title>               <-- element
+<img src="dogs-playing.gif" alt="dogs playing outside">
+                        (src,alt,etc..) <-- Attributes (attributes are used to define a property for one or more HTML elements.)
+
+
+
+1.Costume Attributes
+2.Global Namespace 
+  - variables that is declaired globally
+  - leds to problems like accidental overriding,and debuging
+  - advised to put all variables inside object or functions
+  
+  CONFIGURING AN ANGULAR APP
+------------------------------------------------------------------------------------------------------------------------------------------
+step1: var myApp = angular.module('myView',[]);
+
+var myApp <-- created variable to not disturbe global namespace
+
+angular  <-- object defined in <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+module <-- function in angular object that takes 'appname' an an array of dependancies.
+
+step2: *Define the view which will be acessed by the myApp inside an html tag.
+
+<html ng-app="myView">
+.
+.
+.
+.
+</html>
+
+step3: myApp.controller('myController',function(){
+
+});
+
+-controller is a function that takes 'NameOfController' and a function
+
+
+step4: define the controller inside the view.
+
+<div ng-controller='myController'>
+.
+.
+.
+</div>
+------------------------------------------------------------------------------------------------------------------------------------
+
+Dependancy Injection
+- passing an object to an function insted of creating an object inside an function
+
+ex:(javascript)
+---------------------------
+creating the Object
+var Person = function (firstname,lastname)
+{
+   this.firstname = firstname;
+   this.lastname = lastname;
+}
+
+-without dependancy injection(function depends on the object inside of it.):
+
+function logperson()
+{
+   var jon = new Person ('John','Doe');
+}
+
+- with dependancy injection:
+ 
+ 
+function logperson(person)
+{
+   
+}
+var jon = new Person ('John','Doe');
+logperson(jon);
+--------------------------------------------------------------------------------------------------------------------------------------------
+- All angularjs services start with $
+
+$scope
+- it is a service defined in angularjs.
+- it can store functions and variables.
+- it acts as a middle peace between view and controller.
+---------------------------------------------------------------------------------------------------------------------------------------------
+- to use angular modules,
+step1: <script src="https://code.angularjs.org/1.8.2/angular-messages.min.js"></script> 
+import the angular source file to viewvpage 
+
+step2: add the module in the dependancy array
+var myApp = angular.module('myApp',['ng-messages']);
+
+step3: to use the services inclued in the imported module,pass the service name in the controller after defining the imported module name.
+--------------------------------------------------------------------------------------------------------------------------------------------- 
+* javascript array acn have number, variable, string function at the same time.
+
+Minification
+---------------------------------------------------------------------------------------------------------------------------------------------
+to avoid error during minification,
+1.keep the defult function of the controller inside an array
+2.keep the parameters of default function inside the array as strings(same order has to mentained)
+
+ex:
+Original:
+myApp.controller('myController',function($scope,$log){
+
+});
+
+for minification to work,
+myApp.controller('myController',['$scope','$log',function($scope,$log){
+
+}]);
+* minifier never changes a string.
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

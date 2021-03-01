@@ -558,6 +558,13 @@ features like,
 main benefit of this library is that we can get production-grade tools without having to actually implement these features ourselves.
 expose operational information about the running application.It uses HTTP endpoints or JMX beans to enable us to interact with it.
 
+spring-boot-actuator dependency
+------------------------------
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
 
 
 
