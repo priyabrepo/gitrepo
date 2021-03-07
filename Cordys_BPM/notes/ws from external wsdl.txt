@@ -22,18 +22,22 @@ Copy the URL provided in the WSDL URL field.
 6.Click Show Services. To search the business entity or business service in the UDDI registry, click(+(zoom))
 
 Note:
-If the WSDL XML is invalid or returning content with invalid Content-Type property, the notification message "WSDL/Schema document is invalid or not present. Make sure the server is returning the content in proper format" is displayed.
+If the WSDL XML is invalid or returning content with invalid Content-Type property, the notification message "WSDL/Schema document is invalid or not present. 
+Make sure the server is returning the content in proper format" is displayed.
 If a request is unsuccessful, the message "Could not read the HTTP URL. The server has returned HTTP Error <code>" is displayed at times.
 To access an external Web service from the local intranet zone, you must change the security settings in your browser.
 
 7.Select the required WSDL type from the WSDL Type lists
 Implementation WSDLs
 
-You can invoke the Web service operations directly, since the implementation is readily available for each operation. Hence, for these WSDLs, you can select the required Web service operations and proceed with the generation of Web services.
+You can invoke the Web service operations directly, since the implementation is readily available for each operation. Hence, for these WSDLs,
+ you can select the required Web service operations and proceed with the generation of Web services.
 
 Interface WSDLs
 
-In this type of WSDLs, the Web service operations do not have an implementation. Hence, you must implement all the Web service operations on the Process Platform. To implement Web service operations, you need to select the Contract check box in the Properties sheet, while defining the properties of the business process model. To generate Web service operations for this type, the operations under all the Port Types are selected by default and you must necessarily generate operations for all of them.
+In this type of WSDLs, the Web service operations do not have an implementation. Hence, you must implement all the Web service operations on the Process Platform. 
+To implement Web service operations, you need to select the Contract check box in the Properties sheet, while defining the properties of the business process model. 
+To generate Web service operations for this type, the operations under all the Port Types are selected by default and you must necessarily generate operations for all of them.
 
  
 8.Select a Port Type from the Web Services drop-down list. The Web Service Operations defined in the WSDL for the selected port type are displayed in the Web Service Operations list.

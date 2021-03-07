@@ -1,0 +1,56 @@
+Entity Modeling.
+how do you create a form in Entity modiling.
+steps for configuring HttpConnector and what is its importance.
+ - 
+Steps for creating BirtReport and Which Webservice is calling internally.
+How do you import WSDL in a project.
+ - create web service 
+Types of BPMProcess. and difference.
+About SVN
+What is a service container and how it request is routing
+UDDI Connector
+ - 
+Xform Model.
+how do you update the data.Which one will you prefer.
+ - 
+how to we add weblibdirectory and what is its importance.
+ - 
+What are the components are that are used in current projects
+refer collections in java.
+databasemetadata
+Runtime references Qualified name
+ - 
+Xform components
+Xforms drawback
+Xform Uploader draw back - same id generation for multiple
+Bpm - message map
+Bpm - Transactions
+ - 
+Bpm - update
+Bpm - Business rules
+Custom connecters
+ - 
+Integrations with different providers
+ - 
+Memory leaks
+ - 
+Xml return type - java and wsapp server
+ - 
+Schedulers
+Schedulers input
+Content server
+ - 
+Occ - product -
+ - 
+Scenario - through mail data receive or ocr data approval process in appworks
+External services configuration
+ - 
+Deployment steps
+deployment in organization
+Soap structure
+Http connector
+Roles different types
+External user n cordys differences
+Content server versions
+ - 
+

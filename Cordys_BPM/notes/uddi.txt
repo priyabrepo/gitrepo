@@ -1,6 +1,9 @@
 UDDI Interceptor
-UDDI connector provides a mechanism, UDDI Interceptor, to manipulate SOAP requests passing from the Process Platform environment to an external Web service. This mechanism is needed as the underlying backend system imposes specific requirements on how to interact with it.
-A UDDI Interceptor is a Java class that enables manipulating SOAP requests passing from the Process Platform environment to an external Web service, by implementing the interfacecom.eibus.applicationconnector.uddi.Interceptor. UDDI interceptor intercepts the request before it goes to the external service from Process Platform and similarly intercepts the response (either success or failure).
+UDDI connector provides a mechanism, UDDI Interceptor, to manipulate SOAP requests passing from the Process Platform environment to an external Web service. 
+This mechanism is needed as the underlying backend system imposes specific requirements on how to interact with it.
+A UDDI Interceptor is a Java class that enables manipulating SOAP requests passing from the Process Platform environment to an external Web service, 
+by implementing the interfacecom.eibus.applicationconnector.uddi.Interceptor. UDDI interceptor intercepts the request before it goes to the external service from Process Platform 
+and similarly intercepts the response (either success or failure).
 This interface, com.eibus.applicationconnector.uddi.Interceptor, contains the following Web service operations:
 
 public void initialize(int methodImplementation);
