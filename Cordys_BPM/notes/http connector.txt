@@ -1,0 +1,993 @@
+HTTP connector provides connectivity to web servers over HTTP protocol and supports common HTTP operations like GET, POST, PUT, and DELETE. It can be used to invoke services over HTTP or HTTPS and can be used to invoke standard web services or REST based services with XML or JSON payloads.
+
+It has the following features which help applications to communicate with the external web servers.
+
+ HTTP connector configuration has connection details of various servers, identified by a name or ID that is unique. While processing the request, you must provide the connection ID that helps the connector to identify proper connection details.
+ 
+ A sample configuration in the XML store is as follows:
+ <configurations xmlns="http://httpconnector.opentext.com/1.0/configuration">
+    <connections>
+        <connection id="CONN-DELICIOUS-FEED">
+            <url>http://feeds.del.icio.us</url>
+        </connection>
+    </connections>
+    <connections>
+        <connection id="PRocess-PLATFORM-TASKS">
+            <url>http://myserver:9123/cordys</url>
+			<username>testuser</username>
+			<password>YzByZHlz</password>
+        </connection>
+    </connections>
+</configurations>
+
+ HTTP connector is organization-aware. The same HTTP connector in the shared space or system organization can be used to process requests from organizations or tenants with organization-specific configuration. The HTTP connector configuration is stored in the XML store, which by default is organization-aware
+ 
+ Supports invoking standard web services and REST services
+ 
+ For standard web services,
+
+<implementation type= "HTTP" xmlns= "http://httpconnector.opentext.com/1.0/implementation"  xmlns:SOAP= "http://schemas.xmlsoap.org/soap/envelope/"  >
+......
+<request-handler  class = "com.opentext.applicationconnector.httpconnector.impl.StandardRequestHandler" />
+<response-handler  class = "com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler" />
+....
+</implementation >
+
+
+
+For REST services,
+
+ 
+
+<implementation type= "HTTP" xmlns= "http://httpconnector.opentext.com/1.0/implementation"  xmlns:SOAP= "http://schemas.xmlsoap.org/soap/envelope/"  >
+......
+<request-handler  class = "com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler" />
+<response-handler  class = "com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler" />
+....
+</implementation >
+
+
+Multiple payload format
+HTTP connectors can send input to services or receive output from services either in the XML or JSON format. Since Process Platform supports only SOAP based web services, all requests from Platform are in SOAP or XML format and HTTP connector transforms them to appropriate format.
+
+If the input request is of the type HTTP POST and expects a JSON input, then set Content-type=application/json in the request header, as follows:
+
+<implementation xmlns= "http://httpconnector.opentext.com/1.0/implementation"  xmlns:SOAP= "http://schemas.xmlsoap.org/soap/envelope/"  type= "HTTP" >
+........................
+<connection-id>JSON-TEST</connection-id> 
+<request-handler  class = "com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler" >
+<req-headers>
+<header name= "Content-Type" >application/json</header>
+</req-headers> 
+</request-handler>
+<response-handler  class = "com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler" />
+<valid-response-code> 200 </valid-response-code>
+................
+</implementation>
+
+
+
+Request and response transformation capability
+You can use XSLT capability to transform a request to another request that is expected by the service or to transform the response from the service to the XML expected by the application. The XSLT can be stored in the XML store and can be used inside the HTTP connector. This can be done as follows:
+
+ 
+
+<implementation xmlns= "http://httpconnector.opentext.com/1.0/implementation"  xmlns:SOAP= "http://schemas.xmlsoap.org/soap/envelope/"  type= "HTTP" >
+........................
+<connection-id>JSON-TEST</connection-id> 
+<request-handler  class = "com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler" >
+<req-headers>
+<header name= "Content-Type" >application/json</header>
+</req-headers>
+<xslt xmlstore= "xslts/request.xslt" /> 
+</request-handler>
+<response-handler  class = "com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler" >
+<xslt xmlstore= "xslts/response.xslt" />
+</response-handler>
+<valid-response-code> 200 </valid-response-code>
+................
+</implementation>
+
+
+
+Authentication support
+Though HTTP connector supports basic authentication, it also supports HTTPS.
+
+Custom HTTP header support
+You can add custom HTTP headers to the request while sending request.
+
+ 
+
+<request-handler  class = "com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler" >
+...
+<req-headers>
+<header name= "x-ms-version" > 2012 - 03 - 01 </header>
+<header name= "Content-Type" >application/xml</header>
+</req-headers>
+..
+</request-handler>
+URI parameters mapping
+HTTP connector supports URI parameters in the request, which can be used to substitute the corresponding place holders in the URI, while sending the request to the web server.
+
+Method implementation
+ <implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>CONN-DELICIOUS-FEED</connection-id>
+    <http-method>GET</http-method>
+    <uri>/v2/rss/{0}</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <uri-parameters>
+            <parameter type="xpath">./Username</parameter>
+        </uri-parameters>
+    </request-handler>
+    <response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler"/>
+    <valid-response-code>200</valid-response-code>
+    <namespaces/>
+</implementation>
+The URI parameter formats the URI according to the specified format. For example /v2/rss/{0}. The parameters {0}, {1}, and so on are filled with the parameters included in the URI parameters.
+ 
+
+Note: The connection URI parameters start at 0.
+
+ 
+
+The SOAP request from application to HTTP connector is as follows:
+
+SOAP Request
+<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP:Body>
+        <GetBookmarksForUser xmlns="http://com.opentext.httptest/rest">
+            <Username>RestUser</Username>
+        </GetBookmarksForUser>
+    </SOAP:Body>
+</SOAP:Envelope>
+On execution of the above web service operation, the value of the Username tag is used as a URL parameter. The actual URL will be <server url in configuration> /v2/rss/ RestUser
+Proxy support
+HTTP connector can connect to the services using a proxy server in between with proper authentication support.
+
+JMX counters
+The HTTP connector specific performance counters that give a break up of the total time spent in processing requests are as follows:
+
+RequestTransformation - Indicates the time spent in transforming incoming requests to HTTP requests.
+HTTPRequestProcessing - Indicates the time spent in waiting for the HTTP response after sending the request.
+ResponseTransformation - Indicates the time spent in transforming HTTP responses to the responses that are eventually sent to the client.
+XMLToJsonTransformation - Indicates the time spent in converting XML in the SOAP request to JSON before sending it to the REST service.
+JsonToXMLTransformation - Indicates the time spent in converting JSON in the response from the service to XML before sending the response to the Platform.
+In addition to these counters, HTTP connector internally uses Process Platform connector to send requests to the XML store. It is a managed component and can be used to monitor the performance of the reads on the XML store.
+
+
+
+
+
+Configuring HTTP connector
+This topic describes the procedure to configure HTTP connector.
+To configure HTTP connector:
+
+After installing the HTTP connector CAP, you must create a new service group and service container.
+
+On CUSP > My Applications, click  (System Resource Manager). The System Resource Manager window appears.
+Click Show  All Service groups in toolbar. Service Groups App Palette is displayed.
+Click  in the Service Groups App Palette. The New Service Group wizard appears.
+Select the HTTP Connector application connector.
+Select a Web Service Interface. 
+Note: The wizard does not continue if you do not select at least one of the Web service interfaces.
+Provide the following details for configuring the HTTP Connector:
+	Note
+HTTP connector supports only basic authentication
+
+Parameter                
+
+Description
+
+Configuration File Path
+
+Path to the configuration file in the XML store. This path is is relative to OpenText/HttpConnector in xmlstore. This is normally deployed as part of the application CAP and use HTTP Connection Manager in the CUSP task to modify the configuration details.
+
+Host
+
+Host name of the proxy server to be used. This is optional and required only when request needs to go through proxy.
+
+Port
+
+Port of the proxy server to be used. This is optional.
+
+Username
+
+Username to authenticate at proxy server. This is optional.
+
+Password
+
+Password to use for authentication at proxy server. This is optional.
+
+Managing HTTP connections
+When an application that uses services of the type HTTP is deployed, configuration and connection details required by the application is deployed in the XML store under OpenText/HttpConnector path and the configuration file path is stored in the HTTP service container and connector configuration. In many scenarios, these configurations requires modifications, like change in the authentication details.
+
+To modify the connection configurations:
+
+On CUSP > My Applications, click HTTP Connection Manager. 
+Note: You must have Administrator role to perform this task.
+From the drop-down list, select the corresponding HTTP service group to be modified. 
+Note: Ensure that the service containers are started.
+All the connections available in the configuration are listed.
+The following details are displayed:
+
+Parameter                
+
+Description
+
+Name
+
+Name of the connection. This is read only.
+
+Description	Description about the connection. This is optional.
+URL
+
+Server endpoint URL. It can include a part or the complete URL of the service endpoint.
+
+Username
+
+Username used for authentication at the service endpoint. This is optional.
+
+Password
+
+Password used for authentication at the service endpoint. This is optional.
+
+Authenticate Always
+
+Always sends the authentication information, also known as Preemptive Authentication. This is optional and the default value is false.
+
+Check Certificate
+
+Used with HTTPS connections only. It can be used as an option to check the SSL certificate. In a test environment, you can choose to ignore any errors while validating the SSL certificate. When it is set to false, this means accept any certificate either valid or invalid, expired, or not expired. This is optional and the default value is false.
+
+Use Proxy	Contains the HTTP connector configuration has proxy details. This option is selected by default. If the proxy details in HTTP connector configuration has to be ignored, then clear the check box.
+Note: For more information on web service implementation protocol using HTTP connector, see HTTP connector service contract.
+
+tags of http methos
+----------------------------
+
+1.implementation   // mandatory
+This is the root tag of any service executed by HTTP connector. It must have an attribute called type with value HTTP.
+
+Attributes
+
+type: value is HTTP
+xmlns: http://httpconnector.opentext.com/1.0/implementation
+ex:
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation">
+   ....
+</implementation>
+
+2.connection-id	  // mandatory
+
+ID of the connection to be used for executing the request. This ID must be present in the http connections configuration stored in the XML store.
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+....
+</implementation>
+
+3.URI
+The URI of the external service. This value must be relative to the URI given in the http connection configuration stored in the XML store. The URI can also be parametrized.
+
+ex1:Web service implementation depicting a static URI
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    ....
+</implementation>
+ex2:Web service implementation depicting a parameterized URI
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <http-method>GET</http-method>
+    <uri>/v2/rss/testrest/{0}</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <uri-parameters>
+            <parameter type="xpath">./Username</parameter>
+        </uri-parameters>
+    </request-handler>
+    ....
+</implementation>
+
+4.http-method
+
+Denotes the HTTP method to be used while executing the service. HTTP connector supports the following methods:
+
+GET
+POST
+PUT
+DELETE
+Note: The default value is POST.
+
+ex:<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    <http-method>GET|POST|PUT|DELETE</http-method>
+    ....
+</implementation>
+
+5.clean-response-body
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    <http-method>GET|POST|PUT|DELETE</http-method>
+    <clean-response-body>true</clean-response-body>
+    ....
+</implementation>
+
+6.request-handler
+
+Provides various details on request processing. This includes the handlers which process the request, transformation which needs to be applied on request XML. The parameters required for the request are as follows:
+
+Attributes
+
+class: The fully qualified class name of the handler which can process the request. HTTP connector, by default, can access web services and REST-based services. Each of these require separate handlers.
+If the service is web service, then use com.opentext.applicationconnector.httpconnector.impl.StandardRequestHandler
+If the service is REST based, then use com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler
+Child elements
+
+uri-parameters
+xslt
+req-headers
+root-xpath
+
+ex 1:Web service implementation for Non-REST API
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testnonrest</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardRequestHandler">
+        ....
+    </request-handler>
+    ....
+</implementation>
+ex 2:Web service implementation for REST API
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        ....
+    </request-handler>
+    ....
+</implementation>
+
+
+7.uri-parameters
+
+Gives details about the list of parameters required by the service. Each parameter is represented by the parameter element.
+
+Child elements
+
+parameter
+ex:
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <uri-parameters>
+            <parameter type="xpath">./Username</parameter>
+            <parameter type="Fixed">./Tags/Tag</parameter>
+        </uri-parameters>
+    </request-handler>
+    ....
+</implementation>
+
+WebService implementation illustrating connection-uri and connection-parameter	XMLStore connection configuration
+<implementation xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:c="http://schemas.cordys.com/cws/1.0" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" type="HTTP">
+  <connection-id>JENKINS</connection-id>
+  <http-method>GET</http-method>
+  <uri>/jenkins/job/httpconnector-test-wip-linux/{0}/{1}</uri>
+  <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+    <uri-parameters>
+      <parameter type="connection-parameter">firstBuild</parameter>
+	  <parameter type="connection-uri" />
+    </uri-parameters>
+  </request-handler>
+  <response-handler class="com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler" />
+  <valid-response-code>200</valid-response-code>
+</implementation>
+
+<configurations xmlns="http://httpconnector.opentext.com/1.0/configuration">
+  <connections>
+    <connection id="JENKINS">
+      <url>http://buildmaster-hyd.vanenburg.com/api/json</url>
+      <parameters>
+        <parameter type="STRING">
+          <name>firstBuild</name>
+          <value>102</value>
+        </parameter>
+      </parameters>
+    </connection>
+  </connections>
+</configurations>
+As mentioned in the above example, the connection configuration from the XML store has a STRING typed parameter with name firstBuild having parameter value as 102. If you intend to read this value and set it as one of the parameter values for the web service implementation, the following construct is effective.
+
+<parameter type="connection-parameter">firstBuild</parameter>
+In the similar way, you can use the following construct to read the relative path of the connection URL for the given connection-id from the connection configuration stored in the XML store.
+
+<parameter type="connection-uri" />
+Eventually, for the above example, the effective URI is http://buildmaster-hyd.vanenburg.com/jenkins/job/httpconnector-test-wip-linux/102/api/json
+
+102 is the connection-parameter value while the /api/json is connection-uri parameter.
+
+
+8.req-headers	
+Represents custom HTTP headers. These custom HTTP headers are set in the request before an outbound call is made.
+
+Child elements
+
+header
+ex: 
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <uri-parameters>
+            <parameter type="xpath">./Username</parameter>
+            <parameter type="Fixed">./Tags/Tag</parameter>
+        </uri-parameters>
+        <req-headers>
+           <header name="x-ms-version">2012-03-01</header>
+           <header name="Content-Type">application/xml</header>
+        </req-headers>
+    </request-handler>
+....
+</implementation>
+
+
+9.root-xpath
+HTTP methods PUT and POST accepts payload and denotes the XPath to be applied to extract the payload from a request and send as part of PUT or POST.
+ex:
+<implementation xmlns="http://httpconnector.opentext.com/1.0/implementation">
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <root-xpath>payload/GetTasksForUser</root-xpath>
+    </request-handler>
+</implementation>
+
+10.response-handle
+- Provides various details on handling from the service which is accessed. This includes the handlers which can process the response, the transformation which needs to be applied on the response, and so on.
+
+Attributes - class: The fully qualified class name of the handler which can process the response. com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler
+-Child elements:xslt
+
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <uri-parameters>
+            <parameter type="xpath">./Username</parameter>
+            <parameter type="xpath">./Tags/Tag</parameter>
+        </uri-parameters>
+    </request-handler>
+    <response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler">
+        <xslt xmlstore="xslts/response.xslt"/>
+    </response-handler>
+....
+</implementation>
+
+11.valid-response-xpath
+
+XPath expression for validating the response.
+12.valid-response-code	
+HTTP response code for validating the response.
+
+ 	 
+13.namespaces	
+Holds the namespace prefix mappings that must be used.
+
+ - Child elements:binding
+ 14. binding	
+Represents one namespace binding with prefix and URI.
+
+- Attributes
+uri
+prefix
+
+
+15.xslt
+- The path to XSLT in the XML store used to transform request and response. This can be mentioned both for request handling and response handling.
+
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>TEST-CONNECTION</connection-id>
+    <uri>/v2/rss/testrest</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <xslt xmlstore="xslts/request.xslt"/>
+        
+    </request-handler>
+    <response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler">
+        <xslt xmlstore="xslts/response.xslt"/>
+    </respo nse-handler>
+....
+</implementation>
+
+
+Developing web services using the HTTP connector:
+Using REST with HTTP Connector
+You must create a new CWS project which uses the HTTP connector to integrate with the Delicious Bookmarks service. The Delicious API is a REST-based API that accepts GET requests on specific URLs with certain URL parameters. Basic authentication is required for updating. Some REST-based services use PUT, POST, and DELETE for updating, adding, and deleting, whereas the Delicious API uses the GET command for updating and also deleting.
+
+
+Setting up a basic CWS project
+1.Create a new CWS project in which you want to use the HTTP connector.
+2.In the CWS project, add a Runtime Reference to the HTTP connector as follows:
+ - Create a new folder Runtime Reference in the project.
+ - In this folder add a run-time reference to an application connector.
+ - From the folder OpenText HTTP Connector, select OpenText  HTTP Connector.
+Add HttpConnector configuration as follows:
+(Note: In run time, HTTP connector searches for configuration in the XML store under OpenText/HttpConnector path. Hence, it is important to define the XML store path correctly in the CWS.)
+
+- Create a folder XML Store.
+- Right-click XML Store and select Set Start Point of Qualified Name_Make.
+- In the XML Store folder, add a XML Store Definition and name it HttpConnector Config.
+- Create a folder OpenText in the XML Store folder.
+- Open the OpenText folder and add a sub-folder HttpConnector.
+- Open HttpConnector folder and add the XML object config.xml. This object contains the actual HTTP connector configuration.
+- Add the following HTTP configuration and save the XML object.
+
+
+<configurations xmlns="http://httpconnector.opentext.com/1.0/configuration">
+    <connections>
+        <connection id="CONN-DELICIOUS-FEED">
+            <url>http://feeds.del.icio.us</url>
+        </connection>
+    </connections>
+</configurations>
+
+The namespace for the HTTP connector configuration is  http://httpconnector.opentext.com/1.0/configuration . It is added as the default namespace on the configuration tag.
+
+The configuration includes one connection with the ID CONN-DELICIOUS-FEED.
+
+The following parameters are used in the HTTP connector connection configuration:
+                
+
+
+1.@id
+
+It is an attribute of the connection tag. Refers to the name of the connection.
+
+2.url
+
+Refers to the server endpoint URL. It can include a part or the complete URL of the service endpoint.
+
+3.authenticate-always
+
+Always sends the authentication information, also known as Preemptive Authentication. This is optional and the default value is false.
+
+4.check-certificate
+
+Used with HTTPS connections only. It can be used as an option to check the SSL certificate. In a test environment, you can choose to ignore any errors while validating the SSL certificate. When it is set to false, any certificate that is either valid or invalid, expired, or not expired is accepted. This is optional and the default value is false.
+
+5.username
+
+Refers to the username used for authentication at the service endpoint. This is optional.
+
+
+
+6.password
+
+Refers to the password in base64 encoding, used for authentication at the service endpoint. This is optional.
+
+7.timeout
+
+HTTP request timeout value in milliseconds. This is optional and the default value is 30000 (30 seconds).
+
+HTTP Get request without parameters
+-----------------------------------------------------------
+To add a web service to the CWS project:
+
+Create a folder Web Services.
+Add a web service and use Custom Web Service at Select the source.
+Name the web service with a name such as DeliciousRestServices. 
+Provide Description same as the name.
+Provide a Namespace.
+Enter DeliciousRestServices as the Web Service Interface Name.
+Select the  OpenText HTTP Connector for the Implementation Class.
+Add a web service operation GetBookMarksWithFixedUri.
+Open GetBookMarksWithFixedUri and paste the following XML in the implementation field.
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>CONN-DELICIOUS-FEED</connection-id>
+    <uri>/v2/rss/cordysrest</uri>
+    <http-method>GET</http-method>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler"/>
+    <response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler"/>
+    <valid-response-code>200</valid-response-code>
+    <namespaces/>
+</implementation>
+The above XML is used to configure CONN-DELICIOUS-FEED connection.
+
+
+ex:To execute the GetBookMarksWithFixedUri web service:
+
+Publish the CWS project. With Publish to Runtime option of the project, HTTP Configuration XML is added to the XML store. 
+Create a  new HTTP Service Group and service container using System Resource Manager, if it doe not exist. In OpenText HTTP Connector configuration , add the file path config.xml in the XMLStore Configuration File Path field.
+Start the HTTP connector to load the configuration. Note: After changing and publishing a web service implementation, use the Reset option to clear the internal method definition cache of the HTTP connector 
+Right-click on the web service operation and test the web service operation with Test Web Service Operation().
+The Operation Test Tool appears with a SOAP request for the GetBookmarksWithFixedUri web service operation. 
+Invoke the operation. The HTTP connector calls the Delicious Rest service to get the Bookmarks for the user cordysrest.
+Example SOAP request
+
+<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP:Body>
+        <GetBookmarksWithFixedUri xmlns="http://com.opentext.delicious/rest"/>
+    </SOAP:Body>
+</SOAP:Envelope>
+
+
+<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP:Body>
+        <GetBookmarksWithFixedUriResponse xmlns="http://com.opentext.delicious/rest" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cc="http://web.resource.org/cc/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:wfw="http://wellformedweb.org/CommentAPI/">
+            <channel>
+                <title>Delicious/cordysrest</title>
+                <link>http://www.delicious.com/cordysrest</link>
+                <description>links posted by cordysrest</description>
+                <link href="http://feeds.delicious.com/v2/rss/cordysrest" rel="self" type="application/rss+xml"/>
+                <item>
+                    <title>Dropbox - Home - Online backup, file sync and sharing made easy.</title>
+                    <pubDate>Mon, 10 Oct 2011 12:50:03 +0000</pubDate>
+                    <guid isPermaLink="false">http://www.delicious.com/url/1efb6ae3c567e43fc1330522b718b167#cordysrest</guid>
+                    <link>http://www.dropbox.com/</link>
+                    <creator><![CDATA[cordysrest]]></creator>
+                    <comments>http://www.delicious.com/url/1efb6ae3c567e43fc1330522b718b167</comments>
+                    <commentRss>http://feeds.delicious.com/v2/rss/url/1efb6ae3c567e43fc1330522b718b167</commentRss>
+                    <source url="http://feeds.delicious.com/v2/rss/cordysrest">cordysrest&apos;s links</source>
+                    <description>
+                        <p/>
+                    </description>
+                    <category domain="http://www.delicious.com/cordysrest/">cloud</category>
+                </item>
+                <item>
+                    <title>mobilebetalen</title>
+                    <pubDate>Mon, 10 Oct 2011 12:42:47 +0000</pubDate>
+                    <guid isPermaLink="false">http://www.delicious.com/url/93e9c587e8653329285c22e01171d587#cordysrest</guid>
+                    <link>http://www.mobilebetalen.nl/</link>
+                    <creator><![CDATA[cordysrest]]></creator>
+                    <comments>http://www.delicious.com/url/93e9c587e8653329285c22e01171d587</comments>
+                    <commentRss>http://feeds.delicious.com/v2/rss/url/93e9c587e8653329285c22e01171d587</commentRss>
+                    <source url="http://feeds.delicious.com/v2/rss/cordysrest">cordysrest&apos;s links</source>
+                    <description>
+                        <p/>
+                    </description>
+                    <category domain="http://www.delicious.com/cordysrest/">mobile</category>
+                </item>
+                <item>
+                    <title>Cordys Professionals Cloud</title>
+                    <pubDate>Mon, 10 Oct 2011 12:50:26 +0000</pubDate>
+                    <guid isPermaLink="false">http://www.delicious.com/url/ff62b7af01ef3b275a2a7bf770efada3#cordysrest</guid>
+                    <link>http://community.cordys.com/</link>
+                    <creator><![CDATA[cordysrest]]></creator>
+                    <comments>http://www.delicious.com/url/ff62b7af01ef3b275a2a7bf770efada3</comments>
+                    <commentRss>http://feeds.delicious.com/v2/rss/url/ff62b7af01ef3b275a2a7bf770efada3</commentRss>
+                    <source url="http://feeds.delicious.com/v2/rss/cordysrest">cordysrest&apos;s links</source>
+                    <description>
+                        <p/>
+                    </description>
+                    <category domain="http://www.delicious.com/cordysrest/">cordys</category>
+                    <category domain="http://www.delicious.com/cordysrest/">cloud</category>
+                </item>
+                <item>
+                    <title>http://ww.cordys.com/</title>
+                    <pubDate>Mon, 10 Oct 2011 12:46:11 +0000</pubDate>
+                    <guid isPermaLink="false">http://www.delicious.com/url/541dcd5ab16ef7e01712cdc9a8b53eb1#cordysrest</guid>
+                    <link>http://ww.cordys.com/</link>
+                    <creator><![CDATA[cordysrest]]></creator>
+                    <comments>http://www.delicious.com/url/541dcd5ab16ef7e01712cdc9a8b53eb1</comments>
+                    <commentRss>http://feeds.delicious.com/v2/rss/url/541dcd5ab16ef7e01712cdc9a8b53eb1</commentRss>
+                    <source url="http://feeds.delicious.com/v2/rss/cordysrest">cordysrest&apos;s links</source>
+                    <description>
+                        <p/>
+                    </description>
+                    <category domain="http://www.delicious.com/cordysrest/">cordys</category>
+                </item>
+                <item>
+                    <title>Delicious.com - Discover Yourself!</title>
+                    <pubDate>Mon, 10 Oct 2011 12:10:24 +0000</pubDate>
+                    <guid isPermaLink="false">http://www.delicious.com/url/c8287f6a93d2d80051d2142bae4139d6#cordysrest</guid>
+                    <link>http://www.delicious.com/cordysrest/</link>
+                    <creator><![CDATA[cordysrest]]></creator>
+                    <comments>http://www.delicious.com/url/c8287f6a93d2d80051d2142bae4139d6</comments>
+                    <commentRss>http://feeds.delicious.com/v2/rss/url/c8287f6a93d2d80051d2142bae4139d6</commentRss>
+                    <source url="http://feeds.delicious.com/v2/rss/cordysrest">cordysrest&apos;s links</source>
+                    <description>
+                        <p/>
+                    </description>
+                </item>
+            </channel>
+        </GetBookmarksWithFixedUriResponse>
+    </SOAP:Body>
+</SOAP:Envelope>
+
+
+
+
+HTTP Get request with parameters service URI
+The above example has a fixed service URI in the web service operation.
+
+To add a new web service operation:
+
+Select Add/Update operations on the Delicious Rest Services web service.
+From Select the source, select Custom Web Service.
+Select the Overwrite to existing Web Service Interface check box and select Delicious Rest Services web service.
+Add a new Web Service Operation and name it GetBookmarksForUser.
+Add the below Web Service Operation implementation.
+Publish the web service Delicious Rest Services to organization
+Reset the HTTP connection service container.
+Test the new web service operation GetBookmarksForUser.
+GetBookmarksForUser implementation:
+
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>CONN-DELICIOUS-FEED</connection-id>
+    <http-method>GET</http-method>
+    <uri>/v2/rss/{0}</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+        <uri-parameters>
+            <parameter type="xpath">./Username</parameter>
+        </uri-parameters>
+    </request-handler>
+    <response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler"/>
+    <valid-response-code>200</valid-response-code>
+    <namespaces/>
+</implementation>
+
+The URI parameter formats the URI according to the given format. For example /v2/rss/{0} or /project/{0}/task/{1}. The parameters {0}, {1}, and so on are filled with the parameters included in the URI parameters. Note: The connection URI parameters start at 0.
+
+Example SOAP request
+
+<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <SOAP:Body>
+        <GetBookmarksForUser xmlns="http://com.opentext.delicious/rest">
+            <Username>cordysrest</Username>
+        </GetBookmarksForUser>
+    </SOAP:Body>
+</SOAP:Envelope>
+On execution of the above web service operation, the value of the Username tag is used as a URL parameter.
+
+Following is another example of using the URI parameters. Read a URL such as:
+
+http://feeds.delicious.com/v2/rss/cordysrest/cloud+cordys
+
+HTTP Put/Post request
+
+Note: The steps to be followed to create a web service operation for HTTP Put/Post are same as those for HTTP Get.
+
+The request handler to be used in the web service operation implementation is based on the service type, for example, for standard web services use  com.opentext.applicationconnector.httpconnector.impl.StandardRequestHandler or for REST services use com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler. The request handler picks up the content of the SOAP request, XML node below the SOAP body, and applies necessary transformation and put it inside the HTTP request body.
+
+HTTP Delete request
+
+Note: The steps to be followed to create a web service operation for HTTP Delete including the request and response handlers that are applicable are exactly the same as those for HTTP Get.
+
+Transforming request and response using XSLT
+To specify request and response XSLTs:
+
+Create XSLT files in a folder and store the XSLT files under XML store as XML.
+Provide the paths of the XML files in the web service operation implementation.
+The request XSLT is applied to the incoming SOAP request and the output of the transformation is put inside the HTTP request body. 
+Note: This is applicable only to HTTP Put and Post as these are the requests that can contain a payload in the request body. 
+The response XSLT is applied to the HTTP response received and the output of the transformation is put inside the SOAP response under the SOAP Body element. 
+Note: This is applicable to all the four HTTP request methods (Get,Put,Post, and Delete) supported by the HTTP connector.
+ A web service operation implementation with request XSLT and response XSLT specified is as follows:
+
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation">
+    .....................................................................................
+	.....................................................................................
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardRequestHandler">
+        <xslt xmlstore="xslts/requestXSLT.xml"/>
+    </request-handler>
+    <response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler">
+        <xslt xmlstore="xslts/responseXSLT.xml"/>
+    </response-handler>
+</implementation>
+Handling JSON as input and output parameters of REST service
+JSON is an open standard format used to transfer data between a web-based application or service and server and is very popular as an alternative to XML data format in the web. JSON objects, in the form of attribute-value pairs, can be used as an input to a web service and the response of the web service can be in the JSON format.
+
+Using HTTP connector, you can invoke web service which accepts JSON objects as input or the web service which returns the JSON objects. For HTTP GET request, there is no change in the request format.
+
+In case of HTTP POST request, set Content-Type as 'application/json' in the header part of RestRequestHandler as follows:
+
+<implementation xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" type="HTTP">
+........................
+	<connection-id>JSON-TEST</connection-id>	
+	<request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+		<req-headers>
+			<header name="Content-Type">application/json</header>
+		</req-headers>		
+	</request-handler>
+	<response-handler class="com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler"/>
+	<valid-response-code>200</valid-response-code>
+	
+................
+</implementation>
+Note: If it is a JSON response, then the HTTP connector transforms that to XML before sending it to the caller.
+
+Using authentication
+The HTTP connector only supports basic authentication. The Delicious service also has services that require authentication. In fact, all V1 services need it.
+
+Test with the service URL: https://www.delicious.com/v1/posts/all. Also, note the services that are using https.
+
+Update the connection configuration and add a new connection.
+
+The new configuration is given below:
+
+<configuration mxmlns="http://httpconnector.opentext.com/1.0/configuration">
+    <connections>
+        <connection id="CONN-DELICIOUS-FEED">
+            <url>http://feeds.delicious.com</url>
+        </connection>
+        <connection id="CONN-DELICIOUS">
+            <url>https://www.delicious.com</url>
+            <username>cordysrest</username>
+            <password>UmVzdFdpdGhDb3JkeXM=</password>
+            <authenticate-always>true</authenticate-always>
+            <check-certificate>false</check-certificate>
+        </connection>
+    </connections>
+</configuration>
+Note: Restart the HTTP connector service container to load the new configuration.
+
+The web service operation for GetPostsWithAuth is as follows:
+
+<implementation type="HTTP" xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <connection-id>CONN-DELICIOUS</connection-id>
+    <http-method>GET</http-method>
+    <uri>/v1/posts/get</uri>
+    <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler"/>
+    <response-handler class="com.opentext.applicationconnector.httpconnector.impl.RestResponseHandler"/>
+    <valid-response-code>200</valid-response-code>
+    <namespaces/>
+</implementation>
+Adding custom HTTP headers
+Many REST APIs expect custom HTTP request headers. Few examples are as follows:
+
+REST Service Provider	Custom Headers	Value
+Azure	x-ms-version	2011-08-18
+Google Data API	GData-Version	X.0
+Tibbr API (Authenticated Session)	client_key	[ applicable value]
+ 	auth_token	[ applicable value]
+The custom HTTP headers can be set by configuring the <implementation> for <req-headers> as follows:
+
+ <implementation xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" type="HTTP">
+  <connection-id>AZURE_MANAGEMENT</connection-id>
+  <uri>/{0}/services/hostedservices/{1}/deployments/{2}/roles</uri>
+  <http-method>POST</http-method>
+  <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+    <uri-parameters>
+      <parameter type="connection-parameter">subscriptionID</parameter>
+      <parameter type="xpath">ServiceName</parameter>
+      <parameter type="xpath">DeploymentName</parameter>
+    </uri-parameters>
+    <req-headers>
+      <header name="x-ms-version">2012-03-01</header>
+      <header name="Content-Type">application/xml</header>
+    </req-headers>
+    <root-xpath>./PersistentVMRole</root-xpath>
+  </request-handler>
+ 
+  <valid-response-code>201</valid-response-code>
+  <namespaces>
+    <binding prefix="ns" uri="http://schemas.microsoft.com/windowsazure" />
+  </namespaces>
+</implementation>
+Organization awareness
+When HTTP connector is configured in the system organization, it becomes organization-aware. The behavior of the the HTTP connector running in the system organization is as follows:
+
+The HTTP connector configuration file is read from the organization of the user sending the request.
+If the configuration file does not exist in the organization space, then it is picked up from the shared (ISV) space.
+The XSLTs is read from the organization of the user sending the request.
+If the XSLT does not exist in the organization space, then it is picked up from the shared (ISV) space.
+When HTTP connector is configured in any other organization, then the configuration files and the XSLTs are picked up from the organization in which the service container is running. If not found in the organization space, the HTTP connector searches for the files in the shared (ISV) space.
+
+Adding HTTP header content dynamically
+When there is a need to pass dynamic value for a HTTP header parameter, it should be defined in the Web service implementation and the value must be an XPath expression that points to an element in the SOAP body. This type of header variable is termed as Dynamic Header Variable.
+
+Before calling the end point URL, the value of the Dynamic Header Parameter is set to the value of the element pointed to by the XPath expression.
+
+Sample interface
+Implementation
+Create a custom Web service with the implementation as follows:
+
+<implementation xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:c="http://schemas.cordys.com/cws/1.0" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" type="HTTP">
+	<connection-id>SFDC</connection-id>
+	<uri>/services/data/v36.0/sobjects/Account/001g000000w5EZa</uri>
+	<http-method>GET</http-method>
+	<request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+		<req-headers>
+ 			<header name="Authorization" type="xpath">./Authorization</header>
+			<header name="Content-Type">application/xml</header>
+			<header name="Accept">application/xml</header>
+		</req-headers>
+	</request-handler>
+	<response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler" />
+	<valid-response-code>200</valid-response-code>
+	<namespaces />
+</implementation>
+SOAP request
+When triggering the request, the request must be created as follows:
+
+<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP:Body>
+    <getSFDC_Rest xmlns="http://com.TWPS.testl/rest">
+	<Authorization>Bearer 00Dg0000006SEja!AQ0AQFuSgwBXZVxUfRhaGnp1fc5IxSwaveACOI393L6oX_MfY7JwN2clQD_MFCCjo_.Ap0sgBp5KXZc5NHB8tiQ4jshxAy6G</Authorization>
+	</getSFDC_Rest>
+  </SOAP:Body>
+</SOAP:Envelope>
+SOAP response (success case)
+Once the request is triggered, the Request Handler must read the value of Authorization Parameter and set it to the header and return the response as follows:
+
+<data>
+	<getSFDC_RestResponse xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://com.TWPS.testl/rest">
+		<Id xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">001g000000w5EZaAAM</Id>
+		<IsDeleted xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">false</IsDeleted>
+		<Name xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Pizza Express</Name>
+		<RecordTypeId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">01220000000LkpkAAC</RecordTypeId>
+		<BillingStreet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">123, Kings Treet</BillingStreet>
+		<BillingCity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">Swindon</BillingCity>
+		<BillingPostalCode xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">RG1 8DB</BillingPostalCode>
+		<BillingCountry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">United Kingdom</BillingCountry>
+		<BillingAddress xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="address">
+			<latitude xsi:nil="true" />
+			<longitude xsi:nil="true" />
+			<city>Swindon</city>
+			<country>United Kingdom</country>
+			<countryCode xsi:nil="true" />
+			<geocodeAccuracy xsi:nil="true" />
+			<postalCode>RG1 8DB</postalCode>
+			<state xsi:nil="true" />
+			<stateCode xsi:nil="true" />
+			<street>123, Kings Treet</street>
+		</BillingAddress>	
+                                    
+	</getSFDC_RestResponse>
+</data>
+SOAP response (failure case)
+When the session fails, the following SOAP fault is displayed:
+
+<data>
+  <SOAP:Fault xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+    <faultcode xmlns:ns0="http://schemas.xmlsoap.org/soap/envelope/">ns0:Server</faultcode>
+    <faultstring xml:lang="en-US">Invalid status code received: 401 (expected: 200).</faultstring>
+    <faultactor>http://com.TWPS.testl/rest</faultactor>
+    <detail>
+      <cordys:FaultDetails xmlns:cordys="http://schemas.cordys.com/General/1.0/">
+        <cordys:LocalizableMessage xmlns:cordys="http://schemas.cordys.com/General/1.0/">
+          <cordys:MessageCode xmlns:cordys="http://schemas.cordys.com/General/1.0/">com.opentext.applicationconnector.httpconnector.exception.ConnectorExceptionMessages.invalidStatusCodeReceived</cordys:MessageCode>
+          <cordys:Insertion xmlns:cordys="http://schemas.cordys.com/General/1.0/">401</cordys:Insertion>
+          <cordys:Insertion xmlns:cordys="http://schemas.cordys.com/General/1.0/">200</cordys:Insertion>
+        </cordys:LocalizableMessage>
+      </cordys:FaultDetails>
+      <cordys:FaultRelatedException xmlns:cordys="http://schemas.cordys.com/General/1.0/">
+        <![CDATA[com.opentext.applicationconnector.httpconnector.exception.ConnectorException: Invalid status code received: 401 (expected: 200).
+	at com.opentext.applicationconnector.httpconnector.execution.MethodExecutor.sendRequest(MethodExecutor.java:165)
+	at com.opentext.applicationconnector.httpconnector.CustomMethod.prepare(CustomMethod.java:56)
+	at com.opentext.applicationconnector.httpconnector.HttpTransaction.process(HttpTransaction.java:147)
+	at com.eibus.soap.SOAPTransaction.processApplicationTransaction(SOAPTransaction.java:1357)
+	at com.eibus.soap.SOAPTransaction.handleBodyBlock(SOAPTransaction.java:1281)
+	at com.eibus.soap.SOAPTransaction.<init>(SOAPTransaction.java:558)
+	at com.eibus.soap.SOAPTransaction.<init>(SOAPTransaction.java:210)
+	at com.eibus.soap.Processor.onReceive(Processor.java:1335)
+	at com.eibus.soap.Processor.onReceive(Processor.java:1316)
+	at com.eibus.connector.nom.Connector.onReceive(Connector.java:483)
+	at com.eibus.transport.NonTransactionalWorkerThreadBody.doWork(NonTransactionalWorkerThreadBody.java:61)
+	at com.eibus.transport.NonTransactionalWorkerThreadBody.run(NonTransactionalWorkerThreadBody.java:26)
+	at com.eibus.util.threadpool.WorkerThread.run(WorkerThread.java:67)
+]]>
+      </cordys:FaultRelatedException>
+    </detail>
+  </SOAP:Fault>
+</data>
+Common errors
+IllegalOperationException: Prefix and/or URI cannot be NULL. [addNamespaceBinding:166]
+Solution: You do not have a default namespace on the configuration or implementation. Ensure that you have the following :
+
+<implementation xmlns="http://httpconnector.opentext.com/1.0/implementation"
+ xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" type="HTTP">
+
+<implementation xmlns="http://httpconnector.opentext.com/1.0/implementation" xmlns:c="http://schemas.cordys.com/cws/1.0" xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/" type="HTTP">
+                <connection-id>SFDC</connection-id>
+                <uri>/services/data/v36.0/sobjects/Account/001g000000w5EZa</uri>
+                <http-method>GET</http-method>
+                <request-handler class="com.opentext.applicationconnector.httpconnector.impl.RestRequestHandler">
+                                <req-headers>
+                                                <header name="Authorization">./ Authorization </header>
+                                                <header name="Content-Type">application/xml</header>
+                                                <header name="Accept">application/xml</header>
+                                </req-headers>
+                </request-handler>
+                <response-handler class="com.opentext.applicationconnector.httpconnector.impl.StandardResponseHandler" />
+                <valid-response-code>200</valid-response-code>
+                <namespaces />
+</implementation>
