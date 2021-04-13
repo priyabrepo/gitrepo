@@ -1,8 +1,13 @@
-HTTP connector provides connectivity to web servers over HTTP protocol and supports common HTTP operations like GET, POST, PUT, and DELETE. It can be used to invoke services over HTTP or HTTPS and can be used to invoke standard web services or REST based services with XML or JSON payloads.
+The Hypertext Transfer Protocol (HTTP) 
+
+HTTP connector provides connectivity to web servers over HTTP protocol and supports common HTTP 
+operations like GET, POST, PUT, and DELETE. It can be used to invoke services over HTTP or HTTPS and can be used to invoke
+ standard web services or REST based services with XML or JSON payloads.
 
 It has the following features which help applications to communicate with the external web servers.
 
- HTTP connector configuration has connection details of various servers, identified by a name or ID that is unique. While processing the request, you must provide the connection ID that helps the connector to identify proper connection details.
+ HTTP connector configuration has connection details of various servers, identified by a name or ID that is unique.
+ While processing the request, you must provide the connection ID that helps the connector to identify proper connection details.
  
  A sample configuration in the XML store is as follows:
  <configurations xmlns="http://httpconnector.opentext.com/1.0/configuration">
@@ -20,7 +25,8 @@ It has the following features which help applications to communicate with the ex
     </connections>
 </configurations>
 
- HTTP connector is organization-aware. The same HTTP connector in the shared space or system organization can be used to process requests from organizations or tenants with organization-specific configuration. The HTTP connector configuration is stored in the XML store, which by default is organization-aware
+ HTTP connector is organization-aware. The same HTTP connector in the shared space or system organization can be used to process requests from organizations or tenants with 
+ organization-specific configuration. The HTTP connector configuration is stored in the XML store, which by default is organization-aware
  
  Supports invoking standard web services and REST services
  
@@ -48,7 +54,8 @@ For REST services,
 
 
 Multiple payload format
-HTTP connectors can send input to services or receive output from services either in the XML or JSON format. Since Process Platform supports only SOAP based web services, all requests from Platform are in SOAP or XML format and HTTP connector transforms them to appropriate format.
+HTTP connectors can send input to services or receive output from services either in the XML or JSON format. Since Process Platform supports only SOAP based web services, 
+all requests from Platform are in SOAP or XML format and HTTP connector transforms them to appropriate format.
 
 If the input request is of the type HTTP POST and expects a JSON input, then set Content-type=application/json in the request header, as follows:
 
@@ -68,7 +75,8 @@ If the input request is of the type HTTP POST and expects a JSON input, then set
 
 
 Request and response transformation capability
-You can use XSLT capability to transform a request to another request that is expected by the service or to transform the response from the service to the XML expected by the application. The XSLT can be stored in the XML store and can be used inside the HTTP connector. This can be done as follows:
+You can use XSLT capability to transform a request to another request that is expected by the service or to transform the response from the service 
+to the XML expected by the application. The XSLT can be stored in the XML store and can be used inside the HTTP connector. This can be done as follows:
 
  
 
@@ -123,7 +131,8 @@ Method implementation
     <valid-response-code>200</valid-response-code>
     <namespaces/>
 </implementation>
-The URI parameter formats the URI according to the specified format. For example /v2/rss/{0}. The parameters {0}, {1}, and so on are filled with the parameters included in the URI parameters.
+The URI parameter formats the URI according to the specified format. For example /v2/rss/{0}. The parameters {0}, {1}, 
+and so on are filled with the parameters included in the URI parameters.
  
 
 Note: The connection URI parameters start at 0.
@@ -179,8 +188,8 @@ Parameter
 Description
 
 Configuration File Path
-
-Path to the configuration file in the XML store. This path is is relative to OpenText/HttpConnector in xmlstore. This is normally deployed as part of the application CAP and use HTTP Connection Manager in the CUSP task to modify the configuration details.
+Path to the configuration file in the XML store. This path is is relative to OpenText/HttpConnector in xmlstore. 
+This is normally deployed as part of the application CAP and use HTTP Connection Manager in the CUSP task to modify the configuration details.
 
 Host
 

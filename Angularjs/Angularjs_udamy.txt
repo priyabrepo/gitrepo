@@ -114,6 +114,20 @@ myApp.controller('myController',['$scope','$log',function($scope,$log){
 }]);
 * minifier never changes a string.
 ---------------------------------------------------------------------------------------------------------------------------------------------
+INTERPOLATION
+- generating a final string by combining 
+  String+string
+  string+var, etc
+  
+angular js :
+ {{}} and $scope
+---------------------------------------------------------------------------------------------------------------------------------------------
+DIRECTIVE
+- an instruction to angularjs to manupulate pices of dom
+
+ex:
+ng-model=username 
+<h1>twitter.com/{{username}}</h1>
 
 
 
