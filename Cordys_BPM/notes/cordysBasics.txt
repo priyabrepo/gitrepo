@@ -118,7 +118,13 @@ to import external web-service:
 					 ws-server package
 					 bpm
 				*****import WSDL
-					 
+1.8 vs 16.3
+----------------
+- entity modeling
+-  ACL roles 
+
+Q. how to Restart dev server ?
+Q. how to configure and read log setting in cordys?				 
  
  
  
