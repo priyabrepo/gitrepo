@@ -138,7 +138,19 @@ Q. how to configure and read log setting in cordys?
  log.error("to : "+toEmail+" Sub : "+emailSub+" mail :"+mailBody);
  
  
- 
+ Q. how to setup email?
+ - create email sg and sc
+   (check port no and ssl property:incoming and outgoing)
+ - <SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP:Body>
+    <SetProfile xmlns="http://schemas.cordys.com/1.0/email">
+      <displayName>PARAMETER</displayName>
+      <mailId>PARAMETER</mailId>
+      <password>PARAMETER</password>
+      <userId>PARAMETER</userId>
+    </SetProfile>
+  </SOAP:Body>
+</SOAP:Envelope>
  
  
  
