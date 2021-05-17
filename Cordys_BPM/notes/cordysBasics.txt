@@ -124,10 +124,18 @@ to import external web-service:
 -  ACL roles 
 
 Q. how to Restart dev server ?
+   wondows+r > services > opentext> restart
 Q. how to configure and read log setting in cordys?				 
  
- 
- 
+ import com.eibus.util.logger.CordysLogger;
+ import com.eibus.util.logger.Severity;
+
+-first line after class name
+ public static CordysLogger logger = CordysLogger.getCordysLogger(ESORVOB_Utilities.class);
+- in the method
+ logger.log(Severity.ERROR, "filePath :"+filePath);
+ or
+ log.error("to : "+toEmail+" Sub : "+emailSub+" mail :"+mailBody);
  
  
  
