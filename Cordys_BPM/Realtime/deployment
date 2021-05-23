@@ -1,0 +1,122 @@
+CREATE PROCEDURE procedure_name(parameter_list)
+BEGIN
+   statements;
+END //
+
+
+connectors : the objective of connector is process specific.it understands the request.
+               lets say we send "Select * from EMPLOYEE". the request is sent as SOAP request in XML format.
+			   the connector understands the request. processes it.and gives a similar responce.
+           examples
+           : reading the data from external system : uddi
+		   : LDAP connector is used to extract the directry info from LDAP
+		   : EMAIL connector is for sending email information
+		   : diffrent connecters do diffrent rolles  
+---------------
+ws app
+email
+bert conainer
+uddi
+
+jdbc:oracle:thin:@//localhost:1521/orcl
+----------------  ----------  ----  ---
+driver             Host       port   db
+------------------------------------------------------------------------------
+URL=URI+URN
+
+Syntax of URI: URI = scheme:[//authority]path[?query][#fragment]
+ex: www.guru99.com
+
+Syntax of URL: http://www.domainname.com/folder-name/web page-file-name.htm
+ex:https://career.guru99.com/category/heavy-industries/
+
+
+  
+Uniform Resource Locator(URL)
+Web Services Description Language (WSDL)
+Universal Description, Discovery, and Integration (UDDI)
+
+conainer 
+---------
+         : It is an instance of JVM. it keeps on listing the request at a specific port number .Container hands over the request to connector.
+		 when a connector gives the responce, to who ever is called.
+
+Service group
+-------------
+ : Each service group has similar type of  containers.
+ : can have only one container also
+ : Logical grouping of services
+ : it has all the services that is serves.
+ 
+ 
+ ** sombody sends a SOAP request thrugh 
+                 brouser > 
+				      SOAP >
+					  HTTP request > 
+					      web Server (web get way)>
+						         cordys server> 
+								            LDAP >CARS>
+											 service group >
+  								                 service container> 
+												      application connector> 
+																	    cordys Application server  
+																	
+	Responce:
+	service group >
+  		service container> 
+			application connector> 
+				 web Server(web get way)>
+					         client brouser
+
+ 
+ web server vs application server
+ --------------------------------------
+ 
+web server
+-----------
+- computer system that hostes webs sites
+- runs web server softwire (Apache HTTP,microsoft IIS)
+- connected to internet.
+- two types
+  1.Shared : hosts multiple websites
+  2.Dedicated : hosts singe website
+- 
+
+web client
+-----------
+- sends http request to web server.
+web getway
+-----------
+ A secure web gateway is a cyberbarrier or checkpoint that keeps unauthorized traffic from entering an organization's network.
+ It prevents malicious website traffic, viruses, and malware from infecting enterprises or accessing its data. 
+ 
+ Deployment
+ ---------------
+ 2 types.
+ 1. Deploying package
+ 2. workspace movement
+ 
+ Package deployment
+ ------------------
+ 1.Right click on package>Properties>  incriment buld no(if small changes) or increse version> ok.
+ 
+ 2.Right click on package> create package.(generates cap file)
+ 
+ 3. in uat or production, log in to system organisation.
+       2 types of deployment.
+	      1. shared deployment(to deploy multiple organisations.)
+		  2. organisation deployment
+(each organisation will have application deployer. roll - application Deployer)
+ 4. chose: upload and deploy or upload + deploy.(separetly)
+ 
+ 
+ 
+to import external web-service:
+----------------------------------
+- new > web service > select the source
+                     database metadata
+					 ws-server package
+					 bpm
+				*****import WSDL
+					 
+ 

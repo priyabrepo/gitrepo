@@ -1,0 +1,73 @@
+Bert Report
+  -------------
+  
+  File->New->Report->My Reports(folder)-> Customers.rptdesign.Choose a Template
+  
+  Script - Where you add JavaScript to your report to customize its behavior.
+  XML Source - You can view and modify the XML source of a report from here.
+  
+Data Explorer - BIRT View that shows your data sources (connections), data sets (queries) and report parameters. You also use this view to add data set columns to your report layout.
+
+Property Editor - BIRT View that displays properties for many report items. It has tabs and groupings that organize properties into categories.
+
+Properties View - Standard Eclipse view that shows all properties for a report item as a simple list. This view is optional, and we will not use it in this tutorial.
+
+Build a Data Source
+--------------------
+Open the Data Explorer View, if it is not already visible.
+Select the Data Sources node within the tree view.
+Right-click to open the context menu.
+Choose New Data Source
+Choose Classic Models 
+In the Data Source Name field, enter "Sample".
+Click Next.
+Click Finish.
+
+Edit a Data Source
+----------------------
+open the Data Explorer View.
+Double-click the data source.
+can make any needed changes.
+Click OK to save your changes.
+
+Build a Data Set
+----------------------
+open the Data Explorer view.
+ Data Sets node in the tree view.New Data Set. The New Data Set dialog will appear.
+Enter "Customers" for the Data Set Name field
+
+Ensure that the Data Source field shows the Sample data source created above.
+Ensure that the Data Set Type field shows "SQL Select Query".
+Click Next.
+Enter the following Query: SELECT *
+FROM CUSTOMERS
+WHERE COUNTRY = 'USA'
+Click Finish.
+
+
+creating project
+----------------
+file. new. report design.
+new. project. name.
+new. report. name
+
+connect to DB
+--------------
+data Explorer(tab). data source. new .new data source.JDBC data source.
+
+Driver class. comes from eclipse jar plugins.(select SQL or MySQL/Oracle accordingly)
+Database URL: jdbc:oracle:thin:@//localhost:1521/orcl
+username:
+password:
+
+Connect to XL
+--------------
+ new .new data source.Excel datasource.next.select file.finish
+ 
+ Bert Dataset
+ -------------
+  new. data set. select data base connection. next.
+  output column. edit....
+  computed columns.
+  parameters
+  filters

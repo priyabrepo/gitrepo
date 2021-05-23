@@ -1,0 +1,47 @@
+btn_tgthist
+
+function Form_InitDone(eventObject)
+
+function btn_tgthist_Click(eventObject)
+
+
+import com.eibus.util.logger.CordysLogger;
+public static CordysLogger logger = CordysLogger.getCordysLogger(Utilities.class);
+// logger.log(Severity.ERROR, e.toString());
+logger.log(Severity.ERROR, "getRmpMilestoneFilDetails Query : " + queryText);
+   
+   
+Creating a Custom Class
+Double-click  (<WS-AppServer Package>
+open Create model from object layout
+
+
+function getLoadSlidesByCustom() {
+    $.cordys.ajax({
+        method: "GenerateDynamicPptxReport",
+        namespace: "http://schemas.cordys.com/PCRDB_Metadata",
+        parameters: {
+        	reportName: "validationConcernDescription",	
+        	Login_Id: loginID,
+        	Project_Code:Project_Code, 
+        	prototype:ProtoType,
+        },
+        async: false,
+        dataType: '* json',
+        success: function(response) {
+        	window.open(window.location.href.match(/[^:]+:[/\\]+[^/\\]+([/\\][^/\\]+[/\\][^/\\]+[/\\])/)[0]+response.tuple.old.generateDynamicPptxReport.generateDynamicPptxReport);
+        	window.top.close();
+            //window.close();
+        }
+    });
+}
+
+async function initialize() {
+	$scope.user = await users.getActiveUser();
+	$scope.$apply();
+	$scope.messages = await conversations.getMessagesFor($scope.user);
+	$scope.$apply();
+}
+
+
+$scope.$apply
