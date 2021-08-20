@@ -1,0 +1,27 @@
+ 
+ 1. String to node
+ String srt = "<JSON format string/>"
+ srt = srt.replaceAll(">null<","><");
+ int xml_node = BSF.getXMLDocument().parseString(srt); 
+ 
+ 2. node to string 
+ String str1 = Node.writeToString(xml_node, true);
+ Node.writeToFile(xml_node, xml_node, fileName, Node.WRITE_HEADER);
+ 
+ 3. node related methods
+  Node.clone(SOAPRequest,true);
+  Node.getName(mnode);
+  Node.getAttribute(mnode,"attribute_name");
+  Node.getFirstChild(mnode);
+  Node.get
+  
+ 4. iterating node
+ for (int j = 0;j < Node.getNumChildren(mnode);j++) 
+	{
+
+		soapRequestObject.addParameterAsXml(paramnode);
+		int tempnode = Node.getNextElement(paramnode);
+
+		paramnode = tempnode;
+
+	}
