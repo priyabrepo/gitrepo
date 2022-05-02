@@ -1,0 +1,64 @@
+TRANSACTION
+--------------------------
+group construct and is defined as a set of activities or sub-processes that must be executed either entirely or not at all.
+either all operations are committed or all operations are rolled back.
+Transaction therefore, can be considered to be a single unit of work. 
+
+select bunch of activity in BPM > right click > group as 
+---------------------------
+a short-lived process is called as a synchronous sub-process from the transaction of the main process.
+You can also include non-transactional activities within a group of transactional activities. 
+permitted in a transaction:
+ - If the Participate in Transaction check box is not selected and the methods are a part of the transaction, the activities to which these methods are attached, do not display transactional behavior and are just called as normal Web services.
+ - These services should also point to the same database.
+ - For example, assume that a transaction has three activities - Activities A, B and, C, out of which Activities A and B participate in the transaction; in such case only Activities A and B, which are marked as Participate in Transaction behave
+   as a part of the transaction. If an exception occurs during execution of Activity B, then Activity A is rolled back, but Activity C, although a part of the transaction,
+   if it is not marked as Participate in Transaction, is executed as a normal Web service.
+ - You can define an external Web service as part of transaction. However, these services will not display transactional behavior. (may not point to same db).
+ - Long lived process :Asynchronous Sub-processes containing Manual Activities: The process is executed independently and in parallel to another process. Only the asynchronous sub-process is triggered and will run outside the transaction.
+ - Short lived process :synchronous:In this case, the process waits for the response of the process that is executed before it. You must model the synchronous sub-process within the constraints of a transaction.
+ -  Manual activities of type 'Info' for example, notifications, can be included within a transaction.
+For example, suppose there are four update activities defined in a transaction:
+
+Transaction Start
+
+Activity A WS-AppServer method, Participate in Transaction =true
+
+Activity B WS-AppServer method, Participate in Transaction =false
+
+Activity C Web Service, Participate in Transaction =false
+
+Activity D WS-AppServer method, Participate in Transaction =true
+
+Transaction End
+
+If Activity D throws an exception, Activity A is rolled back but Activities B and C are not rolled back.
+
+Not permitted in a transaction: 
+- Manual activities of type 'task'
+- Delay Events
+- Nested transactions(inside one transactions)
+
+note:An End event within a transaction has an additional option Abort. Ensure that the End event is inside the transaction before you set this option. When an exception occurs, the transaction is automatically aborted. 
+Hence, you do not need to model an End event of type Abort after the exception handling.
+
+ 
+internal logic
+--------------
+WS-AppServer supports handling multiple transactions at the same time.
+it is possible that two or more processes may try to update the same object simultaneously. 
+WS-AppServer adopts the concept of optimistic transactions, in which it checks the objects in the database for any interim change that may have happened, and subsequently commits the transaction.
+Always, the changes from the first transaction are committed to the database without any difficulty. 
+When the following transaction tries to commit the updates, it receives a 'BSFObjectChangedException' , - the transaction aborts.
+
+1.In case of an update that is not conflicting, commit the transaction again by using the 'com.cordys.cpc.bsf.busobject.BSF class commitTransaction()' method. 
+The commit will be successful because the original object data (<tuple><old>) will now be according to the content of the database.
+Modify the object based on the content of the original object, commit the transaction by using the com.cordys.cpc.bsf.busobject.BSF class commitTransaction() method. 
+The commit will be successful because the original object data (<tuple><old>) is now according to the content of the database.
+
+2.If it is a conflict does not solve on its own, abort the transaction using 'com.cordys.cpc.bsf.busobject.BSF class abortTransaction()' method , and display an error to the user.
+
+3.Using WS-AppServer, a transaction can be programmed to make repetitive attempts to commit inspite of such failures and exceptions. The following code is a sample of how you can achieve this.
+
+4. The methods setRetry(String transactionID) and retryTransaction(String transactionID) are instance methods on BusObjectManager.
+ The static WS-AppServer methods map to the BusObjectManager bound to the current that is, thread bound, BsfContext. For details on the methods used in this process, refer WS-AppServer SDK.

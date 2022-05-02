@@ -1,0 +1,12 @@
+public static String getCurrentUser() {
+		// return BSF.getUser();
+		String UserDN = BSF.getUser();
+		String userid = UserDN.split(",")[0].split("=")[1];
+		String username = "";
+		try {
+			username = BSF.getLDAPDirectory().read(BSF.getAuthenticatedUser()).getAttribute("description").getStringValue();
+		} catch (DirectoryException e) {
+			username = "";
+		}
+		return userid + ";" + username + ";" + UserDN;
+	}

@@ -1,0 +1,48 @@
+execution mod:
+-------------------
+Long Lived: Select the execution mode of a business process as Long Lived if it includes human interactions, delays, or intermediate messages and takes a long time to execute. A long-lived process has a long execution span whereas a short-lived process has a very short execution span. By default, a process is long-lived but can be defined as a short-lived process.
+
+Short Lived: Select the execution mode of a business process as Short Lived if it does not require human intervention and its average life-span is short. This optimizes the process behavior. To achieve higher performance, short-lived processes are executed synchronously within the context of a single server thread. Since server resources are blocked for higher performance, it is recommended to design short-lived processes for a set of activities that have a short execution time and do not require human intervention for their completion. They can be used if a set of activities require transactional behavior.
+
+Page Flow: Select the execution mode of a business process as Page Flow if you want the user to perform a sequence of operations such as filling multiple forms in a wizard-like mode instead of accessing the same through Process Platform Inbox. A page flow is a logical sequence of HTML pages or User Interfaces (UI) that require a user to fill multiple forms. The interactive page flow support in Process Platform BPM is seamlessly integrated with User Interfaces that appear in the same frame upon filling the required information and submitting it. You can execute a business process in page flow mode by configuring the properties of the business process. In the page flow mode, the business process model has multiple tasks modeled for the process user. Only task notification messages are published to the client UI. Informative messages cannot be published to the client UI as an Info task can branch into one or more notifications, which will not produce a page flow behavior to the application. For example, 
+             in a business process designed to allow users to apply for a credit card, the user must fill multiple forms with a possibility that some forms may be rendered after evaluating the inputs in the previous form. You can specify that if the annual income of the applicant is less than the specified limit, the form for the Silver Card must be displayed; otherwise, the form for the Gold Card must be displayed.
+
+
+*You can generate Web services for both short-lived and long-lived published business processes. If a short-lived process ends with a message, it must have either only one End event with a message or multiple End events with the same message.
+
+
+Long-Lived Process
+
+Short-Lived Process
+
+The average life span of a long-lived process is long, that is, the process takes a long time to execute. By default, all processes in the business process modeling environment are executed as long-lived.
+
+The average life span of a short-lived process is short. The default completion time is 30 seconds. You may increase the time-out value if the process takes longer.
+
+Long-lived processes involve human interactions, delays, or intermediate messages. They encompass integration such as system-to-system and workflow such as human-to-human layers, and span multiple systems, people, and organizations. Therefore, it is necessary to monitor and store information at each step of the process.
+
+Short-lived processes do not involve human interactions, delays, or intermediate messages. A process is not monitored by default. However, the start time, end time, and final status are monitored by default. You can model one-sided notifications that do not require human interaction for short-lived processes.
+
+Crash recovery along with activity monitoring is enabled by default.
+
+Crash recovery is disabled by default.
+
+Complete level of monitoring along with activity monitoring is enabled by default.
+
+Basic level of monitoring without activity monitoring is enabled by default.
+
+The process is executed by multiple threads.
+
+The process is executed by a single thread.
+
+The processes are asynchronous in nature such that for a request sent, a response is not required. The process continues once the instance ID is returned.
+
+The processes are synchronous in nature such that for a request sent, a response is received after the process is executed.
+
+Long-lived processes are standalone processes and may comprise multiple short-lived processes.
+
+Short-lived processes usually form a part of long-lived processes.
+
+
+-----------------
+* If you enable crash recovery or monitoring at the message map level for a short-lived process, the performance will reduce significantly. This occurs as the requests are synchronous in nature for a short-lived process, which thereby increases the overhead on the Process Engine while updating the database with monitoring information.

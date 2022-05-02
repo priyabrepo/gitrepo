@@ -133,4 +133,4 @@ EXEC SelectAllCustomers @City = 'London', @PostalCode = 'WA1 1DP';
 top 3 or bottom 3 records:
 SELECT * FROM Customers order by PostalCode desc LIMIT 3;
         --------or--------
-SELECT ROW_NUMBER() OVER ( ORDER BY VOBD_REF_NO)as row_num FROM VOB_DETAILS where row_num > 10 AND row_num <=20;;
+SELECT ROW_NUMBER() OVER ( ORDER BY VOBD_REF_NO)as row_num FROM VOB_DETAILS where row_num > 10 AND row_num <=20;

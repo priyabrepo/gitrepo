@@ -1,0 +1,365 @@
+var vobApp = angular.module("vobApp", ['ngRoute', 'ui.bootstrap', 'hSweetAlert']);
+
+/*angular.module("vobApp").controller("vobMainController",function($scope,vobService,vobLoginUserService,$rootScope){
+$scope.indexPage={};
+});*/
+angular.module("vobApp").service('vobLoginUserService', function($q) {
+    var deferred = $q.defer();
+    $.cordys.json.defaults.removeNamespacePrefix = true;
+    $.cordys.ajax({
+        method: "GetUserDetails",
+        namespace: "http://schemas.cordys.com/1.0/ldap",
+        parameters: {
+            dn: ""
+        },
+        async: false
+    }).done(function(userData) {
+        var userDN = userData.tuple.old.user.authuserdn;
+        var lUser = userDN.split(",")[0].split("=")[1]; //userData.tuple.old.user.organization.organizationaluser.dn.split(",")[0].split("=")[1];//
+        //var lUser = userData.tuple.old.user.organization.organizationaluser.dn.split(",")[0].split("=")[1];
+        deferred.resolve(lUser);
+    }).fail(function(msg) {
+        deferred.reject(msg);
+    });
+
+    /*$.cordys.authentication.getUser().done(function(userObject){
+    //getLoginUser();
+    var userDN = userObject.userDN;
+    var organizationDN = userObject.organizationDN;
+    var organizationName = userObject.organizationName ;
+    var userName = userObject.userName;
+    deferred.resolve(userName);
+    });*/
+
+    return deferred.promise;
+    //return "mahindra";
+});
+vobApp.config(['$routeProvider', function($routeProvider, $locationProvider) {
+    $routeProvider.
+    when('/initiation', {
+        templateUrl: 'views/initiation.html',
+        controller: 'vobInitiationController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/initiation/:itemId/:itemrev', {
+        templateUrl: 'views/initiation.html',
+        controller: 'vobInitiationController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/approver', {
+        templateUrl: 'views/approver.html',
+        controller: 'vobApproverController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/btpapprover', {
+        templateUrl: 'views/BtpApprover.html',
+        controller: 'btpApproverController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+/*    when('/CAN', {
+        templateUrl: 'views/caNote.html',
+        controller: 'vobCANController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }],
+            title: function() {
+                return "CAN Initiation";
+            },
+            vobdRefNo: function() {
+                return "";
+            },
+
+            partCategory: function() {
+                return "";
+            },
+
+            vendorCode: function() {
+                return "";
+            },
+
+            sorNum: function() {
+                return "";
+            },
+            $uibModalInstance: function() {
+                return "";
+            },
+
+
+        }
+    }).*/
+    when('/vobViewScreen/:vobrefno', {
+        templateUrl: 'views/vobViewScreen.html',
+        controller: 'vobViewController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }],
+            vobdRefNo: function() {
+                return "";
+            },
+            $uibModalInstance: function() {
+                return "";
+            },
+            Tasktype: function() {
+                  return "";
+              }
+        }
+
+    }).
+    when('/vobViewScreen/:vobrefno/:task', {
+        templateUrl: 'views/vobViewScreen.html',
+        controller: 'vobViewController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }],
+            vobdRefNo: function() {
+                return "";
+            },
+            $uibModalInstance: function() {
+                return "";
+            },
+            Tasktype: function() {
+            return "";
+        }
+        }
+
+    }).
+    when('/CANView/:vobrefno/:pdrefno', {
+        templateUrl: 'views/ViewCan.html',
+        controller: 'ViewCanController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }] ,
+            vobdRefNo: function() {
+                return "";
+            },
+            $uibModalInstance: function() {
+                return "";
+            },
+        }
+
+    }).
+
+    when('/CanApproval', {
+        templateUrl: 'views/ApproverCan.html',
+        controller: 'CANApproverController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/20participate', {
+        templateUrl: 'views/20participate.html',
+        controller: '20participateController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/21participate', {
+        templateUrl: 'views/21participate.html',
+        controller: '21participateController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+
+    when('/provideCls', {
+        templateUrl: 'subViews/vobProvidAdvice.html',
+        controller: 'vobProvideAdviceController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/planSubmission/:itemId/:itemrev', {
+        templateUrl: 'views/planSubmission.html',
+        controller: 'vobPlanSubController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/emailTemplate', {
+        templateUrl: 'subViews/emailTemplate.html',
+        controller: 'vobemailTempController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+
+    when('/vobSupplier', {
+        templateUrl: 'views/vobSupplierScreen.html',
+        controller: 'vobSupplierScreenController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+
+    when('/vobCreate', {
+        templateUrl: 'subViews/vobCreateChange.html',
+        controller: 'vobCreateChangeController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/vobSearch', {
+        templateUrl: 'views/vobSearch.html',
+        controller: 'vobSearchController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/vobinbox', {
+        templateUrl: 'views/inbox.htm',
+        controller: 'inboxController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+    when('/importParts', {
+        templateUrl: 'subViews/CANInitImpotParts.html',
+        controller: 'CANInitImpPartsController',
+        resolve: {
+            loginUser: ['vobLoginUserService', function(loginUser) {
+                return loginUser;
+            }]
+        }
+    }).
+
+when('/showEnvpc/:vobrefno', {
+        templateUrl: 'views/showEnvpc.html',
+        controller: 'vobShowEnvpcController',
+        resolve: {
+        loginUser: ['vobLoginUserService', function(loginUser) { return loginUser; }],
+        vobdRefNo: function() {
+            return "";
+          },
+        $uibModalInstance: function() {
+              return "";
+            },
+           
+        }
+    }).
+when('/vobShowAll', {
+        templateUrl: 'views/showAlllSorRev.html',
+        controller: 'vobShowAllSorRevController',
+        resolve: { loginUser: ['vobLoginUserService', function(loginUser) { return loginUser; }]}
+    }).
+
+
+    /*
+    when('/vobAdmin',{
+      templateUrl: 'views/vobAdmin.html',
+      controller: 'vobAdminController',
+      resolve: {loginUser: ['vobLoginUserService', function (loginUser) { return loginUser; }]}
+    }).
+    when('/vobEmailTemp',{
+      templateUrl: 'views/vobEmailTemp.html',
+      controller: 'vobEmailController',
+      resolve: {loginUser: ['vobLoginUserService', function (loginUser) { return loginUser; }]}
+    }).
+    when('/vobProjectPlan',{
+      templateUrl: 'views/vobProjectPlan.html',
+      controller: 'vobProjPlanController',
+      resolve: {loginUser: ['vobLoginUserService', function (loginUser) { return loginUser; }]}
+    }).
+    when('/vobProjPlanSuper',{
+      templateUrl: 'views/vobProjectPlanSuper.html',
+      controller: 'vobProjPlanSupeController',
+      resolve: {loginUser: ['vobLoginUserService', function (loginUser) { return loginUser; }]}
+    }).*/
+
+
+ otherwise({
+        redirectTo: '/vobinbox'
+
+    });
+}]);
+
+
+vobApp.directive('allowPattern', [allowPatternDirective]);
+
+function allowPatternDirective() {
+    return {
+        restrict: "A",
+        compile: function(tElement, tAttrs) {
+            return function(scope, element, attrs) {
+                // I handle key events
+                element.bind("keypress", function(event) {
+                    var keyCode = event.which || event.keyCode; // I safely get the keyCode pressed from the event.
+                    var keyCodeChar = String.fromCharCode(keyCode); // I determine the char from the keyCode.
+
+                    // If the keyCode char does not match the allowed Regex Pattern, then don't allow the input into the field.
+                    if (!keyCodeChar.match(new RegExp(attrs.allowPattern, "i"))) {
+                        event.preventDefault();
+                        return false;
+                    }
+
+                });
+            };
+        }
+    };
+}
+vobApp.directive('zeroNotAllowed', [zeroNotAllowedDirective]);
+
+function zeroNotAllowedDirective() {
+    return {
+        restrict: "A",
+        compile: function(tElement, tAttrs) {
+            return function(scope, element, attrs) {
+                // I handle key events
+                element.bind("keyup", function(event) {
+                    debugger;
+                    var keyCode = event.which || event.keyCode; // I safely get the keyCode pressed from the event.
+                    var keyCodeChar = String.fromCharCode(keyCode); // I determine the char from the keyCode.
+
+                    // If the keyCode char does not match the allowed Regex Pattern, then don't allow the input into the field.
+                    /* if (!keyCodeChar.match(new RegExp(attrs.allowPattern, "i"))) {
+            event.preventDefault();
+                        return false;
+                    }*/
+                    if (keyCodeChar <= 0) {
+                        return false;
+                    }
+
+                });
+            };
+        }
+    };
+}

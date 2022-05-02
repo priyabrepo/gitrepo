@@ -1,0 +1,122 @@
+ import com.cordys.cpc.bsf.busobject.BSF;
+import com.cordys.cpc.bsf.busobject.BusObject;
+import com.cordys.cpc.bsf.busobject.BusObjectConfig;
+import com.cordys.cpc.bsf.busobject.BusObjectIterator;
+import com.cordys.cpc.bsf.busobject.QueryObject;
+import com.cordys.cpc.bsf.soap.SOAPRequestObject;
+
+import com.eibus.xml.nom.Node;
+
+public class CustomClass extends CustomClassBase
+{
+	private static CordysLogger logger = CordysLogger.getCordysLogger(CustomClass.class);	
+	private static Document doc = BSF.getXMLDocument();
+	
+	
+	
+ public static String getTaskURLByTaskID(String taskID, String targetUser) {
+        String URL = "";
+        URL = CordysURL + "/cas/vcm/casrepository/applicationservices/connectors/xforms.htm?TaskId=" + taskID;
+        String[] tempStr = BSF.getOrganization().split(",");
+        String org = tempStr[0].substring(2, tempStr[0].length());// Get
+                                                                                                                                                                                                                                                        // Organization
+        String dn = tempStr[1].substring(3, tempStr[1].length());// Get
+                                                                                                                                                                                                                                                        // Organization
+        String instance = tempStr[2].substring(3, tempStr[2].length());// Get
+                                                                                                                                                                                                                                                                        // Instance
+                                                                                                                                                                                                                                                                        // Name
+        String suffix = tempStr[3].substring(2, tempStr[3].length());// Get
+                                                                                                                                                                                                                                                                        // Suffix
+
+        URL = URL + "&organization=o%3D" + org + "%2Ccn%3D" + dn + "%2Ccn%3D" + instance + "%2Co%3D" + suffix + "&Target=cn%3D" + targetUser;
+        URL = URL + "%2Ccn%3Dorganizational+users%2Co%3D" + org + "%2Ccn%3D" + dn + "%2Ccn%3D" + instance + "%2Co%3D" + suffix + "&TargetType=user";
+        /* co.log(Severity.ERROR,"PathURL"+URL); */
+        return URL;
+	}
+	
+	
+	 public static int executeSOAPRequest(int SOAPRequest, String userDN)
+    {
+      	int mnode = Node.clone(SOAPRequest, true);
+    		String methodName = Node.getName(mnode);
+    		String METHODSET_NAMESPACE = Node.getAttribute(mnode, "xmlns");
+    		int paramnode = Node.getFirstChild(mnode);
+    		SOAPRequestObject soapRequestObject = new SOAPRequestObject(METHODSET_NAMESPACE, methodName, null, null);
+    		soapRequestObject.setUser(BSF.getUser());
+
+    		for (int j = 0; j < Node.getNumChildren(mnode); j++)
+    		{
+    			soapRequestObject.addParameterAsXml(paramnode);
+    			int tempnode = Node.getNextElement(paramnode);
+    			paramnode = tempnode;
+    			
+    		}
+
+    		int soaprequestResponse = 0;
+    		try
+    		{
+    			return soapRequestObject.execute();
+    		}
+    		catch (Exception e)
+    		{
+    			
+    			Node.setDataElement(soaprequestResponse, "error", e.toString());			
+    			return soaprequestResponse;
+    		}
+    }
+	
+	
+---------------------------------------------------------
+	String req = "<SendMail xmlns=\"http://schemas.cordys.com/1.0/email\">"+
+        		"<to>"+
+        		"<address>"+
+        		"<emailAddress>"+to_email_ids[i].trim()+"@mahindra.com"+"</emailAddress>"+
+        		"<displayName>"+to_email_ids[i].trim()+"</displayName>"+
+        		"</address>"+
+        		"</to>"+
+        		"<cc>"+
+	            "<address>"+
+	              "<displayName>K.ARASU</displayName>"+
+	              "<emailAddress>K.ARASU@mahindra.com</emailAddress>"+
+	            "</address>"+
+	            "</cc>";
+        		req = req +	"<subject>"+emailSubject+"</subject>"+
+        		"<body type=\"html\"><![CDATA["+htmString+"]]></body>"+
+
+        		"<from>"+
+        		"<displayName>"+from_id+"</displayName>"+
+        		"<emailAddress>"+from_id+"</emailAddress>"+
+        		"<replyTo></replyTo>"+
+        		"</from>"+
+        		"</SendMail>";        		
+    	    	 
+    	    	int reqst = 0;
+    			int resp = 0;
+    			try 
+    			{
+    				reqst = BSF.getXMLDocument().parseString(req);  				
+    				resp = executeSOAPRequest(reqst, BSF.getUser()); 
+    			}
+    			catch(Exception e){}
+    			finally {
+    				if(reqst>0)
+    				{
+    					Node.delete(reqst);    						
+    				}
+    				if(resp>0)
+    				{
+    					Node.delete(resp);    						
+    				}
+    			}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

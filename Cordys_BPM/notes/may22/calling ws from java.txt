@@ -1,0 +1,39 @@
+   public static int getPendingPCRs(String createdby,String pcrNo,String currentOwner,String status,String projectCode,Date inDateFrom,Date inDateTo,String userID,String synopsisValue,String protoTypeValue,String conSource,String conType,String conGategory,String conSeverity,String pfCode)    
+    {
+		String refNo = "";
+		String currentLevel = "";
+		
+		String[] pNames = {"createdby","pcrNo","currentOwner","status","projectCode","inDateFrom","inDateTo","userID","synopsisValue", "protoTypeValue","conSource","conType","conGategory","conSeverity","pfCode"};
+		Object[] pValues = {createdby,pcrNo,currentOwner,status,projectCode,inDateFrom,inDateTo,userID,synopsisValue,protoTypeValue,conSource,conType,conGategory,conSeverity,pfCode};
+    	SOAPRequestObject sro = new SOAPRequestObject("http://schemas.cordys.com/PCRDB_Metadata"," searchCreteria", pNames,pValues);
+    	int responseNode = sro.execute();
+    	int[] respTuples = XPath.getMatchingNodes("descendant-or-self::tuple", null, responseNode);
+    	for (int i = 0; i < respTuples.length; i++)
+		{
+    		int tupleNode = respTuples[i];
+    		refNo = Node.getData(XPath.getFirstMatch("descendant-or-self::PCR_MASTER_ID", null, tupleNode));    		
+    		try
+    		{
+    			currentLevel = PCR_REMARK.getPCRColoumnLevel1(refNo);
+    			
+    		}
+    		catch(Exception e)
+    		{
+    			currentLevel =".";
+    		}
+    		if(currentLevel != null && !(currentLevel.equals("")))
+    		Node.setDataElement(XPath.getFirstMatch("descendant-or-self::ACO", null, tupleNode), null, currentLevel);
+    	}
+    	try
+    	{
+		return responseNode;
+    	}
+    	catch (Exception e) 
+  		{
+  			//e.printStackTrace();
+  			//System.out.println("errorMe " + e.toString());
+  			Node.setDataElement(responseNode, "error", e.toString());
+  			return responseNode;
+  		}
+		
+    }

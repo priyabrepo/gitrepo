@@ -1,0 +1,135 @@
+for all tasks for user:
+<GetHumanTasks xmlns="http://schemas.cordys.com/notification/workflow/1.0">
+<Query xmlns="http://schemas.cordys.com/cql/1.0">
+<Select>
+<QueryableObject>TASK_INSTANCE</QueryableObject>
+<Field>TaskId</Field>
+<Field>SourceInstanceId</Field>
+<Field>State</Field>
+<Field>ProcessName</Field>
+<Field>Activity</Field>
+<Field>ActivityId</Field>
+<Field>Priority</Field>
+<Field>Target</Field>
+<Field>Sender</Field>
+<Field>SourceType</Field>
+<Field>Assignee</Field>
+<Field>CompletedByUser</Field>
+<Field>DelegatedToUser</Field>
+<Field>DeliveryDate</Field>
+<Field>StartDate</Field>
+<Field>DueDate</Field>
+<Field>StartedOn</Field>
+<Field>CompletionDate</Field>
+<Field>IsPriorityFixed</Field>
+<Field>UITaskId</Field>
+<Field>TASK_ENTITY_INSTANCE_ID</Field>
+<Field>ENTITY_LAYOUT_ID</Field>
+</Select>
+<Filters>
+<And>
+<EQ field="SHOW_BUSINESS_ATTRIBUTES">
+<Value>true</Value>
+</EQ>
+<EQ field="SHOW_NON_WORKABLE_ITEMS">
+<Value>false</Value>
+</EQ>
+<EQ field="RETURN_TASK_DATA">
+<Value>false</Value>
+</EQ>
+<LE xmlns="http://schemas.cordys.com/cql/1.0" field="StartDate">
+<Value>2022-04-26T06:02:16.16</Value>
+</LE>
+</And>
+</Filters>
+<OrderBy>
+<Property direction="desc">DeliveryDate</Property>
+</OrderBy>
+<Cursor position="0" numRows="50" maxRows="50"/>
+</Query>
+</GetHumanTasks>
+
+
+
+for personal for user:
+<GetHumanTasks xmlns="http://schemas.cordys.com/notification/workflow/1.0">
+<Query xmlns="http://schemas.cordys.com/cql/1.0">
+<Select><QueryableObject>TASK_INSTANCE</QueryableObject>
+<Field>TaskId</Field>
+<Field>SourceInstanceId</Field>
+<Field>State</Field>
+<Field>ProcessName</Field>
+<Field>Activity</Field>
+<Field>ActivityId</Field>
+<Field>Priority</Field>
+<Field>Target</Field>
+<Field>Sender</Field>
+<Field>SourceType</Field>
+<Field>Assignee</Field>
+<Field>CompletedByUser</Field>
+<Field>DelegatedToUser</Field>
+<Field>DeliveryDate</Field>
+<Field>StartDate</Field>
+<Field>DueDate</Field>
+<Field>StartedOn</Field>
+<Field>CompletionDate</Field>
+<Field>IsPriorityFixed</Field>
+<Field>UITaskId</Field>
+<Field>TASK_ENTITY_INSTANCE_ID</Field>
+<Field>ENTITY_LAYOUT_ID</Field>
+</Select>
+<Filters>
+<And>
+<EQ field="SHOW_BUSINESS_ATTRIBUTES">
+<Value>true</Value>
+</EQ>
+<EQ field="SHOW_NON_WORKABLE_ITEMS"><Value>false</Value></EQ>
+<EQ field="RETURN_TASK_DATA"><Value>false</Value></EQ>
+<LE xmlns="http://schemas.cordys.com/cql/1.0" field="StartDate"><Value>2022-04-26T06:03:34.34</Value></LE>
+<EQ xmlns="http://schemas.cordys.com/cql/1.0" field="Target"><Value>user:cn=PBISWAL-CONT,cn=organizational users,o=Migration,cn=cordys,cn=defaultInst,o=corp.mahindra.com</Value></EQ>
+</And>
+</Filters>
+<OrderBy><Property direction="desc">DeliveryDate</Property></OrderBy>
+<Cursor position="0" numRows="50" maxRows="50"/></Query>
+</GetHumanTasks>
+
+for : stores incharge
+<GetHumanTasks xmlns="http://schemas.cordys.com/notification/workflow/1.0">
+<Query xmlns="http://schemas.cordys.com/cql/1.0">
+<Select>
+<QueryableObject>TASK_INSTANCE</QueryableObject>
+<Field>TaskId</Field>
+<Field>SourceInstanceId</Field>
+<Field>State</Field>
+<Field>ProcessName</Field>
+<Field>Activity</Field>
+<Field>ActivityId</Field>
+<Field>Priority</Field>
+<Field>Target</Field>
+<Field>Sender</Field>
+<Field>SourceType</Field>
+<Field>Assignee</Field>
+<Field>CompletedByUser</Field>
+<Field>DelegatedToUser</Field>
+<Field>DeliveryDate</Field>
+<Field>StartDate</Field>
+<Field>DueDate</Field>
+<Field>StartedOn</Field>
+<Field>CompletionDate</Field>
+<Field>IsPriorityFixed</Field>
+<Field>UITaskId</Field>
+<Field>TASK_ENTITY_INSTANCE_ID</Field>
+<Field>ENTITY_LAYOUT_ID</Field>
+</Select>
+<Filters>
+<And>
+<EQ field="SHOW_BUSINESS_ATTRIBUTES"><Value>true</Value></EQ>
+<EQ field="SHOW_NON_WORKABLE_ITEMS"><Value>false</Value></EQ>
+<EQ field="RETURN_TASK_DATA"><Value>false</Value></EQ>
+<LE xmlns="http://schemas.cordys.com/cql/1.0" field="StartDate"><Value>2022-04-26T06:05:02.2</Value></LE>
+<EQ xmlns="http://schemas.cordys.com/cql/1.0" field="Target"><Value>role:cn=VMS_StoresIncharge,cn=Mahindra VMS,cn=cordys,cn=defaultInst,o=corp.mahindra.com</Value></EQ>
+</And>
+</Filters>
+<OrderBy><Property direction="desc">DeliveryDate</Property></OrderBy>
+<Cursor position="0" numRows="50" maxRows="50"/></Query>
+</GetHumanTasks>

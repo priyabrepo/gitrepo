@@ -1,0 +1,16 @@
+ delay
+- used to stop the process execution for a while and continue after some time. 
+- The business process remains in waiting state when Delay is being executed.
+- To apply a condition for the execution of the Delay event, specify the type in the Execute Condition check box.
+  Execute Condition can be of types - None, Static Value or Read from Message.
+- Click the Monitoring tab to enable/disable monitoring of the Delay activity construct.
+time-out
+- Activity or Sub-process is not executed within the specified time. 
+- can be defined for an Activity, Group 
+-  An Activity or Sub-process cannot have more than one Time-out event. 
+diff:
+1. delay can have condition
+2.When a Time-out event is attached to an embedded sub-process, all incomplete tasks are removed from the Inbox.
+
+--------------------------------------------------------------------------------------------------------------------
+

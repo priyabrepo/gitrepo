@@ -1,0 +1,17 @@
+Embeded subprocess(in the same BPM)
+--------------------
+- helps to hide complexity of activities by collapsing an embedded sub-process.
+- helps to link time-outs, exceptions and compensates which are common for all activities within the embedded sub-process.
+- When a Time-out event is attached to an embedded sub-process, all incomplete tasks are removed from the Inbox.
+- If 'terminate activity' is encountered during execution, then all incomplete tasks are removed from the Inbox,
+ and the activity is set to 'Obsolete'. This status is visible from the PIM activity view.
+ Terminate indicates that the embedded sub-process is terminated and the process flow execution continues 
+ from next activity (after embedded sub-process).
+
+independent subprocess (can add external BPM)
+-----------------------
+- Independent Subprocess is instantiated through a parent process.
+- three basic possible outcomes of the transaction:
+Successful completion: The process continues in a sequence flow and the transaction is successfully executed.
+Cancel: The activities within a transaction are rolled back and specific activities may be compensated.
+Exception: The activity is disrupted without any rollback and the flow will continue from the error event.

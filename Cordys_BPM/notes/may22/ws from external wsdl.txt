@@ -1,0 +1,56 @@
+Generating Process Platform Web Service Operations for External Web Services
+
+Before you begin this task:
+
+The standard application Process Platform CWS External Web Service Model must be installed.
+Create the UDDI Service Container and ensure that it is running.
+Create a project in CWS.
+1.The Web services Generation Wizard appears, displaying Untitled Web Service - Web Service page.
+2.Select Import WSDL option from the Select the Source drop-down list.
+3.Type the appropriate name and description in the respective fields of the wizard and click Next. The next page of the Web services Generation Wizard appears.
+4.Type the URL that points to the WSDL in the URL field (for example, https://secure.jajah.com/api/SMSService.asmx?wsdl)
+(
+Note:
+If you want to use an external Web service from Process Platform Process Factory (CPF), follow the below procedure to obtain its URL.
+
+Open the MashApps Composer window.
+Select Build Web services > All WebServices. It lists all available Web services.
+Double-click the required Web service to view its details.
+Copy the URL provided in the WSDL URL field.
+)
+5.If reading the WSDL requires authentication, select the Authentication Details option and type the credentials. These login details will allow you to read the WSDL.
+6.Click Show Services. To search the business entity or business service in the UDDI registry, click(+(zoom))
+
+Note:
+If the WSDL XML is invalid or returning content with invalid Content-Type property, the notification message "WSDL/Schema document is invalid or not present. 
+Make sure the server is returning the content in proper format" is displayed.
+If a request is unsuccessful, the message "Could not read the HTTP URL. The server has returned HTTP Error <code>" is displayed at times.
+To access an external Web service from the local intranet zone, you must change the security settings in your browser.
+
+7.Select the required WSDL type from the WSDL Type lists
+Implementation WSDLs
+
+You can invoke the Web service operations directly, since the implementation is readily available for each operation. Hence, for these WSDLs,
+ you can select the required Web service operations and proceed with the generation of Web services.
+
+Interface WSDLs
+
+In this type of WSDLs, the Web service operations do not have an implementation. Hence, you must implement all the Web service operations on the Process Platform. 
+To implement Web service operations, you need to select the Contract check box in the Properties sheet, while defining the properties of the business process model. 
+To generate Web service operations for this type, the operations under all the Port Types are selected by default and you must necessarily generate operations for all of them.
+
+ 
+8.Select a Port Type from the Web Services drop-down list. The Web Service Operations defined in the WSDL for the selected port type are displayed in the Web Service Operations list.
+
+9.Namespace is automatically picked up from the WSDL.
+10.Click Finish. The Web service is listed in the project menu
+
+
+
+
+
+
+
+
+
+

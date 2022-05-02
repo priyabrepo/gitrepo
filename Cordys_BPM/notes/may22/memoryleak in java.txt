@@ -1,0 +1,52 @@
+What Is a Memory Leak
+- when there are objects present in the heap that are no longer used, but the garbage collector is unable to remove them from memory
+- A memory leak is bad because it blocks memory resources and degrades system performance over time. And if not dealt with, the application will eventually exhaust its resources, finally terminating with a fatal java.lang.OutOfMemoryError.
+- There are two different types of objects that reside in Heap memory — referenced and unreferenced. Referenced objects are those who have still active references within the application whereas unreferenced objects don't have any active references.
+- The garbage collector removes unreferenced objects periodically, but it never collects the objects that are still being referenced. This is where memory leaks can occur:
+
+
+Types of Memory Leaks in Java
+- static fields have a life that usually matches the entire lifetime of the running application (unless ClassLoader becomes eligible for garbage collection).
+make static fields null before and afrer using.(removing referance)
+
+- Through Unclosed Resources
+the open connection left from resources consumes memory, and if we don't deal with them, they can deteriorate performance and may even result in OutOfMemoryError.
+use finally block to close resources
+
+- Thread local( thread objects assigned to local variables)
+close all open local threads in finally
+
+Creating a ThreadLocal variable:
+private ThreadLocal threadLocal = new ThreadLocal();  
+ex:
+
+public class ThreadLocalRemoveExp   
+{  
+    public static void main(String[] args)  
+    {  
+        ThreadLocal<String> tlocal1 = new ThreadLocal<String>();  
+        ThreadLocal<Number> tlocal2 = new ThreadLocal<Number>();  
+   
+        // setting the value  
+        tlocal1.set("javatpoint");  
+        // returns the current thread's value of this thread-local  
+        System.out.println("Value: " + tlocal1.get());  
+   
+        // setting the value  
+        tlocal2.set(100);  
+        // returns the current thread's value of this thread-local  
+        System.out.println("Value: " + tlocal2.get());  
+   
+        // removing value  
+        tlocal1.remove();  
+      
+        // returns the current thread's value of  
+        System.out.println("Value: " + tlocal1.get());  
+   
+        // removing value  
+        tlocal2.remove();  
+   
+        // returns the current thread's value of this thread-local  
+        System.out.println("Value: " + tlocal2.get());  
+    }  
+}  
