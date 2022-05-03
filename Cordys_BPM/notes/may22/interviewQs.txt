@@ -10,43 +10,109 @@ external ui
 metadata
 role
 2. webservice architecture in cordys
+
+Request
+brouser> SOAP/XML> webservergateway>(WSDL)LDAP - CARS > Servicegroup> servicecontaainer> application connector> server
+
+Response
+server>(WSDL)LDAP - CARS> service group> service container> application connector> client brouser
+
 3. service container
+    - instance of JVM
+    - keeps on listining on a specified port no.
+    - logical group of service groups
+
+    service groups
+   - container has similar type of containers
+  
+
+WSDL(LDAP) - service groups - service containers - connectors
+
+
 4. load balanceing in service group 
-5. NOM - java - memory leak 
-6. service group failed due to memory leak 
-7. class not found. ?
-8. no sucuch method exception ?
-9.class registry not found ?
-10.node 
-11 how to call webservice in java
-12.delay / time out  
-13. send and reciver 
-14. contract bpm --?
-16.embeded subprocess and subprocess
-17. can we use sub process in embeded sub process 
-18. transaction in bpm/ java/wsapp :()autocommit / rollback /
-19.bsf.getuser()
-20.long lived process in short lived process
-21. organization
-OTDS
-entirty modeling
-22. exception in BPM
-23.types of task/notification
-24.roles
-25.activities of BPM
-26. send mail
-27. BPM versions
-28. deployment
-29. types of BPM
-30. transaction specific messages(send and recive messages)
-31. model 
-32. calander
-33. pattern validation
-34. SQL / nth highest
-35. creating db model and - default ws, creating java from new table
-36. syncronous/ asyncronous
-37. bert report
-38. logger and adding jars SDK
-39. transactions
-40. xforms
-41. external webservices
+   - configure virtual memory
+   - memory specified in wsapp
+
+5. java - memory leak 
+   - Objects present in the heap that are no longer used, but the garbage collector is unable to remove them
+cause
+   1. static field – which will never be collected by the JVM Garbage Collector during the lifetime of the JVM process, even after the calculations it was used for are done.
+   2. Unclosed Resources
+
+6.node 
+
+7. how to call webservice in java
+
+8.delay / time out  
+
+9. send and reciver (BPM constructs)
+
+10.embeded subprocess and subprocess
+
+11. transaction in bpm
+
+12.bsf.getuser()
+
+13.long lived process in short lived process
+
+24. exception in BPM
+
+15.types of task/notification
+- rolebases task
+- personal task
+- Notification
+
+16.roles
+
+17. send mail
+- create email sg and sc
+   (check port no and ssl property:incoming and outgoing)
+ - <SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP:Body>
+    <SetProfile xmlns="http://schemas.cordys.com/1.0/email">
+      <displayName>PARAMETER</displayName>
+      <mailId>PARAMETER</mailId>
+      <password>PARAMETER</password>
+      <userId>PARAMETER</userId>
+    </SetProfile>
+  </SOAP:Body>
+</SOAP:Envelope>
+
+18. BPM versions
+
+19. deployment
+ 1.Right click on package>Properties>  incriment buld no(if small changes) or increse version> ok.
+ 
+ 2.Right click on package> create package.(generates cap file)
+ 
+ 3. in uat or production, log in to system organisation.
+       2 types of deployment.
+	      1. shared deployment(to deploy multiple organisations.)
+		  2. organisation deployment
+(each organisation will have application deployer. roll - application Deployer)
+ 4. chose: upload and deploy or upload + deploy.(separetly)
+--
+Restart dev server ?
+   wondows+r > services > opentext> 
+     1.monitor
+     2.services
+first stop monitor. then restart services. then start monitor
+
+20. types of BPM
+long lived
+short lived
+page flow
+
+21. model 
+
+22. calander
+
+23. SQL / nth highest
+
+24. bert report
+
+25. logger and adding jars SDK
+
+26. xforms
+
+27. external webservices

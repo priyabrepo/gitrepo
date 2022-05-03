@@ -124,7 +124,11 @@ to import external web-service:
 -  ACL roles 
 
 Q. how to Restart dev server ?
-   wondows+r > services > opentext> restart
+   wondows+r > services > opentext> 
+     1.monitor
+     2.services
+first stop monitor. then restart services. then start monitor
+
 Q. how to configure and read log setting in cordys?				 
  
  import com.eibus.util.logger.CordysLogger;
