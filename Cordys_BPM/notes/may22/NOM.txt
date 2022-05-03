@@ -2,15 +2,18 @@
 When set to true, NOM will throw exceptions (com.eibus.xml.nom.XMLException) whenever a NOM operation results in an error.
 When set to false, NOM will suppress the error and will not throw any exception.
 
-2.bus.xml.nom.normalizedata.buffersize	5120	Sets the maximum number of characters that can be contained in a data node or buffer size. The buffer size is used when the bus.xml.nom.normalizedata.enabled property is set to true.
+2.bus.xml.nom.normalizedata.buffersize	5120	Sets the maximum number of characters that can be contained in a data node or buffer size.
+ The buffer size is used when the bus.xml.nom.normalizedata.enabled property is set to true.
 bus.xml.nom.normalizedata.enabled	true	
 Sets the behavior of the XML parser while creating a data node. The possible values are:
 
 false:
 The data content of an element node is placed in a single data node if it does not contain special characters such as non-ASCII characters and '\n'.
-A separate data node is created for the special character if the data content of an element node contains a special character. In addition, two other sibling data nodes are created for the content displayed before and after the special character.
+A separate data node is created for the special character if the data content of an element node contains a special character. In addition,
+ two other sibling data nodes are created for the content displayed before and after the special character.
 true:
-Characters in the XML data node are combined into a single node irrespective of the special characters. Each node can contain characters up to the set buffer size. The default size is 5120 characters. If the character size exceeds the set buffer size, a new sibling data node is created.
+Characters in the XML data node are combined into a single node irrespective of the special characters. Each node can contain characters up to the set buffer size.
+ The default size is 5120 characters. If the character size exceeds the set buffer size, a new sibling data node is created.
 The buffer size can be set using the bus.xml.nom.normalizedata.buffersize property.
 bus.xml.nom.preservecomments	true	
 When set to true, NOM preserves the comments during the XML parsing. When set to false, it will not load any comment while parsing the XML.
@@ -19,20 +22,33 @@ bus.xml.nom.preservespace	false
 When set to true, NOM preserves the space between the two element nodes. For normal usage, it is recommended not to use this option.
 
 bus.xml.nom.sharedmemorypool.enabled	true	
-When set to true, NOM enables shared memory pool mechanism that helps achieve efficient utilization of the NOM memory across various documents in a process. You can set the size of the shared memory available per document using thebus.xml.nom.sharedmemorypool.size property. The default value is 15000 nodes. If a document contains more than 15000 nodes that are not being used by it, the unused nodes, in excess of 15000, are eligible for use by other documents. You can modify the size to control the memory available per document.
+When set to true, NOM enables shared memory pool mechanism that helps achieve efficient utilization of the NOM memory across various documents in a process.
+ You can set the size of the shared memory available per document using thebus.xml.nom.sharedmemorypool.size property. The default value is 15000 nodes.
+ If a document contains more than 15000 nodes that are not being used by it, the unused nodes, in excess of 15000, are eligible for use by other documents.
+ You can modify the size to control the memory available per document.
 
 bus.xml.nom.sharedmemorypool.size
 
 true	
-This will set the size of the shared memory in the number of nodes per document when NOM memory pool is shared across multiple documents (bus.xml.nom.sharedmemorypool.enabled=true). The value specifies the number of unused nodes, which can be kept private to a NOM document. Any unused node beyond this value will be moved to the shared pool where other documents also can use it.
+This will set the size of the shared memory in the number of nodes per document when NOM memory pool is shared across multiple documents (bus.xml.nom.sharedmemorypool.enabled=true).
+ The value specifies the number of unused nodes, which can be kept private to a NOM document. Any unused node beyond this value will be moved to the shared pool where 
+other documents also can use it.
 
 bus.xml.nom.suppress.invaliduri.error
 
 false
 
-Use this flag to manage the errors when invalid URIs are used in the namespace declarations. For example, using a URI with a space. The default value is false. If the flag is set to true, the errors reported during parsing of such XML will be suppressed and ignored.
+Use this flag to manage the errors when invalid URIs are used in the namespace declarations. For example, using a URI with a space. The default value is false. 
+If the flag is set to true,
+ the errors reported during parsing of such XML will be suppressed and ignored.
 
 bus.xml.vm.maxsize	256 MB	
-This property limits the maximum value of the virtual memory allowed to create XML nodes. The memory allocated for this purpose is shared by all the XML documents of the com.eibus.xml.nom.Document class. The virtual memory size is considered in Megabytes (MB). By default, 256 Megabytes (MB) of memory is allocated. The value of this property does not consider any suffix appended to it.
+This property limits the maximum value of the virtual memory allowed to create XML nodes. The memory allocated for this purpose is shared by all the XML documents of the
+ com.eibus.xml.nom.Document class. The virtual memory size is considered in Megabytes (MB). By default, 256 Megabytes (MB) of memory is allocated.
+ The value of this property does not consider any suffix appended to it.
 
 It is recommended to provide just the number without any suffix, for example, 512. Any suffix, such as 512k, 512M, 512 MB, 512m, 512mb and so on. provided will be converted to 512 MB.
+
+
+
+

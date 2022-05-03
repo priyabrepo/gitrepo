@@ -1,7 +1,9 @@
 What Is a Memory Leak
 - when there are objects present in the heap that are no longer used, but the garbage collector is unable to remove them from memory
-- A memory leak is bad because it blocks memory resources and degrades system performance over time. And if not dealt with, the application will eventually exhaust its resources, finally terminating with a fatal java.lang.OutOfMemoryError.
-- There are two different types of objects that reside in Heap memory — referenced and unreferenced. Referenced objects are those who have still active references within the application whereas unreferenced objects don't have any active references.
+- A memory leak is bad because it blocks memory resources and degrades system performance over time. And if not dealt with, the application will eventually exhaust its resources,
+ finally terminating with a fatal java.lang.OutOfMemoryError.
+- There are two different types of objects that reside in Heap memory — referenced and unreferenced. Referenced objects are those who have still active references within the 
+application whereas unreferenced objects don't have any active references.
 - The garbage collector removes unreferenced objects periodically, but it never collects the objects that are still being referenced. This is where memory leaks can occur:
 
 
