@@ -1,7 +1,6 @@
 Configuring Virtual Memory for XML NOM Documents
 
 In a Windows computer, click Start > Programs > Process Platform > Instance Name > Tools > Management Console.
- Note: In a Linux computer, click Applications > Process Platform > Instance Name > Tools > Management Console.
  The Management Console window appears.
 On the Management Console window, click Platform Properties. The Platform Properties dialog box appears.
 In the list of properties, look for bus.xml.vm.maxsize property and assign the desired memory value to it. 

@@ -1,27 +1,34 @@
 Memory Management in WS-AppServer
-Default memory management in WS-AppServer
-In WS-AppServer, BusObject stores the object data as XML nodes. Each BusObject is a Java object that points to an XML node in NOM. 
+-------------------------------------
+- Default memory management in WS-AppServer
+- In WS-AppServer, BusObject stores the object data as XML nodes. 
+  Each BusObject is a Java object that points to an XML node in NOM. 
 Therefore, memory taken up by WS-AppServer spans both Java as well as NOM.
 
-By default, BusObject is cleaned up by the Java garbage collector when the object is not reachable. 
-If a lot of Java heap is available, the garbage collector will not be aggressive. The Java heap can grow to one-fourth 
-of the physical memory on the computer, while the NOM memory by default can grow only to some extent, which can be set through 
-bus.xml.vm.maxsize. When the Java heap size is around 128MB, the JVM may not feel the need to collect all the unreachable memory 
-as there is no scarcity of Java heap. However, by this time NOM may already reach its memory limit,
+-By default, BusObject is cleaned up by the Java garbage collector when the object is not reachable. 
+-If a lot of Java heap is available, the garbage collector will not be aggressive.
+-The Java heap can grow to one-fourth of the physical memory on the computer, 
+- NOM memory by default can grow only to some extent, which can be set through bus.xml.vm.maxsize.
+- When the Java heap size is around 128MB,
+ the JVM may not feel the need to collect all the unreachable memory as there is no scarcity of Java heap.
+ However, by this time NOM may already reach its memory limit,
  the client encounters out of memory errors, and the application logic starts failing.
 
 Memory management in WS-AppServer with Auto Cleanup enabled
+---------------------------------------------------------
 The Auto Cleanup property can be set while configuring the WS-AppServer service container or in bsfConfig.xml in embedded mode.
- The possible values for Auto Cleanup are true and false where false is the default value.
+The possible values for Auto Cleanup are true and false where false is the default value.
 
 In WS-AppServer, each BusObject is associated with a BusObjectManager. The BusObjectManager registers all the BusObjects created with it. 
 The BusObject registry is cleaned up when a final commit occurs on the transaction associated with the BusObjectManager.
- When Auto Cleanup is enabled, WS-AppServer also cleans up the NOM memory by deleting the Busobject XML data associated with the BusObject.
- When Auto Cleanup is enabled, all the objects created with that BusObjectManager are not accessible after the final commit occurs on that BusObjectManager.
+- When Auto Cleanup is enabled, WS-AppServer also cleans up the NOM memory by deleting the Busobject XML data associated with the BusObject.
+- When Auto Cleanup is enabled, all the objects created with that BusObjectManager are not accessible after the final commit occurs on that BusObjectManager.
 
 Sometimes applications may need a few BusObjects even after the transaction commit occurs on the BusObjectManager with Auto Cleanup enabled. 
-This can be done by setting keepAlive() on BusObject. When a BusObject is set with keepAlive(), its BusObject XML data will not be deleted by the WS-AppServer
+This can be done by setting keepAlive() on BusObject.
+ When a BusObject is set with keepAlive(), its BusObject XML data will not be deleted by the WS-AppServer
  framework with the transaction commit, but will leave it for garbage collection. The BusObject with keepAlive() set can be used even after the transaction commit,
  and until that object is cleaned up by garbage collection.
 
-If Auto Cleanup is set to false, then calling the keepAlive() method on the BusObject will have no effect because when Auto Cleanup is set to false, all objects are kept alive anyway.
+If Auto Cleanup is set to false,
+ then calling the keepAlive() method on the BusObject will have no effect because when Auto Cleanup is set to false, all objects are kept alive anyway.

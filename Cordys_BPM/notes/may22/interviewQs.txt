@@ -1,6 +1,6 @@
 
 
-1.components in bpm
+*1.components in bpm
 wsapp
 bpmwebservices
 cordys sdk - java
@@ -9,7 +9,7 @@ schedulers
 external ui
 metadata
 role
-2. webservice architecture in cordys
+*2. webservice architecture in cordys
 
 Request
 brouser> SOAP/XML> webservergateway>(WSDL)LDAP - CARS > Servicegroup> servicecontaainer> application connector> server
@@ -17,7 +17,7 @@ brouser> SOAP/XML> webservergateway>(WSDL)LDAP - CARS > Servicegroup> servicecon
 Response
 server>(WSDL)LDAP - CARS> service group> service container> application connector> client brouser
 
-3. service container
+*3. service container
     - instance of JVM
     - keeps on listining on a specified port no.
     - logical group of service groups
@@ -29,42 +29,74 @@ server>(WSDL)LDAP - CARS> service group> service container> application connecto
 WSDL(LDAP) - service groups - service containers - connectors
 
 
-4. load balanceing in service group 
+*4. load balanceing in service group 
    - configure virtual memory
    - memory specified in wsapp
 
-5. java - memory leak 
+*5. java - memory leak 
    - Objects present in the heap that are no longer used, but the garbage collector is unable to remove them
 cause
    1. static field – which will never be collected by the JVM Garbage Collector during the lifetime of the JVM process, even after the calculations it was used for are done.
    2. Unclosed Resources
 
-6.node 
+*6.node 
 
-7. how to call webservice in java
+*7. how to call webservice in java
+String[] pNames  // string 
+Object[] pValues //all types of values
+SOAPRequestObject sro = new SOAPRequestObject("namespace","methodname", params,pValues);
+int responseNode = sro.execute();
 
-8.delay / time out  
+*8.delay / time out  
+ delay
+- used to stop the process execution for a while and continue after some time. 
+- The business process remains in waiting state when Delay is being executed.
+- To apply a condition for the execution of the Delay event, specify the type in the Execute Condition check box.
+  Execute Condition can be of types - None, Static Value or Read from Message.
+- Click the Monitoring tab to enable/disable monitoring of the Delay activity construct.
+time-out
+- Activity or Sub-process is not executed within the specified time. 
+- can be defined for an Activity, Group 
+- An Activity or Sub-process cannot have more than one Time-out event. 
+diff:
+1. delay can have condition
+2. When a Time-out event is attached to an embedded sub-process, all incomplete tasks are removed from the Inbox.
+-------------------------
+*9. send and reciver (BPM constructs)
 
-9. send and reciver (BPM constructs)
+*10.embeded subprocess and subprocess
+Embeded subprocess(in the same BPM)
+--------------------
+- helps to hide complexity of activities by collapsing an embedded sub-process.
+- helps to link time-outs, exceptions and compensates which are common for all activities within the embedded sub-process.
+- When a Time-out event is attached to an embedded sub-process, all incomplete tasks are removed from the Inbox.
+- If 'terminate activity' is encountered during execution, then all incomplete tasks are removed from the Inbox,
+ and the activity is set to 'Obsolete'. This status is visible from the PIM activity view.
+ Terminate indicates that the embedded sub-process is terminated and the process flow execution continues 
+ from next activity (after embedded sub-process).
 
-10.embeded subprocess and subprocess
+independent subprocess (can add external BPM)
+-----------------------
+- Independent Subprocess is instantiated through a parent process.
+- three basic possible outcomes of the transaction:
+Successful completion: The process continues in a sequence flow and the transaction is successfully executed.
+Cancel: The activities within a transaction are rolled back and specific activities may be compensated.
+Exception: The activity is disrupted without any rollback and the flow will continue from the error event.
 
-11. transaction in bpm
+*11. transaction in bpm
 
-12.bsf.getuser()
+*12.bsf.getuser()
 
-13.long lived process in short lived process
+13. exception in BPM
 
-24. exception in BPM
-
-15.types of task/notification
+*14.types of task/notification
 - rolebases task
 - personal task
 - Notification
 
-16.roles
+*15.roles
 
-17. send mail
+*16. send mail
 - create email sg and sc
    (check port no and ssl property:incoming and outgoing)
  - <SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
@@ -78,9 +110,8 @@ cause
   </SOAP:Body>
 </SOAP:Envelope>
 
-18. BPM versions
 
-19. deployment
+*17. deployment
  1.Right click on package>Properties>  incriment buld no(if small changes) or increse version> ok.
  
  2.Right click on package> create package.(generates cap file)
@@ -98,21 +129,21 @@ Restart dev server ?
      2.services
 first stop monitor. then restart services. then start monitor
 
-20. types of BPM
+*18. types of BPM
 long lived
 short lived
 page flow
 
-21. model 
+*19. model 
 
-22. calander
+*20. calander
 
-23. SQL / nth highest
+*21. SQL / nth highest
 
-24. bert report
+*22. bert report
 
-25. logger and adding jars SDK
+*23. logger and adding jars SDK
 
-26. xforms
+*24. xforms
 
-27. external webservices
+*25. external webservices
