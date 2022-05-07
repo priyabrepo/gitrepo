@@ -16,7 +16,42 @@ brouser> SOAP/XML> webservergateway>(WSDL)LDAP - CARS > Servicegroup> servicecon
 
 Response
 server>(WSDL)LDAP - CARS> service group> service container> application connector> client brouser
+------------------------------------------
+1. front end 
+UI/inbox/dashbord 
+2. business layers
+BPM/CASE model/wsapp server/ scheduling
+3.SOA Grid
+(message routing)
 
+IN SOA LAYER
+--------------
+- SOA is SOAP based.
+SOAP(Simple Object Access Protocol)
+A SOAP message is an ordinary XML document containing the following elements:
+
+An Envelope element that identifies the XML document as a SOAP message
+A Header element that contains header information
+A Body element that contains call and response information
+A Fault element containing errors and status information
+
+CARS(service registry) inside LDAP
+message exchange happen thrugh ESB(enterprise service bus)
+we use LDAP services to acces CARS
+
+- for cordys own services we use LDAP,CARS and ESB
+- for external webservices we use WSDL and UDDI
+--------------------------------------
+WSDL (Web services description language)
+Universal Description, Discovery, and Integration (UDDI)
+URL
+-----------------------------------
+JRE(in wsapp)
+-Xmx1024M
+-Dbus.xml.vm.maxsize=1024
+-------------------------------------
+instance:instanceProperties/instance:activityInfo/instance:activity[@name='UpdateStoresUser']/@correlationId
+------------------------------------
 *3. service container
     - instance of JVM
     - keeps on listining on a specified port no.
@@ -27,8 +62,43 @@ server>(WSDL)LDAP - CARS> service group> service container> application connecto
   
 
 WSDL(LDAP) - service groups - service containers - connectors
+-------------------------------------------------------------------
+Memory Management in WS-AppServer
+-------------------------------------
+- Default memory management in WS-AppServer
+- In WS-AppServer, BusObject stores the object data as XML nodes. 
+  Each BusObject is a Java object that points to an XML node in NOM. 
+Therefore, memory taken up by WS-AppServer spans both Java as well as NOM.
 
+-By default, BusObject is cleaned up by the Java garbage collector when the object is not reachable. 
+-If a lot of Java heap is available, the garbage collector will not be aggressive.
+-The Java heap can grow to one-fourth of the physical memory on the computer, 
+- NOM memory by default can grow only to some extent, which can be set through bus.xml.vm.maxsize.
+- When the Java heap size is around "128MB",
+ the JVM may not feel the need to collect all the unreachable memory as there is no scarcity of Java heap.
+ However, by this time NOM may already reach its memory limit,
+ the client encounters out of memory errors, and the application logic starts failing.
 
+Memory management in WS-AppServer with Auto Cleanup enabled
+---------------------------------------------------------
+The Auto Cleanup property can be set while configuring the WS-AppServer service container or in bsfConfig.xml in embedded mode.
+The possible values for Auto Cleanup are true and false where false is the default value.
+
+In WS-AppServer, each BusObject is associated with a BusObjectManager. The BusObjectManager registers all the BusObjects created with it. 
+The BusObject registry is cleaned up when a final commit occurs on the transaction associated with the BusObjectManager.
+- When Auto Cleanup is enabled, WS-AppServer also cleans up the NOM memory by deleting the Busobject XML data associated with the BusObject.
+- When Auto Cleanup is enabled, all the objects created with that BusObjectManager are not accessible after the final commit occurs on that BusObjectManager.
+
+Sometimes applications may need a few BusObjects even after the transaction commit occurs on the BusObjectManager with Auto Cleanup enabled. 
+This can be done by setting keepAlive() on BusObject.
+ When a BusObject is set with keepAlive(), its BusObject XML data will not be deleted by the WS-AppServer
+ framework with the transaction commit, but will leave it for garbage collection. The BusObject with keepAlive() set can be used even after the transaction commit,
+ and until that object is cleaned up by garbage collection.
+
+If Auto Cleanup is set to false,
+ then calling the keepAlive() method on the BusObject will have no effect because when Auto Cleanup is set to false, all objects are kept alive anyway.
+
+'
 *4. load balanceing in service group 
    - configure virtual memory
    - memory specified in wsapp
@@ -38,7 +108,61 @@ WSDL(LDAP) - service groups - service containers - connectors
 cause
    1. static field – which will never be collected by the JVM Garbage Collector during the lifetime of the JVM process, even after the calculations it was used for are done.
    2. Unclosed Resources
+--------------------
+What Is a Memory Leak
+- when there are objects present in the heap that are no longer used, but the garbage collector is unable to remove them from memory
+- A memory leak is bad because it blocks memory resources and degrades system performance over time. And if not dealt with, the application will eventually exhaust its resources,
+ finally terminating with a fatal java.lang.OutOfMemoryError.
+- There are two different types of objects that reside in Heap memory — referenced and unreferenced. Referenced objects are those who have still active references within the 
+application whereas unreferenced objects don't have any active references.
+- The garbage collector removes unreferenced objects periodically, but it never collects the objects that are still being referenced. This is where memory leaks can occur:
 
+
+Types of Memory Leaks in Java
+- static fields have a life that usually matches the entire lifetime of the running application (unless ClassLoader becomes eligible for garbage collection).
+make static fields null before and afrer using.(removing referance)
+
+- Through Unclosed Resources
+the open connection left from resources consumes memory, and if we don't deal with them, they can deteriorate performance and may even result in OutOfMemoryError.
+use finally block to close resources
+
+- Thread local( thread objects assigned to local variables)
+close all open local threads in finally
+
+Creating a ThreadLocal variable:
+private ThreadLocal threadLocal = new ThreadLocal();  
+ex:
+
+public class ThreadLocalRemoveExp   
+{  
+    public static void main(String[] args)  
+    {  
+        ThreadLocal<String> tlocal1 = new ThreadLocal<String>();  
+        ThreadLocal<Number> tlocal2 = new ThreadLocal<Number>();  
+   
+        // setting the value  
+        tlocal1.set("javatpoint");  
+        // returns the current thread's value of this thread-local  
+        System.out.println("Value: " + tlocal1.get());  
+   
+        // setting the value  
+        tlocal2.set(100);  
+        // returns the current thread's value of this thread-local  
+        System.out.println("Value: " + tlocal2.get());  
+   
+        // removing value  
+        tlocal1.remove();  
+      
+        // returns the current thread's value of  
+        System.out.println("Value: " + tlocal1.get());  
+   
+        // removing value  
+        tlocal2.remove();  
+   
+        // returns the current thread's value of this thread-local  
+        System.out.println("Value: " + tlocal2.get());  
+    }  
+}  
 *6.node 
 
 *7. how to call webservice in java
@@ -46,7 +170,22 @@ String[] pNames  // string
 Object[] pValues //all types of values
 SOAPRequestObject sro = new SOAPRequestObject("namespace","methodname", params,pValues);
 int responseNode = sro.execute();
+ex:
+public static int getRolesForUserRuntime(String USER_NAME)
 
+    {
+
+      String[] pNames={"UserName"};
+
+      Object[] pValues={USER_NAME};
+
+      SOAPRequestObject sro = new SOAPRequestObject(http://schemas.cordys.com/UserManagement/1.0/User,"GetUserDetails", pNames,pValues);
+
+        int responseNode = sro.execute();
+
+        return responseNode;
+
+    }
 *8.delay / time out  
  delay
 - used to stop the process execution for a while and continue after some time. 
@@ -59,7 +198,8 @@ time-out
 - can be defined for an Activity, Group 
 - An Activity or Sub-process cannot have more than one Time-out event. 
 diff:
-1. delay can have condition
+1. delay can have condition.timeout has no conditions
+3.timeout is syncronous. delay is not./ Delay can not be in transaction
 2. When a Time-out event is attached to an embedded sub-process, all incomplete tasks are removed from the Inbox.
 -------------------------
 *9. send and reciver (BPM constructs)
@@ -84,14 +224,37 @@ Cancel: The activities within a transaction are rolled back and specific activit
 Exception: The activity is disrupted without any rollback and the flow will continue from the error event.
 
 *11. transaction in bpm
-
+ - select bunch of activity in BPM > right click > group as 
+ - can exclude activity(from inside transaction box) from participating in transaction: unclick - participate in transaction.
+   participating services should also point to the same database.
+ - can define an external Web service as part of transaction. However, these services will not display transactional behavior.
+ - Manual activities of type 'Info' for example, notifications, can be included within a transaction.
+ - Long lived process :Asynchronous Sub-processes containing Manual Activities: The process is executed independently and in parallel to another process.
+   Only the asynchronous sub-process is triggered and will run outside the transaction.
+ - Short lived process :synchronous:In this case, the process waits for the response of the process that is executed before it.
+    You must model the synchronous sub-process within the constraints of a transaction.
+ Not permitted in a transaction: 
+- Manual activities of type 'task'
+- Delay Events(delay is asyncronous)
+- Nested transactions(inside one transactions)
+---------------------------------------------------
+transaction thrugh wsapp
+ - WS-AppServer supports handling multiple transactions at the same time.
+ - the changes from the first transaction are committed to the database without any difficulty. 
+   When the following transaction tries to commit the updates, it receives a 'BSFObjectChangedException'.
+ - if not conflicting,'com.cordys.cpc.bsf.busobject.BSF class commitTransaction()' method. 
+ - conflict does not solve on its own, abort the transaction using 'com.cordys.cpc.bsf.busobject.BSF class abortTransaction()' method.
+ - a transaction can be programmed to make repetitive attempts to commit inspite of such failures and exceptions.
+   The methods setRetry(String transactionID) and retryTransaction(String transactionID) are instance methods on BusObjectManager.
 *12.bsf.getuser()
 
 13. exception in BPM
 
 *14.types of task/notification
-- rolebases task
+- rolebases task 
+<GetHumanTasks xmlns="http://schemas.cordys.com/notification/workflow/1.0">
 - personal task
+<GetHumanTasks xmlns="http://schemas.cordys.com/notification/workflow/1.0">
 - Notification
 
 *15.roles
@@ -133,12 +296,55 @@ first stop monitor. then restart services. then start monitor
 long lived
 short lived
 page flow
+--------------------------
+Long-Lived Process VS Short-Lived Process
+
+ The average life span of a long-lived process is long, that is, the process takes a long time to execute. By default, all processes in the business process modeling 
+ environment are executed as long-lived.
+The average life span of a short-lived process is short. The default completion time is 30 seconds. You may increase the time-out value if the process takes longer.
+
+Long-lived processes involve human interactions, delays, or intermediate messages. They encompass integration such as system-to-system and workflow such as human-to-human layers,
+ and span multiple systems, people, and organizations. Therefore, it is necessary to monitor and store information at each step of the process.
+Short-lived processes do not involve human interactions, delays, or intermediate messages. A process is not monitored by default. However, the start time, end time,
+ and final status are monitored by default. You can model one-sided notifications that do not require human interaction for short-lived processes.
+
+Crash recovery along with activity monitoring is enabled by default.
+Crash recovery is disabled by default.
+
+Complete level of monitoring along with activity monitoring is enabled by default.
+Basic level of monitoring without activity monitoring is enabled by default.
+
+The process is executed by multiple threads.
+The process is executed by a single thread.
+
+The processes are asynchronous in nature such that for a request sent, a response is not required. The process continues once the instance ID is returned.
+The processes are synchronous in nature such that for a request sent, a response is received after the process is executed.
+
+Long-lived processes are standalone processes and may comprise multiple short-lived processes.
+Short-lived processes usually form a part of long-lived processes.
 
 *19. model 
 
 *20. calander
 
 *21. SQL / nth highest
+
+ -with
+  veh_data as (select VMS_CVRE_SL_NO from VMS_CAPT_VEHICLE_REPT_ENTRY),
+  disp_data as (select VMS_VDE_SL_NO from VMS_DISPOSAL_ENTRY)
+
+  select VMS_CVRE_SL_NO,VMS_VDE_SL_NO from veh_data,disp_data
+----------------------
+join - only common data from both.(inner join : functionaly same)( CROSS JOIN with 'where' clause)
+left join - all data from feft, matching from right. non matching comes as null
+right join - all data from feft, matching from right. non matching comes as null
+full OUTER JOIN - from both tables, null if not avoilable(combination of left join and right join)
+--------------------------
+top 3 or bottom 3 records:
+SELECT * FROM Customers order by PostalCode desc LIMIT 3;
+SELECT ROW_NUMBER() OVER ( ORDER BY VOBD_REF_NO)as row_num FROM VOB_DETAILS where row_num > 10 AND row_num <=20;
+case,decode 
+------------------------
 
 *22. bert report
 
@@ -147,3 +353,14 @@ page flow
 *24. xforms
 
 *25. external webservices
+Create the UDDI Service Container and ensure that it is running.
+1.The Web services Generation Wizard appears, displaying Untitled Web Service - Web Service page.
+2.Select Import WSDL option from the Select the Source drop-down list.
+3.Type the appropriate name and description in the respective fields of the wizard and click Next. The next page of the Web services Generation Wizard appears.
+4.Type the URL that points to the WSDL in the URL field (for example, https://secure.jajah.com/api/SMSService.asmx?wsdl)
+5.If reading the WSDL requires authentication, select the Authentication Details option and type the credentials. These login details will allow you to read the WSDL.
+6.Click Show Services. To search the business entity or business service in the UDDI registry, click(+(zoom))
+7.Select the required WSDL type from the WSDL Type lists
+8.Select a Port Type from the Web Services drop-down list. The Web Service Operations defined in the WSDL for the selected port type are displayed in the Web Service Operations list.
+9.Namespace is automatically picked up from the WSDL.
+10.Click Finish. The Web service is listed in the project menu

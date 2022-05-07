@@ -47,7 +47,8 @@ internal logic
 --------------
 WS-AppServer supports handling multiple transactions at the same time.
 it is possible that two or more processes may try to update the same object simultaneously. 
-WS-AppServer adopts the concept of optimistic transactions, in which it checks the objects in the database for any interim change that may have happened, and subsequently commits the transaction.
+WS-AppServer adopts the concept of optimistic transactions, in which it checks the objects in the database for any interim change that may have happened,
+ and subsequently commits the transaction.
 Always, the changes from the first transaction are committed to the database without any difficulty. 
 When the following transaction tries to commit the updates, it receives a 'BSFObjectChangedException' , - the transaction aborts.
 
@@ -58,7 +59,9 @@ The commit will be successful because the original object data (<tuple><old>) is
 
 2.If it is a conflict does not solve on its own, abort the transaction using 'com.cordys.cpc.bsf.busobject.BSF class abortTransaction()' method , and display an error to the user.
 
-3.Using WS-AppServer, a transaction can be programmed to make repetitive attempts to commit inspite of such failures and exceptions. The following code is a sample of how you can achieve this.
+3.Using WS-AppServer, a transaction can be programmed to make repetitive attempts to commit inspite of such failures and exceptions.
+ The following code is a sample of how you can achieve this.
 
 4. The methods setRetry(String transactionID) and retryTransaction(String transactionID) are instance methods on BusObjectManager.
- The static WS-AppServer methods map to the BusObjectManager bound to the current that is, thread bound, BsfContext. For details on the methods used in this process, refer WS-AppServer SDK.
+ The static WS-AppServer methods map to the BusObjectManager bound to the current that is, thread bound, BsfContext. For details on the methods used in this process,
+ refer WS-AppServer SDK.
