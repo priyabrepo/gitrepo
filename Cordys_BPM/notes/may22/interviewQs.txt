@@ -46,10 +46,7 @@ WSDL (Web services description language)
 Universal Description, Discovery, and Integration (UDDI)
 URL
 -----------------------------------
-JRE(in wsapp)
--Xmx1024M
--Dbus.xml.vm.maxsize=1024
--------------------------------------
+
 instance:instanceProperties/instance:activityInfo/instance:activity[@name='UpdateStoresUser']/@correlationId
 ------------------------------------
 *3. service container
@@ -98,7 +95,10 @@ This can be done by setting keepAlive() on BusObject.
 If Auto Cleanup is set to false,
  then calling the keepAlive() method on the BusObject will have no effect because when Auto Cleanup is set to false, all objects are kept alive anyway.
 
-'
+JRE(in wsapp)
+-Xmx1024M
+-Dbus.xml.vm.maxsize=1024
+-------------------------------------
 *4. load balanceing in service group 
    - configure virtual memory
    - memory specified in wsapp
