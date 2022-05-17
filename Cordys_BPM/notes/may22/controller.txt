@@ -338,6 +338,8 @@ function allowPatternDirective() {
 }
 vobApp.directive('zeroNotAllowed', [zeroNotAllowedDirective]);
 
+
+
 function zeroNotAllowedDirective() {
     return {
         restrict: "A",
